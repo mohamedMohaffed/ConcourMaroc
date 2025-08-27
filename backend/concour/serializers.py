@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Level,University,Year,Subject,Concours,Choice,Question
+from .models import (Level,University,Year,Subject,
+                    Concours,Choice,Question,UserAnswer)
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -84,5 +85,9 @@ class ConcourSerializer(serializers.ModelSerializer):
             }
         ).data
 
+class UserAnswerCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=UserAnswer
+        fields='__all__'
 
 

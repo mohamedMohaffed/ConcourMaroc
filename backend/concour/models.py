@@ -62,7 +62,6 @@ class Subject(models.Model):
     def __str__(self):
         return f"{self.name} - {self.year.year}"
 
-
 class Concours(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="concours")
     timer = models.DurationField()
@@ -76,6 +75,14 @@ class Concours(models.Model):
 
     def __str__(self):
         return f"Concours ({self.subject.name})"
+
+class CoursePart(models.Model):
+    course = models.CharField(max_length=100, choices=COURSE_PART_CHOICES,blank=True, null=True)
+    topic = models.CharField(max_length=100, choices=TOPIC_PART_CHOICES,blank=True, null=True)
+
+
+    def __str__(self):
+        return f"{dict(COURSE_PART_CHOICES).get(self.course, self.course)} - {self.topic}"
 
 class Question(models.Model):
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name="questions")
@@ -96,9 +103,12 @@ class Choice(models.Model):
 
 
 class UserAnswer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="user_answers")
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers",blank=True, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="user_answers",blank=True, null=True)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE,blank=True, null=True)
+    concours = models.ForeignKey(Concours, on_delete=models.CASCADE, 
+                                related_name='useranswer', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True) 
 
     def is_correct(self):
         return self.choice.is_correct
@@ -108,7 +118,8 @@ class Score(models.Model):
     
     user_answers = models.ManyToManyField(UserAnswer, related_name="scores")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="scores")
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="scores")
+    concours = models.ForeignKey(Concours, on_delete=models.CASCADE, 
+                                related_name="scores",blank=True,null=True)  
     score = models.IntegerField()
     time_spent = models.DurationField()
     TYPE_CHOICES = [
@@ -121,15 +132,8 @@ class Score(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-created_at']  # Most recent scores first
+        ordering = ['-created_at']  
 
     def __str__(self):
         return f"{self.user.username} - {self.subject.name}: {self.score:}"
 
-class CoursePart(models.Model):
-    course = models.CharField(max_length=100, choices=COURSE_PART_CHOICES,blank=True, null=True)
-    topic = models.CharField(max_length=100, choices=TOPIC_PART_CHOICES,blank=True, null=True)
-
-
-    def __str__(self):
-        return f"{dict(COURSE_PART_CHOICES).get(self.course, self.course)} - {self.topic}"

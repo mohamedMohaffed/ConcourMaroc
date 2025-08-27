@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import (Level,University,Year,Subject,Concours)
-from .serializers import (LevelSerializer,UniversitySerializer,YearSerializer,SubjectSerializer,ConcourSerializer)
+from .serializers import (LevelSerializer,UniversitySerializer,YearSerializer,
+                        SubjectSerializer,ConcourSerializer)
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 

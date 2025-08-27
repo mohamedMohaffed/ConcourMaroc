@@ -25,29 +25,63 @@ class SubjectSerializer(serializers.ModelSerializer):
         model = Subject
         fields = '__all__'
 
-class ConcourSerializer(serializers.ModelSerializer):
-    subject=SubjectSerializer(read_only=True)
-    class Meta:
-        model = Concours
-        fields = '__all__'
+
+
 
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
         fields = ['id', 'text', 'is_correct']
 
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        show_is_correct = self.context.get('show_is_correct', True)
+        if not show_is_correct:
+            rep.pop('is_correct', None)
+        return rep
+
 class QuestionSerializer(serializers.ModelSerializer):
-    choices = ChoiceSerializer(many=True, read_only=True)
-    
+    choices = serializers.SerializerMethodField()
+    explanation = serializers.SerializerMethodField()
+
     class Meta:
         model = Question
-        fields = ['id', 'text', 'explanation', 'choices', 'course_parts']
+        fields = ['id', 'text', 'explanation', 'choices']
 
-# UPDATE your existing ConcourSerializer to:
+    def get_choices(self, obj):
+        show_is_correct = self.context.get('show_is_correct', True)
+        return ChoiceSerializer(obj.choices.all(), many=True, context={'show_is_correct': show_is_correct}).data
+
+    def get_explanation(self, obj):
+        show_explanation = self.context.get('show_explanation', True)
+        return obj.explanation if show_explanation else None
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        show_explanation = self.context.get('show_explanation', True)
+        if not show_explanation:
+            rep.pop('explanation', None)
+        return rep
+
 class ConcourSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer(read_only=True)
-    questions = QuestionSerializer(many=True, read_only=True)  # Add this line
-    
+    questions = serializers.SerializerMethodField()
+
     class Meta:
         model = Concours
-        fields = '__all__'        
+        fields = '__all__'
+
+    def get_questions(self, obj):
+        show_is_correct = self.context.get('show_is_correct', True)
+        show_explanation = self.context.get('show_explanation', True)
+        
+        return QuestionSerializer(
+            obj.questions.all(),
+            many=True,
+            context={
+                'show_is_correct': show_is_correct,
+                'show_explanation': show_explanation
+            }
+        ).data
+
+    

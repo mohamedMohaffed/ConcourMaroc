@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 class Level(models.Model):
     name = models.CharField(max_length=20, unique=True)
-    slug = models.SlugField(max_length=30, unique=True, blank=True)
+    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
@@ -18,9 +18,10 @@ class Level(models.Model):
 
 class University(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    level = models.ForeignKey(Level, on_delete=models.CASCADE, related_name='universities')
+    level = models.ForeignKey(Level, on_delete=models.CASCADE, 
+                            related_name='universities')
     is_open = models.BooleanField(default=True)
-    slug = models.SlugField(max_length=30, unique=True, blank=True)
+    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
@@ -32,8 +33,9 @@ class University(models.Model):
 
 class Year(models.Model):
     year = models.IntegerField()
-    university = models.ForeignKey(University, on_delete=models.CASCADE, related_name='years')
-    slug = models.SlugField(max_length=30, unique=True, blank=True)
+    university = models.ForeignKey(University, on_delete=models.CASCADE, 
+                                related_name='years')
+    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -48,7 +50,7 @@ class Year(models.Model):
 class Subject(models.Model):
     name = models.CharField(max_length=50)
     year = models.ForeignKey(Year, on_delete=models.CASCADE, related_name='subjects')
-    slug = models.SlugField(max_length=30, unique=True, blank=True)
+    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
@@ -65,7 +67,7 @@ class Concours(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="concours")
     timer = models.DurationField()
     #add note type
-    slug = models.SlugField(max_length=30, unique=True, blank=True)
+    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

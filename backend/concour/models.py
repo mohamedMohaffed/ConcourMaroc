@@ -102,24 +102,11 @@ class Choice(models.Model):
         return self.text
 
 
-class UserAnswer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers",blank=True, null=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="user_answers",blank=True, null=True)
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE,blank=True, null=True)
-    concours = models.ForeignKey(Concours, on_delete=models.CASCADE, 
-                                related_name='useranswer', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True) 
-
-    def is_correct(self):
-        return self.choice.is_correct
-
 
 class Score(models.Model):
-    
-    user_answers = models.ManyToManyField(UserAnswer, related_name="scores")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="scores")
-    concours = models.ForeignKey(Concours, on_delete=models.CASCADE, 
-                                related_name="scores",blank=True,null=True)  
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="score_user")
+    concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name="scores_concours", blank=True, null=True)  
     score = models.IntegerField()
     time_spent = models.DurationField()
     TYPE_CHOICES = [
@@ -135,5 +122,19 @@ class Score(models.Model):
         ordering = ['-created_at']  
 
     def __str__(self):
-        return f"{self.user.username} - {self.subject.name}: {self.score:}"
+        return f"{self.user.username} - {self.concours.subject.name}: {self.score}"
 
+class UserAnswer(models.Model):
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_answers_user")
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="user_answers_question")
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name='user_answers_concours')
+    created_at = models.DateTimeField(auto_now_add=True)
+    score = models.ForeignKey(Score, on_delete=models.CASCADE, 
+                                related_name="user_answers_score",null=True, blank=True
+)
+
+
+    def is_correct(self):
+        return self.choice.is_correct

@@ -1,0 +1,20 @@
+POST http://127.0.0.1:8000/concour/utilisateur-score-et-reponses/
+Content-Type: application/json
+
+{
+  "concour_id": 1,
+  "time_spent": "00:10:00",
+  "type": "normal",
+  "answers": [
+    {"question": 3, "choice": 12},
+    {"question": 4, "choice": 13},
+    {"question": 5, "choice": 19},
+    {"question": 6, "choice": 22},
+    {"question": 7, "choice": 25},
+    {"question": 8, "choice": 29},
+    {"question": 9, "choice": 33},
+    {"question": 10, "choice": 37},
+    {"question": 11, "choice": 42},
+    {"question": 12, "choice": 45}
+  ]
+}

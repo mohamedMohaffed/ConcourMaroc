@@ -101,8 +101,6 @@ class Choice(models.Model):
     def __str__(self):
         return self.text
 
-
-
 class Score(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="score_user")

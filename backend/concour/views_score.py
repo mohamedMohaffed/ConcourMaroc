@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import UserAnswer, Question, Choice,Score
-from .serializers import UserAnswerCreateSerializer
+# from .serializers import UserAnswerCreateSerializer
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework import status
 from django.contrib.auth.models import User
@@ -56,45 +56,50 @@ class UserAnswerScoreAPIView(APIView):
         )
         score_value = 0
         serializer_errors = []
+
+        # Check for None in any question or choice before proceeding
         for ans in answers:
-            question_id = ans.get("question")
-            choice_id = ans.get("choice")
-            
-            # Fix: allow 0 as valid ID, only None is invalid
-            if question_id is None or choice_id is None:
+            if ans.get("question") is None or ans.get("choice") is None:
                 return Response(
-                    {"detail": "Invalid question or choice."},
+                    {"detail": "Invalid question or choice: None value found."},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-            data = {
-                "user": user.id,
-                "concours": concour_id,
-                "question": question_id,
-                "choice": choice_id,
-                "score": score_obj.id
-            }
+        question_ids = [ans.get("question") for ans in answers]
+        choice_ids = [ans.get("choice") for ans in answers]
+        choices_qs = Choice.objects.filter(question_id__in=question_ids, id__in=choice_ids)
+        choices_lookup = {(c.question_id, c.id): c for c in choices_qs}
 
-            serializer = UserAnswerCreateSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-            else:
-                serializer_errors.append(serializer.errors)
-                continue  # skip to next answer
-
-            try:
-                choice = Choice.objects.get(id=choice_id, question_id=question_id)
-            except Choice.DoesNotExist:
+        user_answer_objs = []
+        for ans in answers:
+            question_id = ans.get("question")
+            choice_id = ans.get("choice")
+            # Validate choice exists for question
+            choice = choices_lookup.get((question_id, choice_id))
+            if not choice:
                 return Response(
                     {"detail": "Choice does not exist for this question."},
                     status=status.HTTP_404_NOT_FOUND
                 )
+            # Prepare UserAnswer instance (not saved yet)
+            user_answer_objs.append(UserAnswer(
+                user=user,
+                concours_id=concour_id,
+                question_id=question_id,
+                choice_id=choice_id,
+                score=score_obj
+            ))
             if choice.is_correct:
                 score_value += 1
 
-        if serializer_errors:
+        # Bulk create all UserAnswer objects
+        try:
+            UserAnswer.objects.bulk_create(user_answer_objs)
+        except Exception as e:
+            UserAnswer.objects.filter(score=score_obj).delete()
+            score_obj.delete()
             return Response(
-                {"detail": "Some answers could not be saved.", "errors": serializer_errors},
+                {"detail": "Some answers could not be saved.", "errors": str(e)},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
@@ -105,8 +110,38 @@ class UserAnswerScoreAPIView(APIView):
             {"detail": "All answers saved successfully."},
             status=status.HTTP_201_CREATED
         )
+            
 
 
+
+
+class ALLQuestionUncorrectAnserUser(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        try:
+            user = User.objects.get(id=1)
+        except User.DoesNotExist:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+        
+        incorrect_answers = UserAnswer.objects.filter(user=user, choice__is_correct=False)
+        data = []
+        for ua in incorrect_answers:
+            question = ua.question
+            choices = question.choices.all()
+            data.append({
+                "question_id": question.id,
+                "question_text": question.text if hasattr(question, "text") else str(question),
+                "choices": [
+                    {
+                        "choice_id": c.id,
+                        "choice_text": c.text if hasattr(c, "text") else str(c),
+                        "is_correct": c.is_correct
+                    }
+                    for c in choices
+                ]
+            })
+        return Response(data, status=status.HTTP_200_OK)
 
 
 

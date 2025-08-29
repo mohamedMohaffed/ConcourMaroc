@@ -1,11 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import UserAnswer, Question, Choice,Score
+from .models import UserAnswer, Question, Choice,Score,Concours
 # from .serializers import UserAnswerCreateSerializer
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework import status
 from django.contrib.auth.models import User
 from datetime import timedelta
+from .serializers import QuestionSerializer
+from pprint import pprint
 
 
 
@@ -110,39 +112,45 @@ class UserAnswerScoreAPIView(APIView):
             {"detail": "All answers saved successfully."},
             status=status.HTTP_201_CREATED
         )
-            
 
-
-
-
-class ALLQuestionUncorrectAnserUser(APIView):
+class AllQuestionIncorrectAnswersUser(APIView):
     permission_classes = [AllowAny]
-
-    def get(self, request):
+    
+    def get(self, request, concour_slug):
+        user_id = 1 # Default to 1 for testing
         try:
-            user = User.objects.get(id=1)
+            user = User.objects.get(id=user_id)
         except User.DoesNotExist:
-            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "User not found."}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+        try:
+            concours = Concours.objects.get(slug=concour_slug)
+        except Concours.DoesNotExist:
+            return Response(
+                {"detail": "Concours not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
         
-        incorrect_answers = UserAnswer.objects.filter(user=user, choice__is_correct=False)
-        data = []
-        for ua in incorrect_answers:
-            question = ua.question
-            choices = question.choices.all()
-            data.append({
-                "question_id": question.id,
-                "question_text": question.text if hasattr(question, "text") else str(question),
-                "choices": [
-                    {
-                        "choice_id": c.id,
-                        "choice_text": c.text if hasattr(c, "text") else str(c),
-                        "is_correct": c.is_correct
-                    }
-                    for c in choices
-                ]
-            })
-        return Response(data, status=status.HTTP_200_OK)
-
-
-
-
+        incorrect_questions_ids = UserAnswer.objects.filter(
+            user=user, 
+            choice__is_correct=False,
+            concours=concours,
+        ).values_list('question_id', flat=True).distinct()
+        
+        questions = Question.objects.filter(
+            id__in=incorrect_questions_ids
+        ).prefetch_related('choices')
+        pprint(questions)
+      
+        serializer = QuestionSerializer(
+            questions, 
+            many=True,
+            context={
+                'show_is_correct': True,  
+                'show_explanation': True 
+            }
+        )
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)

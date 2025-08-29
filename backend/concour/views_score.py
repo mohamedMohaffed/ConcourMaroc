@@ -2,12 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import UserAnswer, Question, Choice,Score,Concours
 # from .serializers import UserAnswerCreateSerializer
-from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework import status
 from django.contrib.auth.models import User
 from datetime import timedelta
-from .serializers import QuestionSerializer
-from pprint import pprint
+from .serializers import QuestionSerializer, ConcoursListSerializer
+# from pprint import pprint
 
 
 
@@ -113,7 +113,37 @@ class UserAnswerScoreAPIView(APIView):
             status=status.HTTP_201_CREATED
         )
 
-class AllQuestionIncorrectAnswersUser(APIView):
+
+class IncorrectAnswersListAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        user_id = 1  # Replace with request.user.id in production
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return Response(
+                {"detail": "User not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        concours_ids = UserAnswer.objects.filter(
+            user=user,
+            choice__is_correct=False
+        ).values_list('concours_id', flat=True).distinct()
+
+        concours_qs = Concours.objects.filter(id__in=concours_ids).select_related(
+            'subject__year__university__level',
+            'subject__year__university',
+            'subject__year',
+            'subject'
+        )
+
+        serializer = ConcoursListSerializer(concours_qs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+
+class QuestionIncorrectAnswersUserAPIView(APIView):
     permission_classes = [AllowAny]
     
     def get(self, request, concour_slug):
@@ -142,7 +172,6 @@ class AllQuestionIncorrectAnswersUser(APIView):
         questions = Question.objects.filter(
             id__in=incorrect_questions_ids
         ).prefetch_related('choices')
-        pprint(questions)
       
         serializer = QuestionSerializer(
             questions, 
@@ -154,3 +183,18 @@ class AllQuestionIncorrectAnswersUser(APIView):
         )
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+        ).prefetch_related('choices')
+      
+        serializer = QuestionSerializer(
+            questions, 
+            many=True,
+            context={
+                'show_is_correct': True,  
+                'show_explanation': True 
+            }
+        )
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+

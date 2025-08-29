@@ -91,3 +91,20 @@ class UserAnswerCreateSerializer(serializers.ModelSerializer):
         fields='__all__'
 
 
+class UserAnserList(serializers.ModelSerializer):
+    class Meta:
+        # model=UserAnswer
+        # fieleds=
+        pass
+
+class ConcoursListSerializer(serializers.ModelSerializer):
+    subject = serializers.CharField(source='subject.name')
+    year = serializers.IntegerField(source='subject.year.year')
+    university = serializers.CharField(source='subject.year.university.name')
+    level = serializers.CharField(source='subject.year.university.level.name')
+    concours_id = serializers.IntegerField(source='id')
+    concours_slug = serializers.CharField(source='slug')
+
+    class Meta:
+        model = Concours
+        fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']

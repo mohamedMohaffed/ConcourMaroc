@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import UserAnswer, Question, Choice,Score,Concours
 # from .serializers import UserAnswerCreateSerializer
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
 from datetime import timedelta
@@ -12,7 +12,7 @@ from .serializers import QuestionSerializer, ConcoursListSerializer
 
 
 class UserAnswerScoreAPIView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         concour_id = request.data.get("concour_id")
@@ -113,9 +113,8 @@ class UserAnswerScoreAPIView(APIView):
             status=status.HTTP_201_CREATED
         )
 
-
 class IncorrectAnswersListAPIView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user_id = 1  # Replace with request.user.id in production
@@ -141,10 +140,9 @@ class IncorrectAnswersListAPIView(APIView):
 
         serializer = ConcoursListSerializer(concours_qs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-        
 
 class QuestionIncorrectAnswersUserAPIView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     
     def get(self, request, concour_slug):
         user_id = 1 # Default to 1 for testing
@@ -183,18 +181,4 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
         )
         
         return Response(serializer.data, status=status.HTTP_200_OK)
-        ).prefetch_related('choices')
-      
-        serializer = QuestionSerializer(
-            questions, 
-            many=True,
-            context={
-                'show_is_correct': True,  
-                'show_explanation': True 
-            }
-        )
-        
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 

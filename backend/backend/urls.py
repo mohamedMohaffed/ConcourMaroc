@@ -5,7 +5,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('concour/',include('concour.urls'))
+    path('concour/',include('concour.urls')),
+    path('accounts/',include('accounts.urls'))
+
 ]
 
 if settings.DEBUG:

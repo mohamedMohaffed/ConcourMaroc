@@ -1,23 +1,25 @@
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGauge, faGamepad, faEllipsisH, faUserGraduate,faBook,faPlus,faCircleInfo,faCompass } from '@fortawesome/free-solid-svg-icons';
+import { faGauge, faGamepad, faEllipsisH, faUserGraduate,faBook,faPlus,faCircleInfo,faCompass,faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const navbarItems = [
     { name: "CONCOURS", icon: faBook, to: "/concours/niveaux" },
     { name: "MON SCORE", icon: faGauge, to: "/dashboard" },
-    { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
-    { name: "EXPLORER", icon: faCompass, to: "/explorer" },
-    { name: "CRÉER QSM", icon: faPlus, to: "/qsm" },
+    // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
+    { name: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
     { name: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
     { name: "PLUS", icon: faEllipsisH, to: "/plus" }
   ];
 
   const location = useLocation();
-  const activeIndex = navbarItems.findIndex(item =>
-    item.to === "/" ? location.pathname === "/" : location.pathname.startsWith(item.to)
-  );
+  const activeIndex = navbarItems.findIndex(item => { //should improve
+    if (item.name === "CONCOURS") {
+      return location.pathname.startsWith("/concours");
+    }
+    return item.to === "/" ? location.pathname === "/" : location.pathname.startsWith(item.to.trim());
+  });
 
   return (
     <nav className="navbar">

@@ -7,3 +7,17 @@ html, body {
 
 }
 
+/* Remove default link styling */
+a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* For React Router Links */
+.link, .link:link, .link:visited, .link:hover, .link:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+

@@ -2,6 +2,8 @@ import './LevelsList.css';
 import useApi from '../../hooks/useApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight,faHouse } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 const LevelsList = () => {
     const { data, error, loading } = useApi("concour/niveaux/", { needAuth: false });
 
@@ -17,12 +19,12 @@ const LevelsList = () => {
             </div>
 
             <div className="level__items">
-                {loading && <p>Loading...</p>}
+                {loading && <p style={{display:'flex',justifyContent:'center',alignItems:'center'}}>Loading...</p>}
                 {error && <p className="error">Error: {error.message}</p>}
                 {data && data.map((item) => ( 
-                    <div key={item.id} className="level__item">
+                    <Link to={`/concours/${item.slug}/universites`}><div key={item.id} className="level__item">
                         <h2>{item.name}</h2>
-                    </div>
+                    </div></Link>
                 ))}
             </div>
         </section>

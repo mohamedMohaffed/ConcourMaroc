@@ -1,7 +1,8 @@
-import axiosInstance from '../utils/axiosInstance';
 import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
-const useApi = (url) => {
+const useApi = (url, needAuth = false) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -10,7 +11,9 @@ const useApi = (url) => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axiosInstance.get(url); // Declare `response`
+                const response = await axiosInstance.get(url, {
+                    headers: { needAuth }
+                }); 
                 setData(response.data);
             } catch (e) {
                 setError(e);
@@ -20,7 +23,7 @@ const useApi = (url) => {
         };
 
         fetchData();
-    }, [url]);
+    }, [url, needAuth]);
 
     return { data, error, loading };
 };

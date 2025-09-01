@@ -3,7 +3,7 @@ import useApi from '../../hooks/useApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight,faHouse } from '@fortawesome/free-solid-svg-icons';
 const LevelsList = () => {
-    const { data, error, loading } = useApi("http://127.0.0.1:8000/concour/niveaux/");
+    const { data, error, loading } = useApi("concour/niveaux/",false );
 
     return (
         <section className="level">

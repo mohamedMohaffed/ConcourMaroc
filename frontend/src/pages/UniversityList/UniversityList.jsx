@@ -1,35 +1,33 @@
-import './UniversityList.css';
 import useApi from '../../hooks/useApi';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight,faHouse } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import BrowseList from '../../components/BrowseList/BrowseList';
+import { Link, useParams } from 'react-router-dom';
 
 const UniversityList = () => {
-    const { data, error, loading } = useApi("concour/Bac/universites", { needAuth: false });
+    const { niveau_slug } = useParams();
+    const { data, error, loading } = useApi(`concour/${niveau_slug}/universites`, { needAuth: false });
+
+    const renderUniversity = (item, key) => (
+        <Link key={key} to={`/concours/${item.level.slug}/${item.slug}/year/`}>
+            <div className="browse-list-item">
+                <h2>{item.name}</h2>
+            </div>
+        </Link>
+    );
+
+    const breadcrumbs = data && data.length > 0 ? [
+        { text: data[0].level.name, link: "/concours/niveaux" }
+    ] : [];
 
     return (
-        <section className="university">
-
-            <div className="university__header">
-                <h1 className="university__title"><span className="university__title--first-lettre">C</span>hoisir votre niveau d’entrée</h1>
-                <div className="university__path"> 
-                    <Link to="/concours/niveaux"><FontAwesomeIcon icon={faHouse}  style={{cursor:"pointer"}}/></Link>
-                    <FontAwesomeIcon icon={faChevronRight}  />
-                    <Link to="/concours/niveaux"><span style={{cursor:"pointer"}}>{data && data[0].level.name}</span></Link>
-
-                </div>
-            </div>
-
-            <div className="university__items">
-                {loading && <p style={{display:'flex',justifyContent:'center',alignItems:'center'}}>Loading...</p>}
-                {error && <p className="error">Error: {error.message}</p>}
-                {data && data.map((item) => ( 
-                    <div key={item.id} className="university__item">
-                        <h2>{item.name}</h2>
-                    </div>
-                ))}
-            </div>
-        </section>
+        <BrowseList 
+            title="Choisir votre niveau d'entrée"
+            loading={loading}
+            error={error}
+            items={data}
+            breadcrumbs={breadcrumbs}
+            renderItem={renderUniversity}
+            className="university"
+        />
     );
 };
 

@@ -3,6 +3,7 @@ import Layout from './Layout/Layout';
 import LevelsList from './pages/LevelsList/LevelsList';
 import Login from './auth/Login';
 import UniversityList from './pages/UniversityList/UniversityList';
+import YearsList from './pages/YearsList/YearsList';
 
 const App = () => {
     return (
@@ -11,6 +12,7 @@ const App = () => {
                 <Route element={<Layout />}>
                     <Route path="/concours/niveaux" element={<LevelsList />} />
                     <Route path="/concours/:niveau_slug/universites" element={<UniversityList />} />
+                    <Route path="/concours/:niveau_slug/:universite_slug/year" element={<YearsList />} />
 
                 </Route>
                 <Route path="/login" element={<Login />} />

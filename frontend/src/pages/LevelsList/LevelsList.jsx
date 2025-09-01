@@ -3,15 +3,14 @@ import useApi from '../../hooks/useApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight,faHouse } from '@fortawesome/free-solid-svg-icons';
 const LevelsList = () => {
-    const { data, error, loading } = useApi("concour/niveaux/",false );
+    const { data, error, loading } = useApi("concour/niveaux/", { needAuth: false });
 
     return (
         <section className="level">
+
             <div className="level__header">
                 <h1 className="level__title"><span className="level__title--first-lettre">C</span>hoisir votre niveau d’entrée</h1>
-                <div className="level__path">
-                    {/* <div className="level__path--title">{data && data.length > 0 && data[0].name}</div> */}
-                    
+                <div className="level__path">     
                     <FontAwesomeIcon icon={faHouse}  style={{cursor:"pointer"}}/>
                     <FontAwesomeIcon icon={faChevronRight}  />
                 </div>

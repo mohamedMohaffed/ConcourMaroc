@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 import axiosInstance from '../utils/axiosInstance';
 
-const useApi = (url, needAuth = false) => {
+const useApi = (url, options = {}) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ const useApi = (url, needAuth = false) => {
             setLoading(true);
             try {
                 const response = await axiosInstance.get(url, {
-                    headers: { needAuth }
+                    headers: { needAuth: options.needAuth || false }
                 }); 
                 setData(response.data);
             } catch (e) {
@@ -23,7 +23,7 @@ const useApi = (url, needAuth = false) => {
         };
 
         fetchData();
-    }, [url, needAuth]);
+    }, [url, options.needAuth]);
 
     return { data, error, loading };
 };

@@ -1,0 +1,21 @@
+.layout{
+    display: grid;
+    grid-template-columns: 15.625rem 1fr 15.625rem;
+  
+    
+}
+
+.layout__navbar{
+    display:flex;
+    justify-content:center;
+    border-right: #E5E5E5 0.125rem solid;
+
+    
+}
+.layout_ads{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgb(246, 254, 255);
+    border-left: #E5E5E5 0.125rem solid;
+}

@@ -1,0 +1,24 @@
+import { Outlet} from "react-router-dom";
+import Navbar from '../components/Navbar/Navbar';
+import './Layout.css';
+
+const Layout =()=>{
+
+    return(
+        <div className="layout">
+
+        <aside className="layout__navbar">
+            <Navbar/>
+        </aside>
+        <main>
+            <Outlet />
+        </main>
+        <aside className="layout_ads">
+                <p>ads here</p>
+        </aside>
+
+        </div>
+    )
+}
+
+export default Layout;

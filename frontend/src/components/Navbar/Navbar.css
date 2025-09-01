@@ -1,0 +1,90 @@
+.navbar {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    height: 100vh;
+    min-width: 15rem;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.navbar__logo {
+    font-family: "Baloo 2", "Fredoka", "Nunito", system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.03125rem;
+    line-height: 1;
+    font-size: 2.25rem;
+    color: #FF6F61;
+}
+.navbar__logo--go {
+    color: #1CB0F6;
+}
+
+.navbar__items {
+    display: flex;
+    gap: 1.5rem;
+    flex-direction: column;
+    width: 11.25rem;
+}
+
+.navbar__item {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    border: 0.125rem solid transparent;
+    padding-left: 0.75rem;
+    transition: border-color 0.2s, background 0.2s;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+}
+.navbar__item:hover {
+    background: #F5F7FA;
+    border: 0.125rem solid transparent;
+    border-radius: 0.625rem;
+    cursor: pointer;
+}
+.navbar__item--active {
+    border: 0.125rem solid #74C0FC;
+    background: #E3F4FD;
+    border-radius: 0.625rem;
+}
+
+.navbar__item--active:hover{
+    border: 0.125rem solid #74C0FC;
+    background: #E3F4FD;
+    border-radius: 0.625rem;
+}
+
+.navbar__item-img .navbar__icon {
+    color: #777777;
+    font-size: 1.5rem;
+    transition: color 0.2s;
+}
+.navbar__item-img--active .navbar__icon {
+    color: #74C0FC;
+}
+
+.navbar__item-name {
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.03125rem;
+    color:#777777;
+    transition: color 0.2s;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    flex: 1 1 auto;
+    min-width: 0;
+    font-weight: 525;
+}
+.navbar__item-name--active {
+    color: #74C0FC;
+}
+

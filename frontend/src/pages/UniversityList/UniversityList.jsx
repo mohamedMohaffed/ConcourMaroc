@@ -20,7 +20,7 @@ const UniversityList = () => {
 
     return (
         <BrowseList 
-            title="Choisir votre niveau d'entrée"
+            title="Choisir votre université d'entrée"
             loading={loading}
             error={error}
             items={data}

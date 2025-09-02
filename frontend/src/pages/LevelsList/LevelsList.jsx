@@ -3,7 +3,8 @@ import BrowseList from '../../components/BrowseList/BrowseList';
 import { Link } from 'react-router-dom';
 
 const LevelsList = () => {
-    const { data, error, loading } = useApi("concour/niveaux/", { needAuth: false });
+    // Fix URL to match backend URL pattern
+    const { data, error, loading } = useApi("concour/niveaux/");
 
     const renderLevel = (item, key) => (
         <Link key={key} to={`/concours/${item.slug}/universites`}>

@@ -7,9 +7,9 @@ const YearsList = () => {
     const { data, error, loading } = useApi(`/concour/${niveau_slug}/${universite_slug}/year/`, { needAuth: false });
 
     const renderYear = (item, key) => (
-        <div key={key} className="browse-list-item">
+        <Link to={`/concours/${niveau_slug}/${universite_slug}/${item.year}/matieres`}><div key={key} className="browse-list-item">
             <h2>{item.year}</h2>
-        </div>
+        </div></Link>
     );
 
     const breadcrumbs = data && data.length > 0 ? [

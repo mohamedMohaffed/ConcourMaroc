@@ -1,67 +1,51 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
 
-const Login = () => {
+function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null);
-
         try {
-            const response = await axios.post('http://127.0.0.1:8000/accounts/api/token/', {
-                username,
-                password,
-            });
+            // إرسال بيانات تسجيل الدخول
+            await axiosInstance.post('accounts/api/token/', { username, password });
 
-            // Save tokens to localStorage
-            localStorage.setItem('access', response.data.access);
-            localStorage.setItem('refresh', response.data.refresh);
-
-            // Redirect or handle successful login
-            window.location.href = '/dashboard'; // Ensure `/dashboard` exists or replace with a valid route
+            // لا حاجة لتخزين التوكن في localStorage، لأنه موجود في HTTP-only cookies
+            navigate('/concours/niveaux'); // Fixed the navigation path
         } catch (err) {
-            setError(err.response?.data?.detail || 'An error occurred'); // Use server error message if available
-        } finally {
-            setLoading(false);
+            setError('Invalid credentials');
+            console.log("error is ",err);
         }
     };
 
     return (
-        <div className="login-container">
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                {error && <p className="error">{error}</p>}
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Logging in...' : 'Login'}
-                </button>
-            </form>
-        </div>
+        <form onSubmit={handleSubmit}>
+            {error && <p className="error">{error}</p>}
+            <div>
+                <label>Username</label>
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+            </div>
+            <div>
+                <label>Password</label>
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+            </div>
+            <button type="submit">Login</button>
+        </form>
     );
-};
+}
 
 export default Login;

@@ -1,30 +1,95 @@
 import axios from 'axios';
 
-
-export const axiosInstance = axios.create({
-
-  baseURL:"http://127.0.0.1:8000/",
-  headers: { 'Content-Type': 'application/json' }
+// Create axios instance
+const axiosInstance = axios.create({
+    baseURL: 'http://localhost:8000', // Django backend URL
+    withCredentials: true, // Enable sending cookies with requests
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
-axiosInstance.interceptors.request.use(
-  (config)=>{
-    if (config.headers.needAuth) {
+// Track if we're currently refreshing to avoid multiple refresh calls
+let isRefreshing = false;
+let failedQueue = [];
 
-      const accessToken = localStorage.getItem('access');
-      if (accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
-      }else{
-        window.location.href = '/login';
-
-      }
-      delete config.headers.needAuth;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
+const processQueue = (error, token = null) => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
+    });
     
-  
+    failedQueue = [];
+};
+
+// Request interceptor - ensures cookies are sent
+axiosInstance.interceptors.request.use(
+    (config) => {
+        // Cookies are automatically sent due to withCredentials: true
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Response interceptor - handles 401 errors and token refresh
+axiosInstance.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    async (error) => {
+        const originalRequest = error.config;
+
+        // Check if error is 401 and we haven't already tried to refresh
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            if (isRefreshing) {
+                // If already refreshing, queue this request
+                return new Promise((resolve, reject) => {
+                    failedQueue.push({ resolve, reject });
+                }).then(() => {
+                    return axiosInstance(originalRequest);
+                }).catch(err => {
+                    return Promise.reject(err);
+                });
+            }
+
+            originalRequest._retry = true;
+            isRefreshing = true;
+
+            try {
+                // Attempt to refresh the token
+                await axiosInstance.post('/accounts/api/token/refresh/');
+                
+                // Log success message with pink color
+                
+                // Refresh successful, process queued requests
+                processQueue(null);
+                isRefreshing = false;
+                
+                // Retry the original request
+                return axiosInstance(originalRequest);
+            } catch (refreshError) {
+                // Refresh failed, process queue with error and redirect to login
+                processQueue(refreshError);
+                isRefreshing = false;
+                
+                // Clear any existing tokens and redirect to login
+                document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                document.cookie = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                
+                // Redirect to login page
+                window.location.href = '/login';
+                
+                return Promise.reject(refreshError);
+            }
+        }
+
+        return Promise.reject(error);
+    }
 );
 
 export default axiosInstance;

@@ -7,7 +7,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 
 class LevelAPIView(APIView):
-    permission_classes=[AllowAny]
+    permission_classes=[IsAuthenticated]
     def get(self, request):
         levels = Level.objects.all()
         serializer = LevelSerializer(levels, many=True)

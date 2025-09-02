@@ -12,5 +12,5 @@ POST http://127.0.0.1:8000/accounts/api/token/refresh/
 Content-Type: application/json
 
 {
-    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjY0Mjc3OSwiaWF0IjoxNzU2NTU2Mzc5LCJqdGkiOiJjNWJiNDhlNDQzMzE0YjEyYTFkNzVmOWE0YmVkN2EzZSIsInVzZXJfaWQiOiIxIn0.yoY4_r9Fj83tuxzrpXDDZLert8ijcO1pnxMHWvLd2kY"
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjkwNDIxNywiaWF0IjoxNzU2ODE3ODE3LCJqdGkiOiIzZmUwZjFmYzAyYjc0YzJkOTkzYjQwYzc2ZTZiYTRlMyIsInVzZXJfaWQiOiIxIn0.4wCGEXXwzmW5rOXKUc00yLn2iQmiNxmByCktVZ9ijSM"
 }

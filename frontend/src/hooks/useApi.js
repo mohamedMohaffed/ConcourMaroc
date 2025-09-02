@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
+import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
-const useApi = (url, options = {}) => {
+const useApi = (url) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -11,28 +10,21 @@ const useApi = (url, options = {}) => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await axiosInstance.get(url, {
-                    headers: { needAuth: options.needAuth || false }
-                }); 
+                
+                const response = await axiosInstance.get(url);
                 setData(response.data);
             } catch (e) {
                 setError(e);
+              
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-    }, [url, options.needAuth]);
+    }, [url]);
 
     return { data, error, loading };
 };
 
 export default useApi;
-
-
-
-
-
-
-

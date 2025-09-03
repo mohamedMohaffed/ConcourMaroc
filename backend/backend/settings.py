@@ -42,7 +42,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "accounts.middleware.ClearAuthCookiesMiddleware",
+    # "accounts.middleware.ClearAuthCookiesMiddleware",
 
 
     #
@@ -133,8 +133,8 @@ INTERNAL_IPS = [
 ####-----------JWT---------####
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Increase from 10 seconds to 15 minutes
-    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=2),#days=1
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=10),  
+    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=30),
     'ROTATE_REFRESH_TOKENS': True,
 }
 

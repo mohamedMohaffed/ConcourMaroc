@@ -73,18 +73,15 @@ axiosInstance.interceptors.response.use(
                 // Retry the original request
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
-                // Refresh failed, process queue with error and redirect to login
                 processQueue(refreshError);
                 isRefreshing = false;
+                console.log("im working")
                 
-                // Clear any existing tokens and redirect to login
-                document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                document.cookie = 'refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                 
                 // Redirect to login page
                 window.location.href = '/login';
                 
-                return Promise.reject(refreshError);
+                // return Promise.reject(refreshError);
             }
         }
 

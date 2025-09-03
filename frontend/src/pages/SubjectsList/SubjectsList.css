@@ -51,3 +51,25 @@
     border-radius: 0.2rem;
 
 }
+
+
+.subjects-list__type{
+    display: flex;
+    justify-content:center;
+    gap:1rem;
+    color: #777777;
+}
+.subjects-list__type--quiz,.subjects-list__type--corr{
+    border: 1.6px solid #1CB0F6;
+    border-radius: 99rem;
+    width: 14rem;
+    height: 3.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.subjects-list__type--quiz:hover, .subjects-list__type--corr:hover {
+    border: 1.6px solid #21D375;
+}

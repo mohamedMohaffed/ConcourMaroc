@@ -15,7 +15,8 @@
     letter-spacing: -0.03125rem;
     line-height: 1;
     font-size: 2.25rem;
-    color: #FF6F61;
+    /* color: #FF6F61; */
+    color: #21D375;
 }
 .navbar__logo--go {
     color: #1CB0F6;

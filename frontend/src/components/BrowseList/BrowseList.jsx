@@ -2,7 +2,7 @@ import './BrowseList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
+import {motion } from 'framer-motion';
 const BrowseList = ({
     title,
     loading,
@@ -14,7 +14,12 @@ const BrowseList = ({
     className
 }) => {
     return (
-        <section className={`browse-list ${className || ''}`}>
+        <motion.section 
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        exit={{opacity: 0}}
+        transition={{delay:0.2}}
+        className={`browse-list ${className || ''}`}>
             <div className="browse-list__header">
                 <h1 className="browse-list__title">
                     <span className="browse-list__title--first-letter">{title.charAt(0)}</span>
@@ -43,9 +48,11 @@ const BrowseList = ({
                 {loading && <p style={{ display: 'flex', justifyContent: 'center', 
                     alignItems: 'center' }}>Loading...</p>}
                 {error && <p className="error">Error: {error.message}</p>}
-                {items && items.map((item) => renderItem(item, item[itemKey]))}
+                {items &&
+                
+                items.map((item) => renderItem(item, item[itemKey]))}
             </div>
-        </section>
+        </motion.section>
     );
 };
 

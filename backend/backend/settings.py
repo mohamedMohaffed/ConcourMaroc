@@ -42,6 +42,8 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "accounts.middleware.ClearAuthCookiesMiddleware",
+
 
     #
     'django.middleware.security.SecurityMiddleware',
@@ -131,8 +133,8 @@ INTERNAL_IPS = [
 ####-----------JWT---------####
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # Increase from 10 seconds to 15 minutes
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Increase from 10 seconds to 15 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=2),#days=1
     'ROTATE_REFRESH_TOKENS': True,
 }
 

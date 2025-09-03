@@ -65,9 +65,14 @@ class CookieTokenRefreshView(APIView):
             )
             
             return response
+        
         except TokenError as e:
             print(f"❌ Token refresh failed: {e}")
-            return Response({'detail': 'Invalid refresh token'}, status=status.HTTP_401_UNAUTHORIZED)
+            request._delete_auth_cookies = True
+            return None
+
+        
+
 
 
 class LogoutView(APIView):

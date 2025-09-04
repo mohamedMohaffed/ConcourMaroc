@@ -59,7 +59,48 @@
 /* phone */
 
 @media (max-width: 48em) {
+    .browse-list{
+        display:flex;
+        flex-direction: column;
+    }
+    .browse-list__header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .browse-list__title {
+    font-size: 1.33rem;}
 
+    .browse-list__path svg {
+        font-size: 1rem;
+    }
+    .browse-list__items {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        
+    }
 
+    .browse-list-item {
+        width: 7rem;
+        height: 3rem;
+  
 
 }
+    
+
+ 
+}
+
+    /* .browse-list__header {}
+    .browse-list__title {}
+    .browse-list__path {}
+    .browse-list__path :hover {}
+    .browse-list__path svg {}
+    .browse-list__items {}
+    .browse-list-item {} */
+
+
+
+    
+
+

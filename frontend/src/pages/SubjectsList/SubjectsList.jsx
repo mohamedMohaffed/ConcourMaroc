@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const SubjectsList = () => {
     const { niveau_slug, universite_slug, year_slug } = useParams();
-    const { data, error, loading } = useApi(`/concour/${niveau_slug}/${universite_slug}/${year_slug}/subject/`, { needAuth: false });
+    const { data, error, loading } = useApi(`/concour/${niveau_slug}/${universite_slug}/${year_slug}/subject/`);
     const [selectedSubjectId, setSelectedSubjectId] = useState(null);
 
     const breadcrumbs = data && data.length > 0 ? [

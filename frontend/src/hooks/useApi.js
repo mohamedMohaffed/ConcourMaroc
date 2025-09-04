@@ -13,6 +13,7 @@ const useApi = (url) => {
                 
                 const response = await axiosInstance.get(url);
                 setData(response.data);
+                console.log("call dabase");
             } catch (e) {
                 setError(e);
               

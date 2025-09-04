@@ -10,7 +10,7 @@ const Layout =()=>{
         <aside className="layout__navbar">
             <Navbar/>
         </aside>
-        <main>
+        <main className="layout__main">
             <Outlet />
         </main>
         <aside className="layout_ads">

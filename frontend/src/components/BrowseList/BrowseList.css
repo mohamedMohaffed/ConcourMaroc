@@ -9,16 +9,19 @@
     font-size: 2rem;
     font-weight: 500;
     margin: 0;
-    color: #777777;
+    color: var(--color-text-primary);
 }
 
 .browse-list__path {
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: #777777;
+    color: var(--color-text-primary);
 }
 
+.browse-list__path :hover {
+    color:#1CB0F6;
+}
 .browse-list__path svg {
     font-size: 1.2rem;
 }
@@ -43,7 +46,7 @@
     align-items: center;
     justify-content: center;
     border: 1.6px solid #1CB0F6;
-    color: #777777;
+    color: var(--color-text-primary);
     box-sizing: border-box;
     flex: 0 0 auto;
     cursor: pointer;

@@ -1,3 +1,9 @@
+:root {
+    --hover-background-normal: #f0f0f0;
+    --hover-color-normal: #5f5f5f;
+    --color-text-primary: #777777;
+}   
+
 html, body {
     overflow-y: auto;
     height: auto;
@@ -19,6 +25,8 @@ a, a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: inherit;
 }
+
+
 
 
 

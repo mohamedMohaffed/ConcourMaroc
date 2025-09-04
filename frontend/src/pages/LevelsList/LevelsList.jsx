@@ -1,7 +1,7 @@
 import useApi from '../../hooks/useApi';
 import BrowseList from '../../components/BrowseList/BrowseList';
 import { Link } from 'react-router-dom';
-
+import './LevelsList.css'
 const LevelsList = () => {
     // Fix URL to match backend URL pattern
     const { data, error, loading } = useApi("concour/niveaux/");

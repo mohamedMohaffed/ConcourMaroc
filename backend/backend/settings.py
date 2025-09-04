@@ -133,8 +133,8 @@ INTERNAL_IPS = [
 ####-----------JWT---------####
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=10),  
-    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': True,
 }
 

@@ -1,0 +1,9 @@
+.browse-list-item {
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+}
+
+.browse-list-item:hover {
+    background: var(--hover-background-normal);
+    color:var(--hover-color-normal) ;
+}

@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-jg@2sovnq#fpyx8f#wghyjs_ih90y+m-=9!ivr6r18afbaltbd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.101']
 
 
 # Application definition
@@ -55,10 +55,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#change this real web
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # React Vite dev server
+    "http://localhost:5173",
+    "http://192.168.1.101:5173",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True 
 CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'backend.urls'
 
@@ -66,7 +68,6 @@ ROOT_URLCONF = 'backend.urls'
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
-# Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
@@ -127,8 +128,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
     "127.0.0.1",
+    "192.168.1.101",  # Add your machine's IP here
 ]
 
+# Add this configuration to prevent debug toolbar issues when accessing from other devices
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
+}
 
 ####-----------JWT---------####
 

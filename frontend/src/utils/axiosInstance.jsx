@@ -2,14 +2,14 @@ import axios from 'axios';
 
 // Create axios instance
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000', // Django backend URL
-    withCredentials: true, // Enable sending cookies with requests
+    // baseURL: 'http://localhost:8000',
+    baseURL: 'http://192.168.1.101:8000/', 
+    withCredentials: true, 
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-// Track if we're currently refreshing to avoid multiple refresh calls
 let isRefreshing = false;
 let failedQueue = [];
 
@@ -25,10 +25,8 @@ const processQueue = (error, token = null) => {
     failedQueue = [];
 };
 
-// Request interceptor - ensures cookies are sent
 axiosInstance.interceptors.request.use(
     (config) => {
-        // Cookies are automatically sent due to withCredentials: true
         return config;
     },
     (error) => {

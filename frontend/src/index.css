@@ -12,10 +12,8 @@ html, body {
     font-family: 'Roboto', sans-serif;
     user-select: none;
     height:100vh;
-
     overflow-x: hidden;
-    
-
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Remove default link styling */

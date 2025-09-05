@@ -53,7 +53,7 @@
 }
 
 
-.subjects-list__type{
+.subjects-list__type {
     display: flex;
     justify-content:center;
     gap:1rem;
@@ -70,7 +70,8 @@
     box-sizing: border-box;
 }
 
-.subjects-list__type--quiz:hover, .subjects-list__type--corr:hover {
+.subjects-list__type--quiz:hover, 
+.subjects-list__type--corr:hover {
     border: 1.6px solid #21D375;
     background:#21D3751a;
 }
@@ -79,12 +80,113 @@
 .subjects-list-item {
     transition: background 0.2s, color 0.2s;
     cursor: pointer;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.subjects-list-item:hover {
-    background: var(--hover-background-normal);
-    color:var(--hover-color-normal) ;
-}
+
+
 .subjects-list__path :hover {
     color:#1CB0F6;
+}
+
+.desktop-title {
+  display: block;
+}
+
+.subjects-list__close-icon {
+    position: absolute;
+    top: 1.125rem;
+    left: 15rem;
+    cursor: pointer;
+    font-size: 1.125rem;
+}
+
+
+
+@media (max-width: 48em) {
+    .subjects-list{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        padding-bottom: 5rem; 
+    }
+    .subjects-list__header {
+        padding: 0.5rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: fixed; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white; 
+        z-index: 50; 
+        box-sizing: border-box;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    }
+    
+    .subjects-list__path svg {
+        font-size: 1rem;
+    }
+    .subjects-list__items {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin-top: 6rem;
+        padding-top: 0.5rem;
+
+    }
+
+    .subjects-list-item {
+        width: 14rem;
+        height: 3.625rem;
+        font-size: 0.75rem;
+    }
+
+    .desktop-title {
+        display: none;
+    }
+    
+    .mobile-title {
+        display: block;
+        font-size: 2rem;
+    }
+    
+    .subjects-list__title {
+        font-size: 1.5rem;
+    }
+
+        .browse-list__path :hover {
+        color: inherit; 
+    }
+    .browse-list__path :active {
+    color:#1CB0F6;
+}
+
+   .subjects-list__type {
+    flex-direction:column;
+    gap:1rem;
+    justify-content:center;
+    align-items:center;
+   }
+   .subjects-list__type--quiz, .subjects-list__type--corr {
+    padding:0;
+    margin:0;
+    font-size:1rem;
+    
+   }
+
+
+.subjects-list__type--quiz:hover, 
+.subjects-list__type--corr:hover {
+    border: 1.6px solid #1CB0F6;  
+    background: none; 
+}
+
+.subjects-list__close-icon {
+    display:none;
+}
 }

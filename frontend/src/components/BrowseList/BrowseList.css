@@ -63,6 +63,7 @@
   display: none;
 }
 
+
 @media (max-width: 48em) {
     .browse-list{
         display: flex;
@@ -90,9 +91,73 @@
     }
     .browse-list__items {
         display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        overflow-y: auto;
+        margin-top: 6rem;
+        padding-top: 0.5rem;
+
+    }
+
+    .browse-list-item {
+        width: 14rem;
+        height: 3.625rem;
+        font-size: 0.75rem;
+    }
+
+    .desktop-title {
+        display: none;
+    }
+    
+    .mobile-title {
+        display: block;
+    }
+    
+    
+     .browse-list .mobile-title {
+        display: block;
+        font-size: 1.5rem;
+    }
+
+    .browse-list__path :hover {
+        color: inherit; 
+    }
+    .browse-list__path :active {
+    color:#1CB0F6;
+}
+}
+
+/* two box in line  */
+
+/* @media (max-width: 48em) {
+    .browse-list{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        padding-bottom: 5rem; 
+    }
+    .browse-list__header {
+        padding: 0.5rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: fixed; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white;
+        z-index: 50; 
+        box-sizing: border-box;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .browse-list__path svg {
+        font-size: 1rem;
+    }
+    .browse-list__items {
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
         overflow-y: auto;
-        margin-top: 6rem; /* Add margin to push items below fixed header */
+        margin-top: 6rem; 
         padding-top: 0.5rem;
     }
 
@@ -108,21 +173,11 @@
     
     .browse-list .mobile-title {
         display: block;
-        font-size: 2rem;
-    }
-    
-    .browse-list__title {
         font-size: 1.5rem;
     }
-}
+    
+} */
 
-/* .browse-list__header {}
-.browse-list__title {}
-.browse-list__path {}
-.browse-list__path :hover {}
-.browse-list__path svg {}
-.browse-list__items {}
-.browse-list-item {} */
 
 
 

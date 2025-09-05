@@ -21,6 +21,7 @@ const UniversityList = () => {
     return (
         <BrowseList 
             title="Choisir votre université d'entrée"
+            titleMobile="Choisir Université"
             loading={loading}
             error={error}
             items={data}

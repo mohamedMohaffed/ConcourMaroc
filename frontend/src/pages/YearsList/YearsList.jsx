@@ -19,7 +19,9 @@ const YearsList = () => {
 
     return (
         <BrowseList 
-            title="Choisir votre université d'entrée"
+            title="Choisir votre année d'entrée"
+            titleMobile="Choisir Année"
+
             loading={loading}
             error={error}
             items={data}

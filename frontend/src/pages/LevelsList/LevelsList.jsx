@@ -17,6 +17,7 @@ const LevelsList = () => {
     return (
         <BrowseList 
             title="Choisir votre niveau d'entrée"
+            titleMobile="Choisir niveau"
             loading={loading}
             error={error}
             items={data}

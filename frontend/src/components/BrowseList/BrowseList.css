@@ -55,52 +55,77 @@
 }
 
 
+.desktop-title {
+  display: block;
+}
 
-/* phone */
+.mobile-title {
+  display: none;
+}
 
 @media (max-width: 48em) {
     .browse-list{
-        display:flex;
+        display: flex;
         flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        padding-bottom: 5rem; /* Add padding to account for navbar at bottom */
     }
     .browse-list__header {
-        padding: 1rem;
+        padding: 0.5rem 1rem;
         flex-direction: column;
         gap: 0.5rem;
+        position: fixed; /* Fixed positioning */
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white; /* Add background to prevent content showing through */
+        z-index: 50; /* Ensure it's above content but below navbar */
+        box-sizing: border-box;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add shadow for better visibility */
     }
-    .browse-list__title {
-    font-size: 1.33rem;}
-
+    
     .browse-list__path svg {
         font-size: 1rem;
     }
     .browse-list__items {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        
+        overflow-y: auto;
+        margin-top: 6rem; /* Add margin to push items below fixed header */
+        padding-top: 0.5rem;
     }
 
     .browse-list-item {
         width: 7rem;
-        height: 3rem;
-  
+        height: 2.5rem;
+        font-size: 0.75rem;
+    }
 
-}
+    .desktop-title {
+        display: none;
+    }
     
-
- 
+    .browse-list .mobile-title {
+        display: block;
+        font-size: 2rem;
+    }
+    
+    .browse-list__title {
+        font-size: 1.5rem;
+    }
 }
 
-    /* .browse-list__header {}
-    .browse-list__title {}
-    .browse-list__path {}
-    .browse-list__path :hover {}
-    .browse-list__path svg {}
-    .browse-list__items {}
-    .browse-list-item {} */
+/* .browse-list__header {}
+.browse-list__title {}
+.browse-list__path {}
+.browse-list__path :hover {}
+.browse-list__path svg {}
+.browse-list__items {}
+.browse-list-item {} */
 
 
 
-    
+
 
 

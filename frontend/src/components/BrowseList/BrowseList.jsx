@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import {motion } from 'framer-motion';
 const BrowseList = ({
     title,
+    titleMobile,
     loading,
     error,
     items,
@@ -21,9 +22,13 @@ const BrowseList = ({
         transition={{delay:0.2}}
         className={`browse-list ${className || ''}`}>
             <div className="browse-list__header">
-                <h1 className="browse-list__title">
+                <h1 className="browse-list__title desktop-title">
                     <span className="browse-list__title--first-letter">{title.charAt(0)}</span>
                     {title.slice(1)}
+                </h1>
+                <h1 className="browse-list__title mobile-title">
+                    <span className="browse-list__title--first-letter">{(titleMobile || title).charAt(0)}</span>
+                    {(titleMobile || title).slice(1)}
                 </h1>
                 <div className="browse-list__path">
                     <Link to="/concours/niveaux">

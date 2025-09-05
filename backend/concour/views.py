@@ -50,6 +50,17 @@ class ConcoursAPIView(APIView):
     permission_classes = [AllowAny]
     
     def get(self, request, niveau_slug, universite_slug, year_slug, subject_slug):
+        # Define allowed query parameters
+        allowed_params = ['mode']
+        
+        # Check if there are any disallowed parameters
+        invalid_params = [param for param in request.query_params.keys() if param not in allowed_params]
+        if invalid_params:
+            return Response(
+                {"error": f"Invalid query parameters: {', '.join(invalid_params)}. Only 'mode' is allowed."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
         quiz_mode = request.query_params.get('mode', 'entrainement')
 
         concours = Concours.objects.filter(

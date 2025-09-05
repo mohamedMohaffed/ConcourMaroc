@@ -19,15 +19,11 @@ class YearSerializer(serializers.ModelSerializer):
         model = Year
         fields = '__all__'
 
-
 class SubjectSerializer(serializers.ModelSerializer):
     year = YearSerializer(read_only=True)
     class Meta:
         model = Subject
         fields = '__all__'
-
-
-
 
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -85,11 +81,15 @@ class ConcourSerializer(serializers.ModelSerializer):
             }
         ).data
 
+
+
+
+####
+
 class UserAnswerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model=UserAnswer
         fields='__all__'
-
 
 class UserAnserList(serializers.ModelSerializer):
     class Meta:

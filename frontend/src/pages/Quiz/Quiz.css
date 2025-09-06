@@ -1,0 +1,14 @@
+.quiz__header{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    padding:1rem;
+    color:#777777;
+}
+
+/* .quiz_title{
+} */
+
+.quiz__go__back-icon{
+    cursor: pointer;
+}

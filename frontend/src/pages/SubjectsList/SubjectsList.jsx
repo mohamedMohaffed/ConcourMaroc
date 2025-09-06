@@ -119,8 +119,11 @@ const SubjectsList = () => {
                             transition={{delay:0.3}}
                             
                             className="subjects-list__type">
-                                <h1 className="subjects-list__type--quiz">Passer un Quiz</h1>
-                                <h1 className="subjects-list__type--corr">Voir la Correction</h1>
+                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${data[selectedSubjectId].slug}/concour`}>
+                                <h1 className="subjects-list__type--quiz">Passer un Quiz</h1></Link>
+
+                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${data[selectedSubjectId].slug}/concour`}>
+                                <h1 className="subjects-list__type--corr">Voir la Correction</h1></Link>
                             </motion.div> 
                         )}
         </motion.section>

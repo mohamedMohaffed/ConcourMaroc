@@ -63,6 +63,12 @@ class ConcoursAPIView(APIView):
         
         quiz_mode = request.query_params.get('mode', 'entrainement')
 
+        # quiz_mode = request.query_params.get('mode')
+        # if quiz_mode is None:
+        #     return Response(
+        #         {"error": "Missing required parameter: 'mode'. Must be one of 'entrainement', 'examen', 'correction'."},
+        #         status=status.HTTP_400_BAD_REQUEST
+        #     )
         concours = Concours.objects.filter(
             subject__slug=subject_slug,
             subject__year__slug=year_slug,

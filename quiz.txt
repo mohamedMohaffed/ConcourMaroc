@@ -1,2 +1,23 @@
 
 3 mode ['entrainement', 'examen', 'correction']
+overflow two type of quiz
+
+
+
+#examen
+title has all info
+header circle with i can jump between quition and change color for sumbeted uder
+1 quition and 4 choice
+preview -(submet-unsubmet) - next
+send anser to backend 
+timer limet
+
+#entrainment
+title has all info
+header circle with i can jump between quition and change color for sumbeted uder
+1 quition and 4 choice
+preview -(submet-ssubmeted) - next
+see correction and correct anser
+unlimet timer
+copy quition
+

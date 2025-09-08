@@ -36,6 +36,7 @@ const Navbar = () => {
                 <FontAwesomeIcon
                   icon={item.icon}
                   className="navbar__icon"
+                  size="8x"
                 />
               </div>
               <div

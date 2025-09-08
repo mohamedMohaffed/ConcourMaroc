@@ -5,7 +5,7 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
 
   <div className="quiz__mode-overlay">
     <div className="quiz__mode-select">
-      <h2>Choisissez le mode du quiz</h2>
+      <h2 className="quiz__mode-title">Choisissez le mode du quiz</h2>
       <div className="quiz__mode-options">
         {/* Mode entrainement */}
         <div
@@ -23,10 +23,10 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
             <b>Mode entrainement</b>
           </label>
           <ul>
-            <li>Pas de limite de temps.</li>
-            <li>Vous pouvez soumettre et annuler vos réponses.</li>
-            <li>Vous voyez immédiatement si votre réponse est correcte ou non.</li>
-            <li>Idéal pour l'entraînement et la révision.</li>
+            <li>Réponses modifiables</li>
+            <li>Voir la bonne réponse et l’explication</li>
+            <li>Sans limite de temps</li>
+            <li>Copier la question, les choix </li>
           </ul>
         </div>
 
@@ -46,10 +46,10 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
             <b>Mode Examen</b>
           </label>
           <ul>
-            <li>Limite de temps stricte.</li>
-            <li>Impossible d'annuler une réponse soumise.</li>
-            <li>Les résultats sont affichés à la fin du quiz.</li>
-            <li>Simule les conditions réelles d'un examen.</li>
+            <li>Réponses définitives</li>
+            <li>Résultat à la fin</li>
+            <li>Temps limité</li>
+            <li>Conditions réelles d’examen</li>
           </ul>
         </div>
       </div>

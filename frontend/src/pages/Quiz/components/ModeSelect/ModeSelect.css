@@ -83,3 +83,45 @@
 .quiz__mode-submit-btn:not(:disabled):hover {
   background: #145a9e;
 }
+
+@media (max-width: 48em) {
+  .quiz__mode-select {
+  max-width: 700px;
+  width: 80%;
+  
+ 
+ 
+}
+  .quiz__mode-title{
+    font-size:1.6rem;
+  }
+  .quiz__mode-select {
+    padding: 16px;
+  }
+
+  .quiz__mode-options {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .quiz__mode-option {
+    padding: 12px;
+  }
+
+  .quiz__mode-submit-btn {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+  .quiz__mode-submit-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 24px;
+  font-weight:500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+}

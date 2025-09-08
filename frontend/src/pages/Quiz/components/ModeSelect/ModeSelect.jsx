@@ -7,20 +7,20 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
     <div className="quiz__mode-select">
       <h2>Choisissez le mode du quiz</h2>
       <div className="quiz__mode-options">
-        {/* Mode Normal */}
+        {/* Mode entrainement */}
         <div
-          className={`quiz__mode-option ${mode === "normal" ? "active" : ""}`}
-          onClick={() => setMode("normal")}
+          className={`quiz__mode-option ${mode === "entrainement" ? "active" : ""}`}
+          onClick={() => setMode("entrainement")}
         >
           <label>
             <input
               type="radio"
               name="quiz_mode"
-              value="normal"
-              checked={mode === "normal"}
-              onChange={() => setMode("normal")}
+              value="entrainement"
+              checked={mode === "entrainement"}
+              onChange={() => setMode("entrainement")}
             />
-            <b>Mode Normal</b>
+            <b>Mode entrainement</b>
           </label>
           <ul>
             <li>Pas de limite de temps.</li>
@@ -32,16 +32,16 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
 
         {/* Mode Examen */}
         <div
-          className={`quiz__mode-option ${mode === "exam" ? "active" : ""}`}
-          onClick={() => setMode("exam")}
+          className={`quiz__mode-option ${mode === "examen" ? "active" : ""}`}
+          onClick={() => setMode("examen")}
         >
           <label>
             <input
               type="radio"
               name="quiz_mode"
-              value="exam"
-              checked={mode === "exam"}
-              onChange={() => setMode("exam")}
+              value="examen"
+              checked={mode === "examen"}
+              onChange={() => setMode("examen")}
             />
             <b>Mode Examen</b>
           </label>

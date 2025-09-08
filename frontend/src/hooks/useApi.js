@@ -7,13 +7,14 @@ const useApi = (url) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        if (!url) return;
         const fetchData = async () => {
             setLoading(true);
             try {
                 
                 const response = await axiosInstance.get(url);
                 setData(response.data);
-                console.log("call dabase");
+                console.log("call dabase",data);
             } catch (e) {
                 setError(e);
               

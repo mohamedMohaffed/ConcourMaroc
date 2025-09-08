@@ -33,7 +33,7 @@ const SubjectsList = () => {
         }
     };
 
- 
+    const selectedSubject = data && data.find(item => item.id === selectedSubjectId);
 
     return (
         <motion.section 
@@ -112,18 +112,17 @@ const SubjectsList = () => {
                 </AnimatePresence>
             
             </div>
-              {selectedSubjectId && (
+              {selectedSubject && (
                             <motion.div 
                               initial={{opacity: 0}}
                             animate={{opacity: 1}}
                             transition={{delay:0.3}}
                             
                             className="subjects-list__type">
-                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${data[selectedSubjectId].slug}/concour`}>
+                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${selectedSubject.slug}/concour`}>
                                 <h1 className="subjects-list__type--quiz">Passer un Quiz</h1></Link>
 
-                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${data[selectedSubjectId].slug}/concour`}>
-                                <h1 className="subjects-list__type--corr">Voir la Correction</h1></Link>
+                                <h1 className="subjects-list__type--corr">Voir la Correction</h1>
                             </motion.div> 
                         )}
         </motion.section>

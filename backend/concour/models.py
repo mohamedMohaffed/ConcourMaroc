@@ -86,7 +86,7 @@ class CoursePart(models.Model):
 
 class Question(models.Model):
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name="questions")
-    text = models.TextField()
+    question = models.TextField()
     explanation = models.TextField(blank=True, null=True)  
     course_parts = models.ManyToManyField('CoursePart', related_name="questions", blank=True)
     

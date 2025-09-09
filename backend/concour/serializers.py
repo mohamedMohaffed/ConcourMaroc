@@ -43,7 +43,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['id', 'text', 'explanation', 'choices']
+        fields = ['id', 'question', 'explanation', 'choices']
 
     def get_choices(self, obj):
         show_is_correct = self.context.get('show_is_correct', True)

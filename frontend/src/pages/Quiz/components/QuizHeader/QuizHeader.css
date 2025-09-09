@@ -1,14 +1,15 @@
 .quiz__header{
     display:flex;
-    align-items:center;
-    gap:1rem;
+    /* align-items:center; */
+    gap:0rem;
     padding-left:2rem;
     color:#777777;
+    flex-direction:column;
 }
 
 .quiz__header-info{
     display:flex;
-    justify-content:center;
+    /* justify-content:center; */
     align-items:center;
     gap:1rem;
 }
@@ -22,6 +23,34 @@
 
 }
 
+.quiz__header-circle{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-color: #aceeff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #777777;
+    cursor: pointer;
+    transition: border 0.2s ease;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+}
+
+.quiz__header-circle.selected{
+    border: 2px solid black;
+    
+}
+
+.quiz_header-navigation{
+    display:flex;
+    gap:0.5rem;
+    justify-content:center;
+
+}
 @media (max-width: 48em) {
     .quiz__header{
         padding:0.5rem 1rem;

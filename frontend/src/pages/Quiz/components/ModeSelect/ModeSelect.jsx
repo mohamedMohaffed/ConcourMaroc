@@ -7,20 +7,20 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
     <div className="quiz__mode-select">
       <h2 className="quiz__mode-title">Choisissez le mode du quiz</h2>
       <div className="quiz__mode-options">
-        {/* Mode Entrainement */}
+        {/* Mode entrainement */}
         <div
-          className={`quiz__mode-option ${mode === "Entrainement" ? "active" : ""}`}
-          onClick={() => setMode("Entrainement")}
+          className={`quiz__mode-option ${mode === "entrainement" ? "active" : ""}`}
+          onClick={() => setMode("entrainement")}
         >
           <label>
             <input
               type="radio"
               name="quiz_mode"
-              value="Entrainement"
-              checked={mode === "Entrainement"}
-              onChange={() => setMode("Entrainement")}
+              value="entrainement"
+              checked={mode === "entrainement"}
+              onChange={() => setMode("entrainement")}
             />
-            <b className="quiz__mode-subtitle">Mode Entrainement</b>
+            <b className="quiz__mode-subtitle">Mode entrainement</b>
           </label>
           <ul className="quiz__mode-list">
             <li>Réponses modifiables</li>
@@ -32,20 +32,20 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
           </ul>
         </div>
 
-        {/* Mode Examen */}
+        {/* Mode examen */}
         <div
-          className={`quiz__mode-option ${mode === "Examen" ? "active" : ""}`}
-          onClick={() => setMode("Examen")}
+          className={`quiz__mode-option ${mode === "examen" ? "active" : ""}`}
+          onClick={() => setMode("examen")}
         >
           <label>
             <input
               type="radio"
               name="quiz_mode"
-              value="Examen"
-              checked={mode === "Examen"}
-              onChange={() => setMode("Examen")}
+              value="examen"
+              checked={mode === "examen"}
+              onChange={() => setMode("examen")}
             />
-            <b className="quiz__mode-subtitle">Mode Examen</b>
+            <b className="quiz__mode-subtitle">Mode examen</b>
           </label>
           <ul className="quiz__mode-list">
             <li>Réponses définitives</li>

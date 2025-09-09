@@ -7,20 +7,20 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
     <div className="quiz__mode-select">
       <h2 className="quiz__mode-title">Choisissez le mode du quiz</h2>
       <div className="quiz__mode-options">
-        {/* Mode entrainement */}
+        {/* Mode Entrainement */}
         <div
-          className={`quiz__mode-option ${mode === "entrainement" ? "active" : ""}`}
-          onClick={() => setMode("entrainement")}
+          className={`quiz__mode-option ${mode === "Entrainement" ? "active" : ""}`}
+          onClick={() => setMode("Entrainement")}
         >
           <label>
             <input
               type="radio"
               name="quiz_mode"
-              value="entrainement"
-              checked={mode === "entrainement"}
-              onChange={() => setMode("entrainement")}
+              value="Entrainement"
+              checked={mode === "Entrainement"}
+              onChange={() => setMode("Entrainement")}
             />
-            <b className="quiz__mode-subtitle">Mode entrainement</b>
+            <b className="quiz__mode-subtitle">Mode Entrainement</b>
           </label>
           <ul className="quiz__mode-list">
             <li>Réponses modifiables</li>
@@ -34,16 +34,16 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
 
         {/* Mode Examen */}
         <div
-          className={`quiz__mode-option ${mode === "examen" ? "active" : ""}`}
-          onClick={() => setMode("examen")}
+          className={`quiz__mode-option ${mode === "Examen" ? "active" : ""}`}
+          onClick={() => setMode("Examen")}
         >
           <label>
             <input
               type="radio"
               name="quiz_mode"
-              value="examen"
-              checked={mode === "examen"}
-              onChange={() => setMode("examen")}
+              value="Examen"
+              checked={mode === "Examen"}
+              onChange={() => setMode("Examen")}
             />
             <b className="quiz__mode-subtitle">Mode Examen</b>
           </label>

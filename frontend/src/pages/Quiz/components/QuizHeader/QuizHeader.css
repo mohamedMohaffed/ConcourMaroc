@@ -2,7 +2,7 @@
     display:flex;
     align-items:center;
     gap:1rem;
-    padding:1rem;
+    padding-left:2rem;
     color:#777777;
 }
 
@@ -13,15 +13,29 @@
     gap:1rem;
 }
 
+.quiz_title-phone{
+    display:none;
+}
+
+.quiz__go__back-icon :hover{
+    color: var(--color-text-primary-hover);
+
+}
+
 @media (max-width: 48em) {
     .quiz__header{
         padding:0.5rem 1rem;
     }
     .quiz_title{
-        font-size:1rem;
+        /* font-size:1rem; */
+        display:none;
+
+    }
+    .quiz_title-phone{
+        display:block;
     }
 
     .quiz_title-prefix {
-        display: none; /* Hide only "Concours de" on smaller screens */
+        display: none; 
     }
 }

@@ -12,7 +12,7 @@ import QuizHeader from './components/QuizHeader/QuizHeader';
 const Quiz =()=>{
     const { niveau_slug, universite_slug, year_slug, subject_slug } = useParams();
     const [isModeSelect, setIsModeSelect] = useState(true);
-    const [quizMode, setQuizMode] = useState("entrainement");
+    const [quizMode, setQuizMode] = useState("Entrainement");
     const [getData, setGetData] = useState(false);
 
     const url = getData ? `/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/?mode=${quizMode}` : null;

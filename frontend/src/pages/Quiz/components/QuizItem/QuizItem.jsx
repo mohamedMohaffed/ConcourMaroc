@@ -1,6 +1,7 @@
+const QuizItem = () => {
+    return (
+        <h1>eeeeeeee</h1>
+    );
+};
 
-const QuizItem=(data)=>{
-    console.log("Im quiz item")
-
-}
 export default QuizItem;

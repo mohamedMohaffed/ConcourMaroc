@@ -20,13 +20,15 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
               checked={mode === "entrainement"}
               onChange={() => setMode("entrainement")}
             />
-            <b>Mode entrainement</b>
+            <b className="quiz__mode-subtitle">Mode entrainement</b>
           </label>
-          <ul>
+          <ul className="quiz__mode-list">
             <li>Réponses modifiables</li>
-            <li>Voir la bonne réponse et l’explication</li>
+            <li>Voir la bonne réponse</li>
+            <li>Voir l’explication</li>
             <li>Sans limite de temps</li>
             <li>Copier la question, les choix </li>
+            <li>Prompt actuel pour l’IA</li>
           </ul>
         </div>
 
@@ -43,13 +45,16 @@ const ModeSelect = ({ mode, setMode, onConfirm }) => (
               checked={mode === "examen"}
               onChange={() => setMode("examen")}
             />
-            <b>Mode Examen</b>
+            <b className="quiz__mode-subtitle">Mode Examen</b>
           </label>
-          <ul>
+          <ul className="quiz__mode-list">
             <li>Réponses définitives</li>
             <li>Résultat à la fin</li>
             <li>Temps limité</li>
             <li>Conditions réelles d’examen</li>
+            <li>gggg</li>
+            <li>gggg</li>
+
           </ul>
         </div>
       </div>

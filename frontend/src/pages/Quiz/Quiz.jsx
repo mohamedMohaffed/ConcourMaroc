@@ -7,12 +7,13 @@ import ModeSelect from './components/ModeSelect/ModeSelect';
 import QuizItem from './components/QuizItem/QuizItem';
 import React, { useEffect } from 'react';
 import useApi from '../../hooks/useApi';
+import QuizHeader from './components/QuizHeader/QuizHeader';
 
 const Quiz =()=>{
-    const { niveau_slug, universite_slug, year_slug,subject_slug } = useParams();
-    const [isModeSelect,setIsModeSelect] = useState(true);
+    const { niveau_slug, universite_slug, year_slug, subject_slug } = useParams();
+    const [isModeSelect, setIsModeSelect] = useState(true);
     const [quizMode, setQuizMode] = useState("entrainement");
-    const [getData,setGetData]=useState(false);
+    const [getData, setGetData] = useState(false);
 
     const url = getData ? `/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/?mode=${quizMode}` : null;
 
@@ -26,7 +27,7 @@ const Quiz =()=>{
 
     return(
 
-        <div className="quiz__header">
+        <section className="quiz">
             {isModeSelect && 
                 <ModeSelect 
                     mode={quizMode} 
@@ -38,19 +39,18 @@ const Quiz =()=>{
                     }}
                 />
             }
-             <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/matieres`}>
-                    <FontAwesomeIcon 
-                    icon={faArrowLeft} 
-                    className="quiz__go__back-icon"
-                    size="xl"
-                    />
-            </Link>
-            <h2 className="quiz_title">
-                Concours de {subject_slug} - {universite_slug.toUpperCase()} ({niveau_slug}, {year_slug})
-            </h2>
+            
+            <QuizHeader 
+                subject={subject_slug} 
+                universite={universite_slug} 
+                niveau={niveau_slug} 
+                year={year_slug} 
+                quizMode={quizMode} 
+                getData={getData} 
+            />
           
            
-        </div>
+        </section>
 
     )}
 export default Quiz;

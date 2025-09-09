@@ -6,16 +6,23 @@ import './QuizHeader.css';
 const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData }) => {
     return (
         <div className="quiz__header">
+            <div className="quiz__header-info">
             <Link to={`/concours/${niveau}/${universite}/${year}/matieres`}>
                 <FontAwesomeIcon 
                     icon={faArrowLeft} 
                     className="quiz__go__back-icon"
-                    size="xl"
+                    size="lg"
                 />
             </Link>
-            <h2 className="quiz_title">
-                Concours de {subject} - {universite.toUpperCase()} ({niveau}, {year}) - {getData ? quizMode : "loading..."}
-            </h2>
+            <h3 className="quiz_title">
+                <span className="quiz_title-prefix">Concours de</span> {subject} - 
+                {universite.toUpperCase()} ({niveau}, {year}) <span className="quiz_title-prefix">-</span> {getData ? quizMode : "loading..."}
+            </h3>
+            </div>
+            <div className="quiz_header-navigtion">
+
+            </div>
+
         </div>
     );
 };

@@ -5,3 +5,23 @@
     padding:1rem;
     color:#777777;
 }
+
+.quiz__header-info{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:1rem;
+}
+
+@media (max-width: 48em) {
+    .quiz__header{
+        padding:0.5rem 1rem;
+    }
+    .quiz_title{
+        font-size:1rem;
+    }
+
+    .quiz_title-prefix {
+        display: none; /* Hide only "Concours de" on smaller screens */
+    }
+}

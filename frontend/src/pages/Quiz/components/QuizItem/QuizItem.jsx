@@ -1,6 +1,13 @@
-const QuizItem = () => {
+import React,{useState} from 'react';
+
+const QuizItem = (data) => {
+   
     return (
-        <h1>eeeeeeee</h1>
+        <section className="quizitem">
+           <div className="quizitem__quetion"></div>
+
+
+        </section>
     );
 };
 

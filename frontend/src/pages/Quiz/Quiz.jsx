@@ -26,21 +26,25 @@ const Quiz =()=>{
     
     ///
     // Always use useMemo, but return default values if getData is false
-   const totalQuestions = useMemo(() => {
-    if (!getData) return 0;
-    const length = data?.[0]?.questions?.length || 0;
-    console.log("Total questions:", length);
-    return length;
-}, [data, getData]);
+     const [index, setIndex] = useState(0);
+    
+    const currentQuestion = useMemo(() => 
+        data?.[0]?.questions?.[index], [data, index]
+    );
+    const totalQuestions = useMemo(() => {
+        if (!getData) return 0;
+        const length = data?.[0]?.questions?.length || 0;
+        console.log("Total questions:", length);
+        return length;
+        }, [data, getData]);
 
 
     const circlesArray = useMemo(() => {
         if (!getData) return [];
         return Array.from({ length: totalQuestions });
-        
-    }, [totalQuestions, getData]);
+        }, [totalQuestions, getData]);
 
-  
+    
     return(
 
         <section className="quiz">
@@ -65,8 +69,11 @@ const Quiz =()=>{
                 getData={getData}
                 circlesArray={circlesArray}
             />
-          
-           
+
+            <QuizItem data={data}
+            getData={getData} 
+            currentQuestion={currentQuestion}/>
+
         </section>
 
     )}

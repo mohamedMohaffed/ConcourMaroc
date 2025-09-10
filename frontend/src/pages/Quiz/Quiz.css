@@ -1,4 +1,9 @@
 
+.quiz{
+    display:flex;
+    gap:1rem;
+    flex-direction:column;
+}
 .quiz__go__back-icon{
     cursor: pointer;
 }

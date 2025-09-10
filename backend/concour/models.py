@@ -91,7 +91,7 @@ class Question(models.Model):
     course_parts = models.ManyToManyField('CoursePart', related_name="questions", blank=True)
     
     def __str__(self):
-        return f"Q: {self.text[:50]}"
+        return f"Q: {self.question[:50]}"
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="choices")

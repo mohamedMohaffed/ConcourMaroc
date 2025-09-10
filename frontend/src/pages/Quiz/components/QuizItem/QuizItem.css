@@ -1,0 +1,31 @@
+.quizitem__question{
+    font-size:1.5rem;
+    display:flex;
+    justify-content:center;
+    padding:0 2rem;
+}
+
+.quizitem__choices {
+    display: grid;
+    grid-template-columns: 400px 400px;
+    height:200px;
+    gap: 1rem;
+    padding: 2rem;
+    justify-content:center;
+}
+
+.choice {
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display:flex;
+    justify-content:center;
+    font-size:1.5rem;
+
+}
+
+.choice:hover {
+    background-color: #f5f5f5;
+}

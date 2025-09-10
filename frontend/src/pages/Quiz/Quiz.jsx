@@ -68,6 +68,8 @@ const Quiz =()=>{
                 quizMode={quizMode} 
                 getData={getData}
                 circlesArray={circlesArray}
+                changeIndex={setIndex}
+                currentIndex={index}
             />
 
             <QuizItem data={data}

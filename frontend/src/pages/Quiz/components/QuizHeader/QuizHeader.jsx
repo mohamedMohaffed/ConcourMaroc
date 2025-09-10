@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 import './QuizHeader.css';
 
-const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData ,circlesArray}) => {
-    const [selectedCircle, setSelectedCircle] = useState(0); // Default to first circle (index 0)
+const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circlesArray, changeIndex, currentIndex }) => {
     
     console.log("DS",circlesArray);
     return (
@@ -29,8 +27,8 @@ const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData ,circ
                 {circlesArray.map((_, circleIndex) => (
                     <div 
                         key={circleIndex} 
-                        className={`quiz__header-circle ${selectedCircle === circleIndex ? 'selected' : ''}`}
-                        onClick={() => setSelectedCircle(circleIndex)}
+                        className={`quiz__header-circle ${currentIndex === circleIndex ? 'selected' : ''}`}
+                        onClick={() => changeIndex(circleIndex)}
                     >
                         {circleIndex + 1}
                     </div>

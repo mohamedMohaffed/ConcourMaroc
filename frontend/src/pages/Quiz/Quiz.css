@@ -1,7 +1,7 @@
 
 .quiz{
     display:flex;
-    gap:1rem;
+    gap:2rem;
     flex-direction:column;
 }
 .quiz__go__back-icon{

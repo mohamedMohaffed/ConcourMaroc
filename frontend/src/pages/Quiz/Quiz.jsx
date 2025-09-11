@@ -7,12 +7,15 @@ import ModeSelect from './components/ModeSelect/ModeSelect';
 import QuizItem from './components/QuizItem/QuizItem';
 import useApi from '../../hooks/useApi';
 import QuizHeader from './components/QuizHeader/QuizHeader';
+import QuizNavigation from './components/QuizNavigation/QuizNavigation'
 
 const Quiz =()=>{
     const { niveau_slug, universite_slug, year_slug, subject_slug } = useParams();
     const [isModeSelect, setIsModeSelect] = useState(true);
     const [quizMode, setQuizMode] = useState("Entrainement");
     const [getData, setGetData] = useState(false);
+    const [userAnser,setUserAnser]=useState([])
+    const [selectedChoice, setSelectedChoice] = useState(null);
 
     const url = getData ? `/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/?mode=${quizMode}` : null;
 
@@ -48,6 +51,8 @@ const Quiz =()=>{
     return(
 
         <section className="quiz">
+
+
             {isModeSelect && 
                 <ModeSelect 
                     mode={quizMode} 
@@ -74,7 +79,22 @@ const Quiz =()=>{
 
             <QuizItem data={data}
             getData={getData} 
-            currentQuestion={currentQuestion}/>
+            currentQuestion={currentQuestion}
+            userAnser={userAnser}
+            selectedChoice={selectedChoice}
+            setSelectedChoice={setSelectedChoice}
+            />
+            
+            <QuizNavigation index={index} 
+            setIndex={setIndex} 
+            totalQuestions={totalQuestions}
+            getData={getData}
+            selectedChoice={selectedChoice}
+            setSelectedChoice={setSelectedChoice}
+            setUserAnser={setUserAnser}
+            userAnser={userAnser}
+            currentQuestion={currentQuestion}
+            />
 
         </section>
 

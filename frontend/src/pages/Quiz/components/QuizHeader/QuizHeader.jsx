@@ -5,7 +5,7 @@ import './QuizHeader.css';
 
 const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circlesArray, changeIndex, currentIndex }) => {
     
-    console.log("DS",circlesArray);
+    // console.log("DS",circlesArray);
     return (
         <div className="quiz__header">
             <div className="quiz__header-info">

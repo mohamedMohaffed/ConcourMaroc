@@ -41,7 +41,7 @@
 }
 
 .quiz__header-circle.selected{
-    border: 2px solid black;
+    border: 2px solid #777777;
     
 }
 
@@ -51,6 +51,9 @@
     justify-content:center;
 
 }
+
+
+
 @media (max-width: 48em) {
     .quiz__header{
         padding:0.5rem 1rem;

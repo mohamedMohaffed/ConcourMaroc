@@ -1,0 +1,29 @@
+.quiz__navigation{
+    display:flex;
+    flex-direction:row;
+    gap:1rem;
+    justify-content:center;
+}
+
+button{
+      padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 130px; /* Add this line for consistent width */
+  justify-content: center; /* Center content horizontally */
+}
+
+button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}

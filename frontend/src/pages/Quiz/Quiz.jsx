@@ -75,6 +75,8 @@ const Quiz =()=>{
                 circlesArray={circlesArray}
                 changeIndex={setIndex}
                 currentIndex={index}
+                userAnser={userAnser}
+                data={data}
             />
 
             <QuizItem data={data}

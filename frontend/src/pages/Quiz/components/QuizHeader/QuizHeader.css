@@ -45,6 +45,11 @@
     
 }
 
+.quiz__header-circle.submitted{
+    background-color: #4CAF50;
+    color: white;
+}
+
 .quiz_header-navigation{
     display:flex;
     gap:0.5rem;

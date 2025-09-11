@@ -3,7 +3,6 @@ import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
 const QuizItem = ({getData, currentQuestion, userAnser, selectedChoice, setSelectedChoice}) => {
 
-    // Set selected choice based on previously submitted answer when question changes
     useEffect(() => {
         if (currentQuestion && userAnser) {
             const previousAnswer = userAnser.find(ans => ans.question_id === currentQuestion.id);
@@ -15,11 +14,9 @@ const QuizItem = ({getData, currentQuestion, userAnser, selectedChoice, setSelec
         }
     }, [currentQuestion, userAnser, setSelectedChoice]);
 
-    // Check if current question is already submitted
     const isSubmitted = userAnser.some(ans => ans.question_id === currentQuestion?.id);
 
     const handleChoice=(choice_id)=>{
-        // Don't allow changing choice if already submitted
         if (isSubmitted) return;
         
         if(selectedChoice !== choice_id ){

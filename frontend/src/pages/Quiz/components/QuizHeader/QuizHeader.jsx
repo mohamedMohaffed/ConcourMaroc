@@ -3,9 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizHeader.css';
 
-const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circlesArray, changeIndex, currentIndex }) => {
+const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circlesArray, changeIndex, currentIndex, userAnser, data }) => {
     
-    // console.log("DS",circlesArray);
+    // Function to check if a question is submitted
+    const isQuestionSubmitted = (questionIndex) => {
+        if (!data?.[0]?.questions?.[questionIndex] || !userAnser) return false;
+        const questionId = data[0].questions[questionIndex].id;
+        return userAnser.some(ans => ans.question_id === questionId);
+    };
+
     return (
         <div className="quiz__header">
             <div className="quiz__header-info">
@@ -27,7 +33,7 @@ const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circ
                 {circlesArray.map((_, circleIndex) => (
                     <div 
                         key={circleIndex} 
-                        className={`quiz__header-circle ${currentIndex === circleIndex ? 'selected' : ''}`}
+                        className={`quiz__header-circle ${currentIndex === circleIndex ? 'selected' : ''} ${isQuestionSubmitted(circleIndex) ? 'submitted' : ''}`}
                         onClick={() => changeIndex(circleIndex)}
                     >
                         {circleIndex + 1}

@@ -27,11 +27,12 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
         }
     }
 
-    // console.log("SD",userAnser)
     return (
         getData && (
             <section className="quiz__navigation">
-                <button onClick={goToPrevious}>
+                <button 
+                disabled={index === 0}
+                onClick={goToPrevious}>
                     <FontAwesomeIcon icon={faArrowLeft} /> 
                     Précédent
                 </button>
@@ -42,6 +43,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
                 >
                     {isAnswered ? 'Annuler' : 'Soumettre'}
                 </button>
+
                 <button onClick={goToNext}>
                     Suivant
                     <FontAwesomeIcon icon={faArrowRight} />

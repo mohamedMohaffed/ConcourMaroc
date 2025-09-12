@@ -108,11 +108,11 @@ class Score(models.Model):
     score = models.IntegerField()
     time_spent = models.DurationField()
     TYPE_CHOICES = [
-        ('normal', 'Normal'),
-        ('exam', 'Exam'),
-        ('solution', 'Solution')
+        ('entrainement', 'Entrainement'),
+        ('examen', 'Examen'),
+        ('correction', 'Correction')
     ]
-    type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='normal')
+    type = models.CharField(max_length=30, choices=TYPE_CHOICES, default='entrainement')
 
     created_at = models.DateTimeField(auto_now_add=True)
 

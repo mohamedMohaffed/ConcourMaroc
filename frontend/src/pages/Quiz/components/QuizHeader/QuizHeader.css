@@ -46,7 +46,7 @@
 }
 
 .quiz__header-circle.submitted{
-    background-color: #4CAF50;
+    background-color: var(--blue-color);
     color: white;
 }
 

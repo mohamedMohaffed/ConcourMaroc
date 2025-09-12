@@ -30,9 +30,9 @@ class UserAnswerScoreAPIView(APIView):
             missing_fields.append("time_spent")
         if not type:
             missing_fields.append("type")
-        try:
-            user = User.objects.get(id=1)
-        except User.DoesNotExist:
+            
+        user = request.user
+        if user.is_anonymous:
             missing_fields.append("user")
 
         if missing_fields:
@@ -61,21 +61,21 @@ class UserAnswerScoreAPIView(APIView):
 
         # Check for None in any question or choice before proceeding
         for ans in answers:
-            if ans.get("question") is None or ans.get("choice") is None:
+            if ans.get("question_id") is None or ans.get("choice_id") is None:
                 return Response(
-                    {"detail": "Invalid question or choice: None value found."},
+                    {"detail": "Invalid question_id or choice_id: None value found."},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
-        question_ids = [ans.get("question") for ans in answers]
-        choice_ids = [ans.get("choice") for ans in answers]
+        question_ids = [ans.get("question_id") for ans in answers]
+        choice_ids = [ans.get("choice_id") for ans in answers]
         choices_qs = Choice.objects.filter(question_id__in=question_ids, id__in=choice_ids)
         choices_lookup = {(c.question_id, c.id): c for c in choices_qs}
 
         user_answer_objs = []
         for ans in answers:
-            question_id = ans.get("question")
-            choice_id = ans.get("choice")
+            question_id = ans.get("question_id")
+            choice_id = ans.get("choice_id")
             # Validate choice exists for question
             choice = choices_lookup.get((question_id, choice_id))
             if not choice:

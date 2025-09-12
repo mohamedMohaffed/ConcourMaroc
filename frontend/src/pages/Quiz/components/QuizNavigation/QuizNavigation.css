@@ -3,6 +3,7 @@
     flex-direction:row;
     gap:1rem;
     justify-content:center;
+    align-items: flex-start; /* Add this to prevent stretching */
 }
 
 button{
@@ -26,4 +27,10 @@ button:disabled {
   background-color: #cccccc;
   color: #666666;
   cursor: not-allowed;
+}
+
+.quiz__navigation__btn--endandsubmeit{
+  display:flex;
+  flex-direction:column;
+  gap:0.5rem;
 }

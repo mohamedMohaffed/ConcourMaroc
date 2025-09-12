@@ -16,16 +16,20 @@ const Quiz =()=>{
     const [getData, setGetData] = useState(false);
     const [userAnser,setUserAnser]=useState([])
     const [selectedChoice, setSelectedChoice] = useState(null);
-
+    const [startTime, setStartTime] = useState(null);
+    console.log("userAnser :",userAnser)
     const url = getData ? `/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/?mode=${quizMode}` : null;
 
     const { data, error, loading } = useApi(url);
-
+    console.log(data)
     useEffect(() => {
         if (!loading && data !== null) {
             console.log("Fetched data:", data);
+            if (!startTime) {
+                setStartTime(new Date());
+            }
         }
-    }, [data, loading]);
+    }, [data, loading, startTime]);
     
     ///
     // Always use useMemo, but return default values if getData is false
@@ -96,6 +100,9 @@ const Quiz =()=>{
             setUserAnser={setUserAnser}
             userAnser={userAnser}
             currentQuestion={currentQuestion}
+            data={data}
+            quizMode={quizMode}
+            startTime={startTime}
             />
 
         </section>

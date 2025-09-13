@@ -1,9 +1,27 @@
-
-.quiz{
-    display:flex;
-    gap:2rem;
-    flex-direction:column;
+.quiz {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
 }
-.quiz__go__back-icon{
-    cursor: pointer;
+
+.quiz__go__back-icon {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.quiz__go__back-icon:hover {
+  color: #3b82f6;
+}
+
+@media (max-width: 768px) {
+  .quiz {
+    padding: 0.5rem;
+  }
 }

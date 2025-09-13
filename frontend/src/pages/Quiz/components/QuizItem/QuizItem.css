@@ -1,66 +1,159 @@
-.quizitem__question{
-    font-size:1.5rem;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:0 2rem;
-    min-height: 6.25rem;
+.quizitem {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.quizitem__question {
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #1e293b;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-shrink: 0;
+  min-height: 6rem;
+  max-height: 8rem;
 }
 
 .quizitem__choices {
-    display: grid;
-    grid-template-columns: 25rem 25rem;
-    height: 12.5rem;
-    gap: 1rem;
-    padding: 2rem;
-    justify-content:center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  flex: 1;
+  overflow: auto;
 }
 
 .choice {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    min-height: 5rem;
-    position: relative;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  min-height: 3.5rem;
+  position: relative;
+  background: #fafbfc;
+  overflow: hidden;
 }
 
-.choice:hover {
-    background-color: #f5f5f5;
+.choice::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+  transform: scaleY(0);
+  transition: transform 0.2s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+.choice:hover:not(.choice__disabled) {
+  border-color: #3b82f6;
+  background: #f8fafc;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.choice:hover:not(.choice__disabled)::before {
+  transform: scaleY(1);
+}
+
+.choice__selected {
+  border-color: #3b82f6 !important;
+  background: #eff6ff !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.choice__selected::before {
+  transform: scaleY(1);
+}
+
+.choice__disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background: #f1f5f9;
 }
 
 .quizitem__choices-label {
-    position: absolute;
-    top: 0.5rem;
-    left: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    color: #3d3d3d;
-    font-weight: bold;
-    font-size: 0.875rem;
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.quizitem__choices-label--selected {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .choice-content {
-    padding-top:0.7rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding: 0.4rem 0.4rem 0.4rem 3rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.4;
 }
 
-.choice__selected{
-        border: 1px solid var(--blue-color);
+@media (max-width: 768px) {
+  .quizitem__question {
+    font-size: 1rem;
+    padding: 1rem;
+    min-height: 5rem;
+    max-height: 6rem;
+  }
 
-}
-.quizitem__choices-label--selected{
-        background-color: var(--blue-color);
+  .quizitem__choices {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .choice {
+    padding: 0.75rem;
+    min-height: 3rem;
+    font-size: 0.9rem;
+  }
+
+  .choice-content {
+    padding-left: 2.5rem;
+  }
+
+  .quizitem__choices-label {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.7rem;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
 }

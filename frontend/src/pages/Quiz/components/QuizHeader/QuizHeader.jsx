@@ -36,7 +36,7 @@ const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circ
                         className={`quiz__header-circle ${currentIndex === circleIndex ? 'selected' : ''} ${isQuestionSubmitted(circleIndex) ? 'submitted' : ''}`}
                         onClick={() => changeIndex(circleIndex)}
                     >
-                        {circleIndex + 1}
+                        <span>{circleIndex + 1}</span>
                     </div>
                 ))}
             </div>

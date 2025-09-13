@@ -3,3 +3,18 @@
   line-height: 1.5;
   word-break: break-word;
 }
+
+@media (max-width: 48em) {
+  .latex-renderer {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  .latex-renderer .katex {
+    font-size: 0.95em !important;
+  }
+  
+  .latex-renderer .katex-display {
+    margin: 0.5rem 0 !important;
+  }
+}

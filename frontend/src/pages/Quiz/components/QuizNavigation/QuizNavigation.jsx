@@ -67,11 +67,16 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
     return (
         getData && (
             <section className="quiz__navigation">
+                {/* Mobile question counter */}
+                <div className="quiz__mobile-counter">
+                    Question {index + 1} sur {totalQuestions}
+                </div>
+
                 <button 
                 disabled={index === 0}
                 onClick={goToPrevious}>
                     <FontAwesomeIcon icon={faArrowLeft} /> 
-                    Précédent
+                    <span className="quiz__nav-text">Précédent</span>
                 </button>
 
                 <div className="quiz__navigation__btn--endandsubmeit">
@@ -88,7 +93,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
                         onClick={PostData}
                         className="quiz__finish-btn"
                         style={{
-                            backgroundColor: '#28a745',
+                            backgroundColor: '#f59e0b',
                             color: 'white',
                             fontWeight: 'bold'
                         }}
@@ -101,7 +106,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
                 <button 
                 disabled={index === totalQuestions - 1}
                 onClick={goToNext}>
-                    Suivant
+                    <span className="quiz__nav-text">Suivant</span>
                     <FontAwesomeIcon icon={faArrowRight} />
                 </button>
             </section>

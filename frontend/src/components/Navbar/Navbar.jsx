@@ -5,12 +5,12 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const navbarItems = [
-    { name: "CONCOURS", icon: faBook, to: "/concours/niveaux" },
-    { name: "MON SCORE", icon: faGauge, to: "/dashboard" },
+    { name: "CONCOURS", mobileName: "CONCOURS", icon: faBook, to: "/concours/niveaux" },
+    { name: "MON SCORE", mobileName: "SCORE", icon: faGauge, to: "/dashboard" },
     // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
-    { name: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
-    { name: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
-    { name: "PLUS", icon: faEllipsisH, to: "/plus" }
+    { name: "PRATIQUE", mobileName: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
+    { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
+    { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH, to: "/plus" }
   ];
 
   const location = useLocation();
@@ -42,7 +42,8 @@ const Navbar = () => {
               <div
                 className={`navbar__item-name${activeIndex === idx ? " navbar__item-name--active" : ""}`}
               >
-                {item.name}
+                <span className="navbar__item-name--desktop">{item.name}</span>
+                <span className="navbar__item-name--mobile">{item.mobileName}</span>
               </div>
             </div>
           </Link>

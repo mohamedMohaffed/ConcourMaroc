@@ -25,3 +25,11 @@
     padding: 0.5rem;
   }
 }
+
+@media (max-width: 48em) {
+  .quiz {
+    padding: 0.25rem;
+    height: 100vh;
+    overflow: hidden;
+  }
+}

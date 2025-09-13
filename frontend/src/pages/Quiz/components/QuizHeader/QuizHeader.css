@@ -1,32 +1,30 @@
 .quiz__header{
     display:flex;
-    /* align-items:center; */
     gap:0rem;
     color:#777777;
     flex-direction:column;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border-radius: 12px;
-    padding: 0.5rem 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
     border: 1px solid #e2e8f0;
     flex-shrink: 0;
 }
 
 .quiz__header-info{
     display:flex;
-    /* justify-content:center; */
     align-items:center;
-    gap:1rem;
-    margin-bottom: 0.5rem;
+    gap:0.75rem;
+    margin-bottom: 0.4rem;
 }
 
 .quiz_title{
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #1e293b;
     margin: 0;
-    line-height: 1.3;
+    line-height: 1.2;
 }
 
 .quiz_title-prefix {
@@ -56,28 +54,28 @@
 
 .quiz_header-navigation{
     display:flex;
-    gap:0.5rem;
+    gap:0.4rem;
     justify-content:center;
     flex-wrap:wrap;
-    padding: 0.75rem;
+    padding: 0.5rem;
     background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 
 /* Circle style */
 
 .quiz__header-circle{
-    width: 2rem;
-    height: 2rem;
+    width: 1.75rem;
+    height: 1.75rem;
     border-radius: 50%;
     background: #f1f5f9;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #64748b;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -103,20 +101,24 @@
 
 @media (max-width: 48em) {
     .quiz__header{
-        padding:0.75rem 1rem;
-        margin-bottom: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        margin-bottom: 0.4rem;
+        border-radius: 6px;
     }
+    
     .quiz__header-info{
-        margin-bottom: 0.75rem;
+        margin-bottom: 0;
+        gap: 0.5rem;
     }
+    
     .quiz_title{
-        /* font-size:1rem; */
         display:none;
-
     }
+    
     .quiz_title-phone{
         display:block;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        line-height: 1.1;
     }
 
     .quiz_title-prefix {
@@ -124,13 +126,10 @@
     }
 
     .quiz_header-navigation {
-    padding: 0.5rem;
-    gap: 0.4rem;
-  }
+        display: none;
+    }
 
-  .quiz__header-circle {
-    width: 1.6rem;
-    height: 1.6rem;
-    font-size: 0.65rem;
-  }
+    .quiz__go__back-icon {
+        padding: 0.25rem;
+    }
 }

@@ -1,8 +1,8 @@
 .quiz__navigation {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4rem;
   padding: 1rem 1.5rem;
   background: #ffffff;
   border-radius: 12px;
@@ -63,13 +63,17 @@
 .quiz__navigation__btn--endandsubmeit {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem;
   align-items: center;
+  min-height: 6rem;
+  justify-content: flex-start;
+  width: 140px;
 }
 
 .quiz__navigation__btn--endandsubmeit button {
   min-width: 140px;
   font-weight: 600;
+  height: 2.5rem;
 }
 
 .quiz__navigation__btn--endandsubmeit button:first-child {
@@ -117,8 +121,9 @@
 @media (max-width: 768px) {
   .quiz__navigation {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
     padding: 1rem;
+    align-items: center;
   }
 
   .quiz__navigation button {
@@ -126,14 +131,17 @@
     min-width: unset;
     padding: 0.875rem;
     font-size: 0.85rem;
+    height: 2.5rem;
   }
 
   .quiz__navigation__btn--endandsubmeit {
     width: 100%;
     gap: 0.5rem;
+    min-height: 6rem;
   }
 
   .quiz__navigation__btn--endandsubmeit button {
     width: 100%;
+    height: 2.5rem;
   }
 }

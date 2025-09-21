@@ -30,12 +30,12 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choice
         fields = ['id', 'text', 'is_correct']
 
-    def to_representation(self, instance):
-        rep = super().to_representation(instance)
-        show_is_correct = self.context.get('show_is_correct', True)
-        if not show_is_correct:
-            rep.pop('is_correct', None)
-        return rep
+    # def to_representation(self, instance):
+    #     rep = super().to_representation(instance)
+    #     show_is_correct = self.context.get('show_is_correct', True)
+    #     if not show_is_correct:
+    #         rep.pop('is_correct', None)
+    #     return rep
 
 class QuestionSerializer(serializers.ModelSerializer):
     choices = serializers.SerializerMethodField()
@@ -46,39 +46,39 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ['id', 'question', 'explanation', 'choices']
 
     def get_choices(self, obj):
-        show_is_correct = self.context.get('show_is_correct', True)
-        return ChoiceSerializer(obj.choices.all(), many=True, context={'show_is_correct': show_is_correct}).data
+        # show_is_correct = self.context.get('show_is_correct', True)
+        return ChoiceSerializer(obj.choices.all(), many=True).data
+                                #  context={'show_is_correct': show_is_correct}
 
     def get_explanation(self, obj):
-        show_explanation = self.context.get('show_explanation', True)
-        return obj.explanation if show_explanation else None
+        return obj.explanation
 
-    def to_representation(self, instance):
-        rep = super().to_representation(instance)
-        show_explanation = self.context.get('show_explanation', True)
-        if not show_explanation:
-            rep.pop('explanation', None)
-        return rep
+    # def to_representation(self, instance):
+    #     rep = super().to_representation(instance)
+    #     show_explanation = self.context.get('show_explanation', True)
+    #     if not show_explanation:
+    #         rep.pop('explanation', None)
+    #     return rep
 
 class ConcourSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer(read_only=True)
-    questions = serializers.SerializerMethodField()
+    questions = QuestionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Concours
         fields = '__all__'
 
     def get_questions(self, obj):
-        show_is_correct = self.context.get('show_is_correct', True)
-        show_explanation = self.context.get('show_explanation', True)
+        # show_is_correct = self.context.get('show_is_correct', True)
+        # show_explanation = self.context.get('show_explanation', True)
         
         return QuestionSerializer(
             obj.questions.all(),
             many=True,
-            context={
-                'show_is_correct': show_is_correct,
-                'show_explanation': show_explanation
-            }
+            # context={
+            #     'show_is_correct': show_is_correct,
+            #     'show_explanation': show_explanation
+            # }
         ).data
 
 
@@ -107,4 +107,5 @@ class ConcoursListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Concours
+        fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']
         fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']

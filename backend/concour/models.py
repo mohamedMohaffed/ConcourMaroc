@@ -107,13 +107,7 @@ class Score(models.Model):
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name="scores_concours", blank=True, null=True)  
     score = models.IntegerField()
     time_spent = models.DurationField()
-    TYPE_CHOICES = [
-        ('entrainement', 'Entrainement'),
-        ('examen', 'Examen'),
-        ('correction', 'Correction')
-    ]
-    type = models.CharField(max_length=30, choices=TYPE_CHOICES, default='entrainement')
-
+   
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

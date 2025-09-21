@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Create axios instance
 const axiosInstance = axios.create({
-    // baseURL: 'http://localhost:8000', // PC
-    baseURL: 'http://192.168.1.100:8000/',  // Phone
+    baseURL: 'http://localhost:8000', // PC
+    // baseURL: 'http://192.168.1.100:8000/',  // Phone
     withCredentials: true, 
     headers: {
         'Content-Type': 'application/json',

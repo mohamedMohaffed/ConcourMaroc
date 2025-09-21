@@ -27,7 +27,7 @@ const QuizItem = ({getData, currentQuestion, userAnser, selectedChoice, setSelec
     }
       
     return (
-        getData && currentQuestion && (
+        currentQuestion && (
             <section className="quizitem">
                 <div className="quizitem__question">
                     {<LatexRenderer latex={currentQuestion.question} />}

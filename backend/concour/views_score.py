@@ -18,7 +18,7 @@ class UserAnswerScoreAPIView(APIView):
         concour_id = request.data.get("concour_id")
         answers = request.data.get("answers")
         time_spent = request.data.get("time_spent")
-        type = request.data.get("type")
+        # type = request.data.get("type")
 
         # Check all required fields
         missing_fields = []
@@ -28,8 +28,8 @@ class UserAnswerScoreAPIView(APIView):
             missing_fields.append("answers")
         if not time_spent:
             missing_fields.append("time_spent")
-        if not type:
-            missing_fields.append("type")
+        # if not type:
+        #     missing_fields.append("type")
             
         user = request.user
         if user.is_anonymous:
@@ -54,7 +54,7 @@ class UserAnswerScoreAPIView(APIView):
             concours_id=concour_id,
             score=0,  # will update after loop
             time_spent=time_spent_td,
-            type=type 
+            # type=type 
         )
         score_value = 0
         serializer_errors = []

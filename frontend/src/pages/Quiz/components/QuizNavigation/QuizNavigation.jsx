@@ -45,7 +45,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
         try {
             const quizData = {
                 concour_id: data?.[0]?.id,
-                type: quizMode,
+                // type: quizMode,
                 time_spent: "00:06:09",
                 answers: userAnser
             };
@@ -65,7 +65,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
     };
 
     return (
-        getData && (
+        data && (
             <section className="quiz__navigation">
                 {/* Mobile question counter */}
                 <div className="quiz__mobile-counter">

@@ -7,6 +7,7 @@ import UniversityList from './pages/UniversityList/UniversityList';
 import YearsList from './pages/YearsList/YearsList';
 import SubjectsList from './pages/SubjectsList/SubjectsList';
 import Quiz from './pages/Quiz/Quiz';
+import Score from './pages/Score/Score';
 const App = () => {
     return (
         <BrowserRouter>
@@ -16,7 +17,7 @@ const App = () => {
                     <Route path="/concours/:niveau_slug/universites" element={<UniversityList />} />
                     <Route path="/concours/:niveau_slug/:universite_slug/year" element={<YearsList />} />
                     <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/matieres" element={<SubjectsList/>} />
-
+                    <Route path="/concours/resultat"  element={<Score/>}/>
                 </Route>
                 {/* rr */}
                 

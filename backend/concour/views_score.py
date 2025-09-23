@@ -183,10 +183,10 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class LastUserScoreAPIView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, concour_id):
-        # user = request.user
+        user = request.user
 
         last_score = Score.objects.select_related(
             'concours__subject__year__university__level',
@@ -194,7 +194,7 @@ class LastUserScoreAPIView(APIView):
             'concours__subject__year',
             'concours__subject',
             'concours'
-        ).filter(user=1, concours_id=concour_id).order_by('-created_at').first()
+        ).filter(user=user, concours_id=concour_id).order_by('-created_at').first()
 
         if not last_score:
             return Response({"detail": "No score found for user."}, status=status.HTTP_404_NOT_FOUND)

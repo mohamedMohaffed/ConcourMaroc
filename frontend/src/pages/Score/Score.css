@@ -1,0 +1,81 @@
+.score__header {
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.score__title {
+    font-weight: 500;
+    margin: 0;
+    color:var(--color-text-primary);
+}
+
+.score__path {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--color-text-primary);
+}
+
+.score__path svg {
+    font-size: 1.2rem;
+}
+
+.score__title--first-letter {
+    color: #1CB0F6;
+}
+
+.score__info{
+    display:flex;
+    gap:2rem;
+    justify-content:center;
+
+
+}
+.score__score,.score__time{
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+}
+
+.score__info{
+    color:#777777;
+}
+
+.score__path :hover {
+    color:#1CB0F6;
+}
+
+.score__bird {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+}
+
+.score__bird__said {
+    position: relative;
+    background: #fff;
+    border: 1px solid #777777;
+    border-radius: 20px;
+    padding: 2rem 3rem;
+    font-size: 1.7rem;
+    color: #333;
+    margin-left: 0.5rem;
+    margin-bottom: 7rem; /* increased from 2.5rem to lift the bubble higher */
+    max-width: 480px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.score__bird__said::before {
+    content: "";
+    position: absolute;
+    left: -24px;
+    bottom: 18px;
+    width: 0;
+    height: 0;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-right: 24px solid #fff;
+    filter: drop-shadow(-1px 0px 0px #777777);
+}

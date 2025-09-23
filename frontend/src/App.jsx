@@ -17,7 +17,7 @@ const App = () => {
                     <Route path="/concours/:niveau_slug/universites" element={<UniversityList />} />
                     <Route path="/concours/:niveau_slug/:universite_slug/year" element={<YearsList />} />
                     <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/matieres" element={<SubjectsList/>} />
-                    <Route path="/concours/resultat"  element={<Score/>}/>
+                    <Route path="/concours/resultat/:concour_id/"  element={<Score/>}/>
                 </Route>
                 {/* rr */}
                 

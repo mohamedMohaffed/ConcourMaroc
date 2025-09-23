@@ -7,28 +7,9 @@ Content-Type: application/json
     "password":"#20050523#"
 }
 
-### 2. Test refresh token (should work with cookies)
-POST http://127.0.0.1:8000/accounts/api/token/refresh/
+
+### 7. Test GetLastScore for a specific concours (replace concour_id and token as needed)
+GET http://127.0.0.1:8000/concour/last-score/1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NTg2NDc0LCJpYXQiOjE3NTg1ODU1NzQsImp0aSI6IjM3ZGE2ZGMxZTJkNDQ3Y2FiYTQwMjNkNDY0OTUzOWMzIiwidXNlcl9pZCI6IjEifQ.JErWhfxPqrlWRZOn1J1d885sr9LJJ5U5s2nyP58l9HE
 Content-Type: application/json
 
-{
-    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjkwNDIxNywiaWF0IjoxNzU2ODE3ODE3LCJqdGkiOiIzZmUwZjFmYzAyYjc0YzJkOTkzYjQwYzc2ZTZiYTRlMyIsInVzZXJfaWQiOiIxIn0.4wCGEXXwzmW5rOXKUc00yLn2iQmiNxmByCktVZ9ijSM"
-}
-
-### 3. Test refresh with expired/invalid token (should trigger cookie deletion)
-POST http://127.0.0.1:8000/accounts/api/token/refresh/
-Content-Type: application/json
-Cookie: refresh_token=invalid_token_here; access_token=invalid_token_here
-
-### 4. Test logout (should delete cookies)
-POST http://127.0.0.1:8000/accounts/api/logout/
-Content-Type: application/json
-
-### 5. Test protected endpoint after logout (should fail)
-GET http://127.0.0.1:8000/accounts/api/protected-endpoint/
-Content-Type: application/json
-
-### 6. Manual cookie test - Login first, then copy cookies from response
-POST http://127.0.0.1:8000/accounts/api/token/refresh/
-Content-Type: application/json
-Cookie: refresh_token

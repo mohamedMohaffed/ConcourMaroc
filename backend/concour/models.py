@@ -120,7 +120,7 @@ class UserAnswer(models.Model):
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_answers_user")
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="user_answers_question")
-    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    user_choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name='user_answers_concours')
     created_at = models.DateTimeField(auto_now_add=True)
     score = models.ForeignKey(Score, on_delete=models.CASCADE, 

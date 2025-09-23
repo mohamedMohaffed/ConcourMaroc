@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (LevelAPIView, UniverstyAPIView,
                     YearAPIView,SubjectAPIView,ConcoursAPIView)
-from .views_score import UserAnswerScoreAPIView, QuestionIncorrectAnswersUserAPIView,IncorrectAnswersListAPIView
+from .views_score import (UserAnswerScoreAPIView, 
+QuestionIncorrectAnswersUserAPIView,IncorrectAnswersListAPIView,LastUserScoreAPIView)
 
 
 urlpatterns = [
@@ -21,11 +22,7 @@ urlpatterns = [
     path('list-mauvaises-reponses/',IncorrectAnswersListAPIView.as_view()),
     path('mauvaises-reponses/<slug:concour_slug>/', QuestionIncorrectAnswersUserAPIView.as_view(), name='user-bad'),
 
-
-
-
-
-
+    path('last-score/<int:concour_id>/', LastUserScoreAPIView.as_view(), name='last-score-by-concour'),
 
 
 ]

@@ -6,13 +6,13 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
 from datetime import timedelta
-from .serializers import QuestionSerializer, ConcoursListSerializer
+from .serializers import QuestionSerializer, ConcoursListSerializer, UserAnswerCreateSerializer
 # from pprint import pprint
 
 
 
 class UserAnswerScoreAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         concour_id = request.data.get("concour_id")
@@ -181,4 +181,54 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
         )
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class LastUserScoreAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, concour_id):
+        # user = request.user
+
+        last_score = Score.objects.select_related(
+            'concours__subject__year__university__level',
+            'concours__subject__year__university',
+            'concours__subject__year',
+            'concours__subject',
+            'concours'
+        ).filter(user=1, concours_id=concour_id).order_by('-created_at').first()
+
+        if not last_score:
+            return Response({"detail": "No score found for user."}, status=status.HTTP_404_NOT_FOUND)
+
+        user_answers = UserAnswer.objects.filter(score=last_score).select_related(
+            'question', 'user_choice', 'concours'
+        ).prefetch_related('question__choices')
+
+        concours = last_score.concours if last_score else None
+        subject = concours.subject if concours and hasattr(concours, 'subject') else None
+        year = subject.year if subject and hasattr(subject, 'year') else None
+        university = year.university if year and hasattr(year, 'university') else None
+        level = university.level if university and hasattr(university, 'level') else None
+
+        score_data = {
+            "score": last_score.score,
+            "time_spent": last_score.time_spent,
+            "concours_id": concours.id if concours else None,
+            "created_at": last_score.created_at,
+            "slug_level": level.slug if level else None,
+            "slug_university": university.slug if university else None,
+            "slug_year": year.slug if year else None,
+            "slug_subject": subject.slug if subject else None,
+        }
+        user_answers_data = UserAnswerCreateSerializer(user_answers, many=True).data
+
+        return Response(
+            {
+                "score": score_data,
+                "user_answers": user_answers_data,
+            },
+            status=status.HTTP_200_OK
+        )
+
+
+
 

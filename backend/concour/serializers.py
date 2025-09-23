@@ -30,13 +30,6 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choice
         fields = ['id', 'text', 'is_correct']
 
-    # def to_representation(self, instance):
-    #     rep = super().to_representation(instance)
-    #     show_is_correct = self.context.get('show_is_correct', True)
-    #     if not show_is_correct:
-    #         rep.pop('is_correct', None)
-    #     return rep
-
 class QuestionSerializer(serializers.ModelSerializer):
     choices = serializers.SerializerMethodField()
     explanation = serializers.SerializerMethodField()
@@ -46,19 +39,13 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ['id', 'question', 'explanation', 'choices']
 
     def get_choices(self, obj):
-        # show_is_correct = self.context.get('show_is_correct', True)
         return ChoiceSerializer(obj.choices.all(), many=True).data
-                                #  context={'show_is_correct': show_is_correct}
+                                
 
     def get_explanation(self, obj):
         return obj.explanation
 
-    # def to_representation(self, instance):
-    #     rep = super().to_representation(instance)
-    #     show_explanation = self.context.get('show_explanation', True)
-    #     if not show_explanation:
-    #         rep.pop('explanation', None)
-    #     return rep
+
 
 class ConcourSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer(read_only=True)
@@ -68,17 +55,10 @@ class ConcourSerializer(serializers.ModelSerializer):
         model = Concours
         fields = '__all__'
 
-    def get_questions(self, obj):
-        # show_is_correct = self.context.get('show_is_correct', True)
-        # show_explanation = self.context.get('show_explanation', True)
-        
+    def get_questions(self, obj):    
         return QuestionSerializer(
             obj.questions.all(),
             many=True,
-            # context={
-            #     'show_is_correct': show_is_correct,
-            #     'show_explanation': show_explanation
-            # }
         ).data
 
 
@@ -87,9 +67,15 @@ class ConcourSerializer(serializers.ModelSerializer):
 ####
 
 class UserAnswerCreateSerializer(serializers.ModelSerializer):
+    correct_choice = serializers.SerializerMethodField()
+
     class Meta:
-        model=UserAnswer
-        fields='__all__'
+        model = UserAnswer
+        fields = ['id', 'user', 'question', 'user_choice', 'concours', 'created_at', 'score', 'correct_choice']
+
+    def get_correct_choice(self, obj):
+        correct_choice = obj.question.choices.filter(is_correct=True).first()
+        return correct_choice.id if correct_choice else None
 
 class UserAnserList(serializers.ModelSerializer):
     class Meta:

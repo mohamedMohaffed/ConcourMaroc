@@ -212,6 +212,7 @@ class LastUserScoreAPIView(APIView):
         score_data = {
             "score": last_score.score,
             "time_spent": last_score.time_spent,
+            "lenght_question": last_score.concours.questions.count() if last_score.concours else 0,
             "concours_id": concours.id if concours else None,
             "created_at": last_score.created_at,
             "slug_level": level.slug if level else None,

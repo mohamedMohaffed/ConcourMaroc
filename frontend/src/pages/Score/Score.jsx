@@ -9,7 +9,7 @@ import happyBird from '../../assets/happy bird.png';
 const Score = () => {
     const { concour_id } = useParams();
     const { data, error, loading } = useApi(`/concour/last-score/${concour_id}`);
-
+    console.log(data);
   
 
     const breadcrumbs = data && data.score ? [
@@ -19,7 +19,20 @@ const Score = () => {
         { text: data.score.slug_subject, link: `/concours/${data.score.slug_level}/${data.score.slug_university}/${data.score.slug_year}/matieres` }
     ] : [];
 
-    
+    const formatTime = (duration) => {
+        if (!duration) return "00:00:00";
+        // Handles both "HH:MM:SS" and "369.0" (seconds as float)
+        if (typeof duration === "string" && duration.includes(":")) {
+            return duration.length === 8 ? duration : "0" + duration; // pad if needed
+        }
+        let seconds = typeof duration === "number" ? duration : parseInt(duration, 10);
+        if (isNaN(seconds)) return duration;
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = Math.floor(seconds % 60);
+        return [h, m, s].map(x => String(x).padStart(2, '0')).join(":");
+    };
+
 
 
     return (
@@ -65,7 +78,7 @@ const Score = () => {
                         <div className="score__score">
                             <FontAwesomeIcon icon={faChartLine} style={{ fontSize: "1.5rem" }}/>
                             <h2> 
-                                Résultat : {data.score.score}
+                                Résultat : {data.score.score} / {data.score.lenght_question}
                             </h2>
                             </div>
                             {/* Add marginTop for more space above the circle */}
@@ -75,8 +88,8 @@ const Score = () => {
                             <div className="score__time">
                                 <FontAwesomeIcon icon={faUserClock} style={{ fontSize: "1.5rem" }}/>
                                 <h2> 
-                                Temps Passé : 03:07:23
-                            </h2>
+                                    Temps Passé : {formatTime(data.score.time_spent)}
+                                </h2>
 
 
                             </div>

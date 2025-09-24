@@ -139,7 +139,7 @@ const Score = () => {
                                             style={{ display: "block" }}
                                             onClick={() => navigate(`/concours/analyse/${concour_id}/`)}
                                         >
-                                            Voir l’analyse
+                                            pour en savoir plus
                                             <motion.span style={{ marginLeft: 8 }}
                                             
                                             >
@@ -161,7 +161,7 @@ const Score = () => {
                                             style={{ display: "block" }}
                                             onClick={() => navigate(`/concours/analyse/${concour_id}/`)}
                                         >
-                                            Voir l’analyse
+                                            pour en savoir plus
                                             <motion.span style={{ marginLeft: 8 }}
                                             
                                             >

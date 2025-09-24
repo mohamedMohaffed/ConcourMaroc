@@ -7,8 +7,9 @@ import { motion } from 'framer-motion';
 import happyBird from '../../assets/happy bird.png';
 import sadBird from '../../assets/sad bird.png';
 import axiosInstance from '../../utils/axiosInstance';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
+import LatexRenderer from '../../pages/Quiz/components/LatexRenderer/LatexRenderer';
 
 const Score = () => {
     const { concour_id } = useParams();
@@ -17,6 +18,20 @@ const Score = () => {
     console.log(data);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [activeTab, setActiveTab] = useState("resume"); // NEW
+    const [quizData, setQuizData] = useState(null);
+
+    // Fetch quiz data using slugs from score
+    useEffect(() => {
+        if (data && data.score) {
+            const { slug_level, slug_university, slug_year, slug_subject } = data.score;
+            if (slug_level && slug_university && slug_year && slug_subject) {
+                const url = `/concour/${slug_level}/${slug_university}/${slug_year}/${slug_subject}/concour/`;
+                axiosInstance.get(url).then(res => {
+                    setQuizData(res.data);
+                });
+            }
+        }
+    }, [data]);
 
     const breadcrumbs = data && data.score ? [
         { text: data.score.slug_level, link: "/concours/niveaux" },
@@ -68,6 +83,63 @@ const Score = () => {
 
     const cancelDelete = () => {
         setShowDeleteModal(false);
+    };
+
+    // Helper: Map question_id -> user_choice_id
+    const userAnswerMap = {};
+    if (data && data.user_answers) {
+        data.user_answers.forEach(ans => {
+            userAnswerMap[ans.question] = ans.user_choice;
+        });
+    }
+
+    // Helper: Render quiz summary
+    const renderQuizSummary = () => {
+        if (!quizData || !quizData[0] || !quizData[0].questions) return <p>Chargement du résumé...</p>;
+        const questions = quizData[0].questions;
+        return (
+            <div className="score__quiz-summary">
+                {questions.map((q, idx) => {
+                    const userChoiceId = userAnswerMap[q.id];
+                    const correctChoice = q.choices.find(c => c.is_correct);
+                    const userChoice = q.choices.find(c => c.id === userChoiceId);
+                    const isCorrect = userChoice && userChoice.is_correct;
+                    return (
+                        <div key={q.id} className="score__quiz-question">
+                            <div className="score__quiz-question-title">
+                                Q{idx + 1}. <LatexRenderer latex={q.question} />
+                            </div>
+                            <ul className="score__quiz-choices">
+                                {q.choices.map(choice => {
+                                    const isUser = choice.id === userChoiceId;
+                                    const isRight = choice.is_correct;
+                                    let choiceClass = "score__quiz-choice";
+                                    if (isRight) choiceClass += " score__quiz-choice--correct";
+                                    if (isUser && !isRight) choiceClass += " score__quiz-choice--user";
+                                    if (isUser && isRight) choiceClass += " score__quiz-choice--user-correct";
+                                    return (
+                                        <li key={choice.id} className={choiceClass}>
+                                            <LatexRenderer latex={choice.text} />
+                                            {isRight && <span className="score__quiz-choice-icon">✔</span>}
+                                            {isUser && !isRight && <span className="score__quiz-choice-icon">✗</span>}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                            <div className="score__quiz-feedback">
+                                {isCorrect ? (
+                                    <span className="score__quiz-feedback--good">Bonne réponse !</span>
+                                ) : (
+                                    <span className="score__quiz-feedback--bad">
+                                        Mauvaise réponse. La bonne réponse était : <b><LatexRenderer latex={correctChoice ? correctChoice.text : ''} /></b>
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        );
     };
 
     return (
@@ -182,6 +254,7 @@ const Score = () => {
 
             {/* NAVBAR TABS */}
             <div className="score__tabs-navbar">
+                
                 <button
                     className={activeTab === "resume" ? "score__tab--active" : "score__tab"}
                     onClick={() => setActiveTab("resume")}
@@ -206,8 +279,7 @@ const Score = () => {
             <div className="score__tab-content">
                 {activeTab === "resume" && (
                     <div>
-                        {/* Mes choix content */}
-                        <p>Voici un résumé de votre score et de vos réponses.</p>
+                        {renderQuizSummary()}
                     </div>
                 )}
                 {activeTab === "analyse" && (

@@ -1,15 +1,17 @@
 import useApi from '../../hooks/useApi';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faHouse ,faUserClock,faCircle,faChartLine} from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faHouse ,faUserClock,faCircle,faChartLine,faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import './Score.css';
 import { motion } from 'framer-motion';
 import happyBird from '../../assets/happy bird.png';
 import sadBird from '../../assets/sad bird.png';
+import axiosInstance from '../../utils/axiosInstance'; // <-- add this import
 
 const Score = () => {
     const { concour_id } = useParams();
     const { data, error, loading } = useApi(`/concour/last-score/${concour_id}`);
+    const navigate = useNavigate();
     console.log(data);
   
 
@@ -45,6 +47,18 @@ const Score = () => {
         return null;
     }
 
+
+    const handlleDeleteLastScore = async () => {
+        if (!window.confirm("Voulez-vous vraiment supprimer ce score ?")) return;
+        try {
+            await axiosInstance.delete(`/concour/delete-last-score/${concour_id}/`);
+            // Option 1: redirect to home or another page
+            navigate("/concours/niveaux");
+            
+        } catch (err) {
+            alert("Erreur lors de la suppression du score.");
+        }
+    }
     return (
         <motion.section 
             initial={{opacity: 0}}
@@ -55,11 +69,11 @@ const Score = () => {
             <div className="score__header">
                 <h1 className="score__title desktop-title">
                     <span className="score__title--first-letter">R</span>
-                    ésultats du Concours
+                   ésultats du Concours
                 </h1>
                 <h1 className="score__title mobile-title">
                     <span className="score__title--first-letter">C</span>
-                    ésultats
+                   ésultats
                 </h1>
                 <div className="score__path">
                     <Link to="/concours/niveaux">
@@ -106,14 +120,44 @@ const Score = () => {
                             return (
                                 <>
                                     <img src={sadBird} alt="Bird" width="300px" height="300px" />
-                                    <p className="score__bird__said">Dommage ! Tu feras mieux la prochaine fois !</p>
+                                    <div className="score__bird__said">
+                                        <p>Dommage ! Tu feras mieux la prochaine fois !</p>
+                                        <motion.button
+                                        className="score__btn__anayse"
+                                            
+                                            style={{ display: "block" }}
+                                            onClick={() => navigate(`/concours/analyse/${concour_id}/`)}
+                                        >
+                                            Voir l’analyse
+                                            <motion.span style={{ marginLeft: 8 }}
+                                            
+                                            >
+                                                <FontAwesomeIcon icon={faArrowDown} />
+                                            </motion.span>
+                                        </motion.button>
+                                    </div>
                                 </>
                             );
                         } else {
                             return (
                                 <>
                                     <img src={happyBird} alt="Bird" width="300px" height="300px" />
-                                    <p className="score__bird__said">Bravo ! Excellent résultat ! Continue ainsi</p>
+                                    <div className="score__bird__said">
+                                        <p>Bravo ! Excellent résultat ! Continue ainsi</p>
+                                         <motion.button
+                                        className="score__btn__anayse"
+                                            
+                                            style={{ display: "block" }}
+                                            onClick={() => navigate(`/concours/analyse/${concour_id}/`)}
+                                        >
+                                            Voir l’analyse
+                                            <motion.span style={{ marginLeft: 8 }}
+                                            
+                                            >
+                                                <FontAwesomeIcon icon={faArrowDown} />
+                                            </motion.span>
+                                        </motion.button>
+                                    </div>
                                 </>
                             );
                         }
@@ -121,7 +165,9 @@ const Score = () => {
                 </div>
                 <p style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     Score sauvegardé automatiquement |  
-                    <span style={{color:"red", marginLeft: "5px"}}> Ne pas sauvegarder</span>
+                    <span style={{color:"red", marginLeft: "5px" , cursor:"pointer"}}
+                    onClick={handlleDeleteLastScore}
+                    > Ne pas sauvegarder</span>
                 </p>
             </div>
         </motion.section>

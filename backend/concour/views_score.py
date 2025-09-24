@@ -230,6 +230,17 @@ class LastUserScoreAPIView(APIView):
             status=status.HTTP_200_OK
         )
 
+class DeleteLastScoreAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, concour_id):
+        user = request.user
+        last_score = Score.objects.filter(user=user, concours_id=concour_id).order_by('-created_at').first()
+        if not last_score:
+            return Response({"detail": "No score found for user."}, status=status.HTTP_404_NOT_FOUND)
+        last_score.delete()
+        return Response({"detail": "Last score deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
 
 
 

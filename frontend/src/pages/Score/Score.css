@@ -58,7 +58,7 @@
     background: #fff;
     border: 1px solid #777777;
     border-radius: 20px;
-    padding: 2rem 3rem;
+    padding: 1rem 3rem;
     font-size: 1.7rem;
     color: #333;
     margin-left: 0.5rem;
@@ -79,3 +79,20 @@
     border-right: 24px solid #fff;
     filter: drop-shadow(-1px 0px 0px #777777);
 }
+
+.score__btn__anayse{
+    font-size:1rem;
+    background: none;
+    border: none;
+    outline: none;
+    color: #1CB0F6;
+    cursor: pointer;
+    border-bottom: 2px dashed #1CB0F6;
+    border-radius: 0;
+    padding: 0 0 2px 0;
+    margin-top: 1rem;
+    transition: color 0.2s;
+}
+/* .score__btn__anayse:hover {
+    color: #0a7bbd;
+} */

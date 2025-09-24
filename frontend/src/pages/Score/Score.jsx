@@ -16,7 +16,7 @@ const Score = () => {
     const navigate = useNavigate();
     console.log(data);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-  
+    const [activeTab, setActiveTab] = useState("resume"); // NEW
 
     const breadcrumbs = data && data.score ? [
         { text: data.score.slug_level, link: "/concours/niveaux" },
@@ -179,6 +179,51 @@ const Score = () => {
                     > Ne pas sauvegarder</span>
                 </p>
             </div>
+
+            {/* NAVBAR TABS */}
+            <div className="score__tabs-navbar">
+                <button
+                    className={activeTab === "resume" ? "score__tab--active" : "score__tab"}
+                    onClick={() => setActiveTab("resume")}
+                >
+                    Mes choix
+                </button>
+                <button
+                    className={activeTab === "analyse" ? "score__tab--active" : "score__tab"}
+                    onClick={() => setActiveTab("analyse")}
+                >
+                    Analyse
+                </button>
+                <button
+                    className={activeTab === "conseils" ? "score__tab--active" : "score__tab"}
+                    onClick={() => setActiveTab("conseils")}
+                >
+                    Graphiques
+                </button>
+            </div>
+
+            {/* TAB CONTENT */}
+            <div className="score__tab-content">
+                {activeTab === "resume" && (
+                    <div>
+                        {/* Mes choix content */}
+                        <p>Voici un résumé de votre score et de vos réponses.</p>
+                    </div>
+                )}
+                {activeTab === "analyse" && (
+                    <div>
+                        {/* Analyse content */}
+                        <p>Analyse détaillée de vos réponses et des corrections.</p>
+                    </div>
+                )}
+                {activeTab === "conseils" && (
+                    <div>
+                        {/* Graphiques content */}
+                        <p>Graphiques personnalisés pour visualiser votre score.</p>
+                    </div>
+                )}
+            </div>
+
             <DeleteModal
                 visible={showDeleteModal}
                 onConfirm={confirmDelete}

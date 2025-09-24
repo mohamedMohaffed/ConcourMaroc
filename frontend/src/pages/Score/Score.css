@@ -239,3 +239,10 @@
     color: #e74c3c;
     font-weight: 500;
 }
+
+.score {
+    overflow-y: auto;
+    /* Optionally set a min-height or height if needed */
+    min-height: 100vh;
+    /* Remove any height: 100vh from html/body to avoid double scrollbars */
+}

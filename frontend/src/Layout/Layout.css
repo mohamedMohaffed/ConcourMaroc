@@ -8,9 +8,11 @@
     display:flex;
     justify-content:center;
     border-right: #E5E5E5 0.125rem solid;
+   
+}
 
     
-}
+
 .layout_ads{
     display:flex;
     justify-content:center;

@@ -8,7 +8,10 @@ const Layout =()=>{
         <div className="layout">
 
         <aside className="layout__navbar">
-            <Navbar/>
+            <div style={{ position: "fixed", top: 0, left: 0 }}>
+             <Navbar />
+            </div>
+
         </aside>
         <main className="layout__main">
             <Outlet />

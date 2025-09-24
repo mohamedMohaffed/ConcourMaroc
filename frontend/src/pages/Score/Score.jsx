@@ -3,9 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faHouse ,faUserClock,faCircle,faChartLine} from '@fortawesome/free-solid-svg-icons';
 import './Score.css';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import happyBird from '../../assets/happy bird.png';
-// import { useState, useEffect } from 'react';
+import sadBird from '../../assets/sad bird.png';
+
 const Score = () => {
     const { concour_id } = useParams();
     const { data, error, loading } = useApi(`/concour/last-score/${concour_id}`);
@@ -33,18 +34,29 @@ const Score = () => {
         return [h, m, s].map(x => String(x).padStart(2, '0')).join(":");
     };
 
-
+    // Only render after loading is done and no error
+    if (loading) {
+        return <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Loading...</p>;
+    }
+    if (error) {
+        return <p className="error">Error: {error.message}</p>;
+    }
+    if (!data || !data.score) {
+        return null;
+    }
 
     return (
         <motion.section 
-         initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        transition={{delay:0.2}}
-        className="score">
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{delay:0.2}}
+            className="score"
+        >
             <div className="score__header">
                 <h1 className="score__title desktop-title">
                     <span className="score__title--first-letter">R</span>
-                        ésultats du Concours                </h1>
+                    ésultats du Concours
+                </h1>
                 <h1 className="score__title mobile-title">
                     <span className="score__title--first-letter">C</span>
                     ésultats
@@ -53,7 +65,7 @@ const Score = () => {
                     <Link to="/concours/niveaux">
                         <FontAwesomeIcon icon={faHouse} style={{ cursor: "pointer" }} />
                     </Link>
-                    {breadcrumbs && breadcrumbs.map((crumb, index) => (
+                    {breadcrumbs.map((crumb, index) => (
                         <span key={index}>
                             <FontAwesomeIcon icon={faChevronRight} />
                             {crumb.link ? (
@@ -66,42 +78,51 @@ const Score = () => {
                         </span>
                     ))}
                 </div>
-           
             </div>
 
             <div className="score__items">
-                {loading && <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Loading...</p>}
-                {error && <p className="error">Error: {error.message}</p>}
-                {/* Only render score info if data and data.score exist */}
-                {data && data.score && (
-                    <div className="score__info">
-                        <div className="score__score">
-                            <FontAwesomeIcon icon={faChartLine} style={{ fontSize: "1.5rem" }}/>
-                            <h2> 
-                                Résultat : {data.score.score} / {data.score.lenght_question}
-                            </h2>
-                            </div>
-                            {/* Add marginTop for more space above the circle */}
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "2px" }}>
-                                <FontAwesomeIcon icon={faCircle} style={{ fontSize: "0.5rem" }} />
-                            </div>
-                            <div className="score__time">
-                                <FontAwesomeIcon icon={faUserClock} style={{ fontSize: "1.5rem" }}/>
-                                <h2> 
-                                    Temps Passé : {formatTime(data.score.time_spent)}
-                                </h2>
-
-
-                            </div>
+                <div className="score__info">
+                    <div className="score__score">
+                        <FontAwesomeIcon icon={faChartLine} style={{ fontSize: "1.5rem" }}/>
+                        <h2> 
+                            Résultat : {data.score.score} / {data.score.lenght_question}
+                        </h2>
                     </div>
-                )}
-              
-            
-            </div>
-
-            <div className="score__bird">
-                <img src={happyBird} alt="Happy Bird" width="300px" height="300px" />
-                <p className="score__bird__said">Bravo ! Excellent résultat ! Continue ainsi</p>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "2px" }}>
+                        <FontAwesomeIcon icon={faCircle} style={{ fontSize: "0.5rem" }} />
+                    </div>
+                    <div className="score__time">
+                        <FontAwesomeIcon icon={faUserClock} style={{ fontSize: "1.5rem" }}/>
+                        <h2> 
+                            Temps Passé : {formatTime(data.score.time_spent)}
+                        </h2>
+                    </div>
+                </div>
+                <div className="score__bird">
+                    {(() => {
+                        const score = Number(data.score.score);
+                        const total = Number(data.score.lenght_question);
+                        if (score < total / 2) {
+                            return (
+                                <>
+                                    <img src={sadBird} alt="Bird" width="300px" height="300px" />
+                                    <p className="score__bird__said">Dommage ! Tu feras mieux la prochaine fois !</p>
+                                </>
+                            );
+                        } else {
+                            return (
+                                <>
+                                    <img src={happyBird} alt="Bird" width="300px" height="300px" />
+                                    <p className="score__bird__said">Bravo ! Excellent résultat ! Continue ainsi</p>
+                                </>
+                            );
+                        }
+                    })()}
+                </div>
+                <p style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    Score sauvegardé automatiquement |  
+                    <span style={{color:"red", marginLeft: "5px"}}> Ne pas sauvegarder</span>
+                </p>
             </div>
         </motion.section>
     );

@@ -16,7 +16,8 @@
     line-height: 1;
     font-size: 2.25rem;
     /* color: #FF6F61; */
-    color: #21D375;
+    /* color: #21D375; */
+    color:#777777;
 }
 .navbar__logo--go {
     color: #1CB0F6;

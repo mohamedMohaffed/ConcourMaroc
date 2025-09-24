@@ -1,14 +1,16 @@
 import useQuizActions from '../../hooks/useQuizActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight,faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
 import './QuizNavigation.css';
+import { useNavigate } from 'react-router-dom';
+
 import axiosInstance from '../../../../utils/axiosInstance';
-const QuizNavigation = ({ index, setIndex, totalQuestions, getData, 
-    selectedChoice,setSelectedChoice ,setUserAnser,userAnser,currentQuestion, data, quizMode, startTime }) => {
+const QuizNavigation = ({ index, setIndex, totalQuestions, 
+    selectedChoice,setSelectedChoice ,setUserAnser,userAnser,currentQuestion, data }) => {
 
     const { goToPrevious, goToNext } = useQuizActions(index, setIndex, totalQuestions);
-    
+    const navigate = useNavigate();
+
     // Check if current question is already answered
     const isAnswered = userAnser.some(ans => ans.question_id === currentQuestion?.id);
     
@@ -45,7 +47,6 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
         try {
             const quizData = {
                 concour_id: data?.[0]?.id,
-                // type: quizMode,
                 time_spent: "00:06:09",
                 answers: userAnser
             };
@@ -55,8 +56,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions, getData,
             const response = await axiosInstance.post('/concour/utilisateur-score-et-reponses/', quizData);
 
             if (response.status === 200 || response.status === 201) {
-                alert('Quiz terminé avec succès!');
-                // You might want to redirect or show results
+                navigate(`/concours/resultat/${quizData.concour_id}/`);
             }
         } catch (error) {
             console.error('Error posting quiz data:', error);

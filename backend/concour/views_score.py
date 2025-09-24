@@ -88,7 +88,7 @@ class UserAnswerScoreAPIView(APIView):
                 user=user,
                 concours_id=concour_id,
                 question_id=question_id,
-                choice_id=choice_id,
+                user_choice=choice,  # <-- FIXED: was choice_id=choice_id
                 score=score_obj
             ))
             if choice.is_correct:

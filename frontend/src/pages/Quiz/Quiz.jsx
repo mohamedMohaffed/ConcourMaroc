@@ -52,25 +52,11 @@ const Quiz =()=>{
 
         <section className="quiz">
 
-
-            {/* {isModeSelect && 
-                <ModeSelect 
-                    mode={quizMode} 
-                    setMode={setQuizMode}
-                    onConfirm={() => {
-                        setIsModeSelect(false);
-                        setGetData(true)
-                        
-                    }}
-                />
-            } */}
-            
             <QuizHeader 
                 subject={subject_slug} 
                 universite={universite_slug} 
                 niveau={niveau_slug} 
                 year={year_slug} 
-                // quizMode={quizMode} 
                 getData={data && !loading}
                 circlesArray={circlesArray}
                 changeIndex={setIndex}

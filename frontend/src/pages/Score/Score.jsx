@@ -6,13 +6,16 @@ import './Score.css';
 import { motion } from 'framer-motion';
 import happyBird from '../../assets/happy bird.png';
 import sadBird from '../../assets/sad bird.png';
-import axiosInstance from '../../utils/axiosInstance'; // <-- add this import
+import axiosInstance from '../../utils/axiosInstance';
+import { useState } from 'react';
+import DeleteModal from '../../components/DeleteModal/DeleteModal';
 
 const Score = () => {
     const { concour_id } = useParams();
     const { data, error, loading } = useApi(`/concour/last-score/${concour_id}`);
     const navigate = useNavigate();
     console.log(data);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
   
 
     const breadcrumbs = data && data.score ? [
@@ -48,17 +51,25 @@ const Score = () => {
     }
 
 
-    const handlleDeleteLastScore = async () => {
-        if (!window.confirm("Voulez-vous vraiment supprimer ce score ?")) return;
+    const handlleDeleteLastScore = () => {
+        setShowDeleteModal(true);
+    };
+
+    const confirmDelete = async () => {
         try {
             await axiosInstance.delete(`/concour/delete-last-score/${concour_id}/`);
-            // Option 1: redirect to home or another page
+            setShowDeleteModal(false);
             navigate("/concours/niveaux");
-            
         } catch (err) {
             alert("Erreur lors de la suppression du score.");
+            setShowDeleteModal(false);
         }
-    }
+    };
+
+    const cancelDelete = () => {
+        setShowDeleteModal(false);
+    };
+
     return (
         <motion.section 
             initial={{opacity: 0}}
@@ -170,6 +181,12 @@ const Score = () => {
                     > Ne pas sauvegarder</span>
                 </p>
             </div>
+            <DeleteModal
+                visible={showDeleteModal}
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+                message="Voulez-vous vraiment supprimer ce score ?"
+            />
         </motion.section>
     );
 };

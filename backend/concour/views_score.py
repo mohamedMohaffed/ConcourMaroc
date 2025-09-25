@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
 from datetime import timedelta
-from .serializers import QuestionSerializer, ConcoursListSerializer, UserAnswerCreateSerializer
+from .serializers import QuestionSerializer, ConcoursListSerializer, UserAnswerCreateSerializer, ScoreSerializer
 # from pprint import pprint
 
 
@@ -240,6 +240,32 @@ class DeleteLastScoreAPIView(APIView):
             return Response({"detail": "No score found for user."}, status=status.HTTP_404_NOT_FOUND)
         last_score.delete()
         return Response({"detail": "Last score deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
+class AllScoresForConcourAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, concour_id):
+        user = request.user
+        scores = (
+            Score.objects
+            .filter(concours_id=concour_id, user=user)
+            .select_related(
+                'user',
+                'concours',
+                'concours__subject',
+                'concours__subject__year',
+                'concours__subject__year__university',
+                'concours__subject__year__university__level'
+            )
+            .prefetch_related(
+                'user_answers_score',
+                'user_answers_score__question',
+                'user_answers_score__question__choices',
+                'user_answers_score__user_choice'
+            )
+        )
+        serializer = ScoreSerializer(scores, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 

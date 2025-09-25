@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (Level,University,Year,Subject,
-                    Concours,Choice,Question,UserAnswer)
+                    Concours,Choice,Question,UserAnswer,Score)
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -95,3 +95,9 @@ class ConcoursListSerializer(serializers.ModelSerializer):
         model = Concours
         fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']
         fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']
+
+
+class ScoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Score
+        fields = '__all__'

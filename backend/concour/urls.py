@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (LevelAPIView, UniverstyAPIView,
                     YearAPIView,SubjectAPIView,ConcoursAPIView)
 from .views_score import (UserAnswerScoreAPIView, 
-QuestionIncorrectAnswersUserAPIView,IncorrectAnswersListAPIView,LastUserScoreAPIView,DeleteLastScoreAPIView)
+QuestionIncorrectAnswersUserAPIView,IncorrectAnswersListAPIView,LastUserScoreAPIView,DeleteLastScoreAPIView,
+AllScoresForConcourAPIView)
 
 
 urlpatterns = [
@@ -24,6 +25,8 @@ urlpatterns = [
 
     path('last-score/<int:concour_id>/', LastUserScoreAPIView.as_view(), name='last-score-by-concour'),
     path('delete-last-score/<int:concour_id>/', DeleteLastScoreAPIView.as_view(), name='delete-last-score-by-concour'),
+
+    path('all-scores/<int:concour_id>/', AllScoresForConcourAPIView.as_view(), name='all-scores-for-concour'),
 
 
 ]

@@ -407,12 +407,12 @@ const Score = () => {
                 >
                     Mes choix
                 </button>
-                <button
+                {/* <button
                     className={activeTab === "analyse" ? "score__tab--active" : "score__tab"}
                     onClick={() => setActiveTab("analyse")}
                 >
                     Analyse
-                </button>
+                </button> */}
                 <button
                     className={activeTab === "graph" ? "score__tab--active" : "score__tab"}
                     onClick={() => setActiveTab("graph")}
@@ -428,12 +428,11 @@ const Score = () => {
                         {renderQuizSummary()}
                     </div>
                 )}
-                {activeTab === "analyse" && (
+                {/* {activeTab === "analyse" && (
                     <div>
-                        {/* Analyse content */}
                         <p>Analyse détaillée de vos réponses et des corrections.</p>
                     </div>
-                )}
+                )} */}
                 {activeTab === "graph" && (
                     <div>
                         {/* Graphiques content */}

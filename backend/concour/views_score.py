@@ -17,7 +17,6 @@ class UserAnswerScoreAPIView(APIView):
         concour_id = request.data.get("concour_id")
         answers = request.data.get("answers")
         time_spent = request.data.get("time_spent")
-        # type = request.data.get("type")
 
         # Check all required fields
         missing_fields = []
@@ -42,8 +41,13 @@ class UserAnswerScoreAPIView(APIView):
 
         if isinstance(time_spent, str):
             # Expecting format "HH:MM:SS"
-            h, m, s = map(int, time_spent.split(":"))
-            time_spent_td = timedelta(hours=h, minutes=m, seconds=s)
+            try:
+                h, m, s = map(int, time_spent.split(":"))
+                time_spent_td = timedelta(hours=h, minutes=m, seconds=s)
+            except Exception:
+                time_spent_td = timedelta(seconds=0)
+        elif isinstance(time_spent, int):
+            time_spent_td = timedelta(seconds=time_spent)
         else:
             time_spent_td = timedelta(seconds=0)
         

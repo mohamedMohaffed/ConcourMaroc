@@ -1,3 +1,4 @@
+import React, { useEffect, useRef, useState } from 'react';
 import useQuizActions from '../../hooks/useQuizActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight,faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -33,21 +34,32 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
         }
     }
 
-    // const calculateTimeSpent = () => {
-    //     if (!startTime) return "00:00:00";
-    //     const endTime = new Date();
-    //     const diffMs = endTime - startTime;
-    //     const hours = Math.floor(diffMs / (1000 * 60 * 60));
-    //     const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-    //     const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
-    //     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    // };
+    // Timer state
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
+    const timerRef = useRef(null);
+
+    // Start timer on mount
+    useEffect(() => {
+        timerRef.current = setInterval(() => {
+            setElapsedSeconds(prev => prev + 1);
+        }, 1000);
+        return () => clearInterval(timerRef.current);
+    }, []);
 
     const PostData = async () => {
         try {
+            // Format elapsedSeconds as "HH:MM:SS"
+            const hours = Math.floor(elapsedSeconds / 3600);
+            const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+            const seconds = elapsedSeconds % 60;
+            const timeSpentStr = 
+                ('0' + hours).slice(-2) + ':' +
+                ('0' + minutes).slice(-2) + ':' +
+                ('0' + seconds).slice(-2);
+
             const quizData = {
                 concour_id: data?.[0]?.id,
-                time_spent: "00:06:09",
+                time_spent: timeSpentStr, // send as "HH:MM:SS"
                 answers: userAnser
             };
 
@@ -67,6 +79,22 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
     return (
         data && (
             <section className="quiz__navigation">
+                {/* Timer display */}
+                {/* <div className="quiz__timer">
+                    Temps écoulé: {
+                        (() => {
+                            const hours = Math.floor(elapsedSeconds / 3600);
+                            const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+                            const seconds = elapsedSeconds % 60;
+                            return (
+                                ('0' + hours).slice(-2) + ':' +
+                                ('0' + minutes).slice(-2) + ':' +
+                                ('0' + seconds).slice(-2)
+                            );
+                        })()
+                    }
+                </div> */}
+
                 {/* Mobile question counter */}
                 <div className="quiz__mobile-counter">
                     Question {index + 1} sur {totalQuestions}

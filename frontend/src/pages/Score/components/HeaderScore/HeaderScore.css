@@ -1,0 +1,29 @@
+.score__title {
+    font-weight: 500;
+    margin: 0;
+    color:var(--color-text-primary);
+}
+.score__detail__title{
+    font-weight:500;
+    color:var(--color-text-primary);
+    padding-left:2rem;
+}
+
+.score__path {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--color-text-primary);
+}
+
+.score__path svg {
+    font-size: 1.2rem;
+}
+
+.score__title--first-letter {
+    color: #1CB0F6;
+}
+
+.score__path :hover {
+    color:#1CB0F6;
+}

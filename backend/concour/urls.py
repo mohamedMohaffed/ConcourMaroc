@@ -2,8 +2,11 @@ from django.urls import path
 from .views import (LevelAPIView, UniverstyAPIView,
                     YearAPIView,SubjectAPIView,ConcoursAPIView)
 from .views_score import (UserAnswerScoreAPIView, 
-QuestionIncorrectAnswersUserAPIView,IncorrectAnswersListAPIView,LastUserScoreAPIView,DeleteLastScoreAPIView,
+QuestionIncorrectAnswersUserAPIView,IncorrectAnswersListAPIView,
+LastUserScoreAPIView,DeleteLastScoreAPIView,
 AllScoresForConcourAPIView)
+
+from .views_ai import AIResponderAPIView
 
 
 urlpatterns = [
@@ -28,6 +31,9 @@ urlpatterns = [
 
     path('all-scores/<int:concour_id>/', AllScoresForConcourAPIView.as_view(), name='all-scores-for-concour'),
 
+    #AI chat
+    
+    path('ai/',AIResponderAPIView.as_view())
 
 ]
 

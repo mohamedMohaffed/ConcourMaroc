@@ -7,9 +7,11 @@ Content-Type: application/json
     "password":"#20050523#"
 }
 
-
-### 7. Test GetLastScore for a specific concours (replace concour_id and token as needed)
-GET http://127.0.0.1:8000/concour/last-score/1/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4NjAxODEzLCJpYXQiOjE3NTg2MDA5MTMsImp0aSI6ImMzODY2ODc0NGE3ZjRjNDQ4MjE2NDhmZmQ1OGI2ZjY0IiwidXNlcl9pZCI6IjEifQ.Mh0h37SfYabkupdQyu8f6TZrimaQm8VafIJE6ppovCI; expires=Tue, 23 Sep 2025 05:20:14 GMT; HttpOnly; Max-Age=3901; Path=/; SameSite=Lax,refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1OTIwNTcxMywiaWF0IjoxNzU4NjAwOTEzLCJqdGkiOiI3ZWI5MDY2Zjc2OGE0Yzc5YWVmMjY3YzFiNWZmZDBkMCIsInVzZXJfaWQiOiIxIn0.xM7xH6yzsJSb4ib6PZuN33KtFJnx7GoL5aRpPKtgJ0w
+### 2. Call AI endpoint (replace <your_token> with actual token)
+POST http://127.0.0.1:8000/concour/ai/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4OTM5NTc5LCJpYXQiOjE3NTg5Mzg2NzksImp0aSI6ImIyYTZkN2UyMTgzNTRjNDQ4Y2YxODQ0NTI1MzIyY2ZkIiwidXNlcl9pZCI6IjEifQ.0-pPhPjrUpQZXjdA4-8TLBsD3k5yW31ofyZGyzWklS8
 
+{
+    "prompt" : "what is AI ?"
+}

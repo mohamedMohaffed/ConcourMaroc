@@ -19,7 +19,7 @@ const HeaderScore=({data})=>{
                            ésultats du Concours
                         </h1>
                         <h1 className="score__title mobile-title">
-                            <span className="score__title--first-letter">C</span>
+                            <span className="score__title--first-letter">R</span>
                            ésultats
                         </h1>
                         <div className="score__path">

@@ -1,3 +1,11 @@
+.score__header {
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+
 .score__title {
     font-weight: 500;
     margin: 0;
@@ -26,4 +34,68 @@
 
 .score__path :hover {
     color:#1CB0F6;
+}
+
+
+
+@media (max-width: 48em) {
+    .score{
+        display: flex;
+        flex-direction: column;
+        gap: 0rem;
+        position: relative;
+        padding-bottom: 0rem; /* Add padding to account for navbar at bottom */
+    }
+    .score__header {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: fixed; /* Fixed positioning */
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white; /* Add background to prevent content showing through */
+        z-index: 50; /* Ensure it's above content but below navbar */
+        box-sizing: border-box;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add shadow for better visibility */
+    }
+    
+    .score__path svg {
+        font-size: 1rem;
+    }
+    .score__items {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        overflow-y: auto;
+        margin-top: 6rem;
+        padding-top: 0.5rem;
+
+    }
+
+    .score-item {
+        width: 14rem;
+        height: 3.625rem;
+        font-size: 0.75rem;
+    }
+
+    .desktop-title {
+        display: none;
+    }
+    
+    .mobile-title {
+        display: block;
+    }
+    
+    
+     .score .mobile-title {
+        display: block;
+        font-size: 1.5rem;
+    }
+
+    .score__path :hover {
+        color: inherit; 
+    }
+    .score__path :active {
+    color:#1CB0F6;
+}
 }

@@ -115,6 +115,7 @@ class UserAnswerScoreAPIView(APIView):
             {"detail": "All answers saved successfully."},
             status=status.HTTP_201_CREATED
         )
+
 class IncorrectAnswersListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -142,6 +143,7 @@ class IncorrectAnswersListAPIView(APIView):
 
         serializer = ConcoursListSerializer(concours_qs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 class QuestionIncorrectAnswersUserAPIView(APIView):
     permission_classes = [IsAuthenticated]
     
@@ -182,6 +184,7 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
         )
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 class LastUserScoreAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -229,6 +232,7 @@ class LastUserScoreAPIView(APIView):
             },
             status=status.HTTP_200_OK
         )
+
 class DeleteLastScoreAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -239,6 +243,7 @@ class DeleteLastScoreAPIView(APIView):
             return Response({"detail": "No score found for user."}, status=status.HTTP_404_NOT_FOUND)
         last_score.delete()
         return Response({"detail": "Last score deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
 class AllScoresForConcourAPIView(APIView):
     permission_classes = [IsAuthenticated]
 

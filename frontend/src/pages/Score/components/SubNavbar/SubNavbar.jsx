@@ -1,28 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 
-// Register Chart.js components
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 import axiosInstance from '../../../../utils/axiosInstance';
-import renderQuizSummary from './renderQuizSummary';
+import renderQuizSummary from './components/renderQuizSummary';
+import Graph from "./components/Graph/Graph";
+import './SubNavbar.css';
+
 
 const SubNavbar=({data,concour_id})=>{
     const [activeTab, setActiveTab] = useState("useranser"); // Set default to "useranser"
@@ -62,10 +44,10 @@ const SubNavbar=({data,concour_id})=>{
     const timeData = allScores.map(s => {
         if (typeof s.time_spent === "string" && s.time_spent.includes(":")) {
             const parts = s.time_spent.split(":").map(Number);
-            // Convert to total seconds, then to minutes
-            return (parts[0] * 3600 + parts[1] * 60 + parts[2]) / 60;
+            // Convert to total seconds
+            return parts[0] * 3600 + parts[1] * 60 + parts[2];
         }
-        return Number(s.time_spent) / 60;
+        return Number(s.time_spent);
     });
 
     // Highlight last point and make it bigger
@@ -107,7 +89,7 @@ const SubNavbar=({data,concour_id})=>{
         labels: chartLabels,
         datasets: [
             {
-                label: 'Temps Passé (minutes)',
+                label: 'Temps Passé (secondes)',
                 data: timeData,
                 fill: false,
                 borderColor: 'rgb(255, 99, 132)',
@@ -152,18 +134,39 @@ const SubNavbar=({data,concour_id})=>{
                 display: true,
                 text: 'Temps passé',
                 font: { size: 18 }
+            },
+            tooltip: {
+                ...chartOptions.plugins.tooltip,
+                callbacks: {
+                    label: function(context) {
+                        const value = context.parsed.y;
+                        return `Temps Passé : ${formatSecondsToHMS(value)}`;
+                    }
+                }
             }
         },
         scales: {
             ...chartOptions.scales,
             y: {
-                title: { display: true, text: 'Temps Passé (minutes)' },
+                title: { display: true, text: 'Temps Passé (hh:mm:ss)' },
                 beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return formatSecondsToHMS(value);
+                    }
+                },
             },
         },
     };
 
-
+    // Helper to format seconds to hh:mm:ss
+function formatSecondsToHMS(seconds) {
+    seconds = Math.round(seconds);
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
+}
     
     return(
 
@@ -204,22 +207,8 @@ const SubNavbar=({data,concour_id})=>{
                     </div>
                 )} */}
                 {activeTab === "graph" && (
-                    <div>
-                        {/* Graphiques content */}
-                        <h2>Historique des scores</h2>
-                        {allScores.length === 0 ? (
-                            <p>Aucun score disponible pour ce concours.</p>
-                        ) : (
-                            <div className="score__graph">
-                                <div className="score__graph__score" style={{ width: "800px", height: "400px" }}>
-                                    <Line data={chartData} options={chartOptions} />
-                                </div>
-                                <div className="score__graph__time" style={{ width: "800px", height: "400px" }}>
-                                    <Line data={chartTimeData} options={chartTimeOptions} />
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                   <Graph allScores={allScores} chartData={chartData} chartTimeData={chartTimeData} 
+                   chartOptions={chartOptions} chartTimeOptions={chartTimeOptions}/>
                 )}
             </div>
             </div>

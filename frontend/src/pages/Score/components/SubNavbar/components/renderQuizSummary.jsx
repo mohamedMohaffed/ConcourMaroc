@@ -1,4 +1,4 @@
-import LatexRenderer from '../../../Quiz/components/LatexRenderer/LatexRenderer';
+import LatexRenderer from '../../../../Quiz/components/LatexRenderer/LatexRenderer';
 
 const renderQuizSummary = ({quizData,data}) => {
         if (!quizData || !quizData[0] || !quizData[0].questions) return <p>Chargement du résumé...</p>;

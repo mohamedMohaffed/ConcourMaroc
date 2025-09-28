@@ -9,7 +9,7 @@ import SubjectsList from './pages/SubjectsList/SubjectsList';
 import Quiz from './pages/Quiz/Quiz';
 import Score from './pages/Score/Score';
 // import TestAI from './pages/TestAI/TestAI';
-// import Dashboard from './pages/DashBoard/DashBoard';
+import Dashboard from './pages/DashBoard/DashBoard';
 
 const App = () => {
     return (
@@ -21,7 +21,7 @@ const App = () => {
                     <Route path="/concours/:niveau_slug/:universite_slug/year" element={<YearsList />} />
                     <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/matieres" element={<SubjectsList/>} />
                     <Route path="/concours/resultat/:concour_id/"  element={<Score/>}/>
-                    {/* <Route path="/tableau-de-bord" element={<Dashboard />} /> */}
+                    <Route path="/tableau-de-bord" element={<Dashboard />} />
                 </Route>
                 {/* rr */}
                 

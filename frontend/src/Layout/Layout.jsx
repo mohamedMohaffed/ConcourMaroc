@@ -8,7 +8,7 @@ const Layout =()=>{
         <div className="layout">
 
         <aside className="layout__navbar">
-            <div style={{ position: "fixed", top: 0, left: 0 }}>
+            <div className="layout__navbar_comp" >
              <Navbar />
             </div>
 

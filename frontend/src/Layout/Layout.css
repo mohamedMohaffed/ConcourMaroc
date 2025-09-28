@@ -21,6 +21,12 @@
     border-left: #E5E5E5 0.125rem solid;
 }
 
+/* .layout__navbar_comp{
+    position: "fixed";
+    top: 0;
+    left: 0;
+} */
+
 @media (max-width: 48em) {
     .layout_ads{
         display:none;

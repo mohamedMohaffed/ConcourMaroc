@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserClock,faCircle,faChartLine,faArrowDown} from '@fortawesome/free-solid-svg-icons';
+import { faUserClock,faChartLine,faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import happyBird from '../../../../assets/happy bird.png';
 import sadBird from '../../../../assets/sad bird.png';
 import { motion } from 'framer-motion';
@@ -25,24 +25,27 @@ const InfoScore=({data, handlleDeleteLastScore})=>{
     return(
 
         <div className="score__items">
-                <div className="score__info">
-                    <div className="score__score">
-                        <FontAwesomeIcon icon={faChartLine} style={{ fontSize: "1.5rem" }}/>
-                        <h2> 
-                            Résultat : {data.score.score} / {data.score.lenght_question}
-                        </h2>
+                <div className="score__info-new">
+                    <div className="score__info-item">
+                        <span className="score__icon score__icon-chart">
+                            <FontAwesomeIcon icon={faChartLine} />
+                        </span>
+                        <div>
+                            <div className="score__label">Résultat</div>
+                            <div className="score__value">{data.score.score} / {data.score.lenght_question}</div>
+                        </div>
                     </div>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center",
-                         marginTop: "2px" }}>
-                        <FontAwesomeIcon icon={faCircle} style={{ fontSize: "0.5rem" }} />
-                    </div>
-                    <div className="score__time">
-                        <FontAwesomeIcon icon={faUserClock} style={{ fontSize: "1.5rem" }}/>
-                        <h2> 
-                            Temps Passé : {formatTime(data.score.time_spent)}
-                        </h2>
+                    <div className="score__info-item">
+                        <span className="score__icon score__icon-clock">
+                            <FontAwesomeIcon icon={faUserClock} />
+                        </span>
+                        <div>
+                            <div className="score__label">Temps Passé</div>
+                            <div className="score__value">{formatTime(data.score.time_spent)}</div>
+                        </div>
                     </div>
                 </div>
+
                 <div className="score__bird">
                     {(() => {
                         const score = Number(data.score.score);
@@ -50,9 +53,9 @@ const InfoScore=({data, handlleDeleteLastScore})=>{
                         if (score < total / 2) {
                             return (
                                 <>
-                                    <img src={sadBird} alt="Bird" width="300px" height="300px" />
+                                    <img className="bird_img" src={sadBird} alt="Bird" width="300px" height="300px" />
                                     <div className="score__bird__said">
-                                        <p>Dommage ! Tu feras mieux la prochaine fois !</p>
+                                        <p className="score__bird__said-p">Dommage ! Tu feras mieux la prochaine fois !</p>
                                         <motion.button
                                         className="score__btn__anayse"
                                             
@@ -73,7 +76,7 @@ const InfoScore=({data, handlleDeleteLastScore})=>{
                                 <>
                                     <img src={happyBird} alt="Bird" width="300px" height="300px" />
                                     <div className="score__bird__said">
-                                        <p>Bravo ! Excellent résultat ! Continue ainsi</p>
+                                        <p className="score__bird__said-p">Bravo ! Excellent résultat ! Continue ainsi</p>
                                          <motion.button
                                         className="score__btn__anayse"
                                             
@@ -92,12 +95,11 @@ const InfoScore=({data, handlleDeleteLastScore})=>{
                         }
                     })()}
                 </div>
-                <p style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    Score sauvegardé automatiquement |  
-                    <span style={{color:"red", marginLeft: "5px" , cursor:"pointer"}}
-                    onClick={handlleDeleteLastScore}
-                    > Ne pas sauvegarder</span>
-                </p>
+            <div className="score-text">
+                <p className="score_p">Score sauvegardé automatiquement |  </p>
+                <p className="delete-score" onClick={handlleDeleteLastScore}>Ne pas sauvegarder</p>
+            </div>
+
             </div>
     )
 

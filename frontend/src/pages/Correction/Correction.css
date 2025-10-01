@@ -1,0 +1,112 @@
+.correction__header {
+    display: flex;
+    padding: 2rem;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+
+.correction__title {
+    font-weight: 500;
+    margin: 0;
+    color:var(--color-text-primary);
+}
+
+.correction__detail__title{
+    font-weight:500;
+    color:var(--color-text-primary);
+    padding-left:2rem;
+}
+
+.correction__path {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: var(--color-text-primary);
+}
+
+.correction__path svg {
+    font-size: 1.2rem;
+}
+
+.correction__title--first-letter {
+    color: #1CB0F6;
+}
+
+.correction__path :hover {
+    color:#1CB0F6;
+}
+
+.correction__content {
+    padding: 0rem 1.5rem 1.5rem 1.5rem;
+    padding-bottom: 5rem; /* Add extra space at the bottom */
+}
+
+.correction__question {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #1e293b; /* Updated text color */
+}
+
+.correction__choices {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.correction__choice {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    background-color: #f9f9f9;
+    color: #1e293b; /* Updated text color */
+}
+
+.correction__choice.correct {
+    border-color: #28a745;
+    background-color: #d4edda;
+}
+
+.correction__explanation {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #1e293b; /* Updated text color */
+}
+
+button {
+    padding: 0.5rem 1rem;
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    width: 200px; /* Set a smaller width */
+    text-align: center;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.correction__navigation {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: auto;
+}

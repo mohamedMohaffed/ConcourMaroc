@@ -2,6 +2,7 @@ import useApi from '../../hooks/useApi';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faHouse, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import './SubjectsList.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -122,7 +123,8 @@ const SubjectsList = () => {
                                 <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${selectedSubject.slug}/concour`}>
                                 <h1 className="subjects-list__type--quiz">Passer un Quiz</h1></Link>
 
-                                <h1 className="subjects-list__type--corr">Voir la Correction</h1>
+                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${selectedSubject.slug}/correction-concour/`}>
+                                <h1 className="subjects-list__type--corr">Voir la Correction</h1></Link>
                             </motion.div> 
                         )}
         </motion.section>

@@ -1,6 +1,6 @@
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGauge, faGamepad, faEllipsisH, faUserGraduate,faBook,faPlus,faCircleInfo,faCompass,faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import { faGauge, faGamepad, faEllipsisH, faUserGraduate,faBook,faPlus,faCircleInfo,faCompass,faDumbbell,faGear } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
@@ -9,8 +9,10 @@ const Navbar = () => {
     { name: "MON SCORE", mobileName: "SCORE", icon: faGauge, to: "/dashboard" },
     // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
     { name: "PRATIQUE", mobileName: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
-    { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
-    { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH, to: "/plus" }
+    // { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
+    // { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH, to: "/plus" }
+    { name: "SETTINGS", mobileName: "SETTINGS", icon: faGear, to: "/settings" }
+
   ];
 
   const location = useLocation();

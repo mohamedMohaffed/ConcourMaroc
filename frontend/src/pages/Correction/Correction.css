@@ -53,15 +53,20 @@
     list-style: none;
     padding: 0;
     margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping to the next line */
+    gap: 1rem; /* Add spacing between choices */
+    justify-content: space-between; /* Distribute choices evenly */
 }
 
 .correction__choice {
+    flex: 1 1 calc(25% - 1rem); /* Take 25% of the width minus the gap */
     padding: 0.75rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 0.5rem;
     background-color: #f9f9f9;
     color: #1e293b; /* Updated text color */
+    box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
 .correction__choice.correct {

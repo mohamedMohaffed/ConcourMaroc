@@ -77,6 +77,7 @@ const Correction = () => {
                     ))}
                 </div>
             </div>
+
             <div className="correction__content">
                 <h2 className="correction__question">{<LatexRenderer latex={question.question}/>} </h2>
                 <ul className="correction__choices">
@@ -96,6 +97,7 @@ const Correction = () => {
                     </div>
                 )}
             </div>
+            
             <CorrectionNavigation index={index} setIndex={setIndex} totalQuestions={data[0].questions.length} />
         </section>
     );

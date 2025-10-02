@@ -103,15 +103,138 @@ button:disabled {
 
 .correction__navigation {
     position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 5rem;  /* Increased from 4rem to 5rem to stay above navbar */
+    left: 0;
+    width: 100%;
+    padding: 0.5rem;
+    background: white;
+    z-index: 999;  /* Increased z-index to be between content and navbar */
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 1rem;
-    padding: 1rem;
-    background-color: white;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    width: auto;
+}
+
+.correction__navigation button {
+    width: 110px;
+    height: 2.5rem;
+    font-size: 0.8rem;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    margin: 0;
+}
+
+.quiz__nav-text {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+@media (max-width: 48em) {
+    section {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding-top: 4rem;  /* Space for fixed header */
+        padding-bottom: 8rem;  /* Space for navigation and navbar */
+    }
+
+    .correction__header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 50;
+        height: 4rem;
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .correction__content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        margin-bottom: 6rem;  /* Increased space for navigation */
+    }
+
+    .correction__navigation {
+        position: fixed;
+        bottom: 5rem;  /* Increased from 4rem to 5rem to stay above navbar */
+        left: 0;
+        width: 100%;
+        padding: 0.5rem;
+        background: white;
+        z-index: 999;  /* Increased z-index to be between content and navbar */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .correction__navigation button {
+        width: 110px;
+        height: 2.5rem;
+        font-size: 0.8rem;
+        padding: 0.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3rem;
+        margin: 0;
+    }
+
+    .quiz__nav-text {
+        margin: 0 0.3rem;
+    }
+
+    .correction__choices {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .correction__choice {
+        flex: 1 1 100%;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    .correction__question {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .correction__explanation {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+    }
+
+    .correction__path {
+        font-size: 0.85rem;
+    }
+
+    .correction__path svg {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+        width: 150px;
+    }
+
+    .correction__title {
+        font-size: 1.2rem;
+    }
+
+    .mobile-title {
+        font-size: 1.4rem;
+    }
 }

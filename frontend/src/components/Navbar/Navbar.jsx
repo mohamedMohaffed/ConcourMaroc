@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 const Navbar = () => {
   const navbarItems = [
     { name: "CONCOURS", mobileName: "CONCOURS", icon: faBook, to: "/concours/niveaux" },
-    { name: "MON SCORE", mobileName: "SCORE", icon: faGauge, to: "/dashboard" },
+    { name: "MON SCORE", mobileName: "SCORE", icon: faGauge, to: "/tableau-de-bord" },
     // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
     { name: "PRATIQUE", mobileName: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
     // { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
@@ -16,7 +16,7 @@ const Navbar = () => {
   ];
 
   const location = useLocation();
-  const activeIndex = navbarItems.findIndex(item => { //should improve
+  const activeIndex = navbarItems.findIndex(item => { 
     if (item.name === "CONCOURS") {
       return location.pathname.startsWith("/concours");
     }

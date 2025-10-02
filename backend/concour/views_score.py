@@ -7,7 +7,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from datetime import timedelta
 from .serializers import (QuestionSerializer, ConcoursListSerializer,
-                           UserAnswerCreateSerializer, ScoreSerializer)
+                           UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)
 # from pprint import pprint
 
 class UserAnswerScoreAPIView(APIView):
@@ -268,5 +268,32 @@ class AllScoresForConcourAPIView(APIView):
             )
         )
         serializer = ScoreSerializer(scores, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class AllUserScoresAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        scores = (
+            Score.objects
+            .filter(user=user)
+            .select_related(
+                'user',
+                'concours',
+                'concours__subject',
+                'concours__subject__year',
+                'concours__subject__year__university',
+                'concours__subject__year__university__level'
+            )
+            .prefetch_related(
+                'user_answers_score',
+                'user_answers_score__question',
+                'user_answers_score__user_choice'
+            )
+            .order_by('-created_at')
+        )
+        
+        serializer = AllScoresSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

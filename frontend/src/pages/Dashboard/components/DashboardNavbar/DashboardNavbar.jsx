@@ -1,9 +1,145 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import './DashboardNavbar.css';
 
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 const DashboardNavbar = ({ scores }) => {
-    const [activeTab, setActiveTab] = useState("overview");
+    const [activeTab, setActiveTab] = useState("graph");
     const [currentPage, setCurrentPage] = useState(0);
+    const [filters, setFilters] = useState({
+        level: '',
+        university: '',
+        year: '',
+        subject: ''
+    });
+    
+    // Modified filter options
+    const filterOptions = useMemo(() => {
+        const options = {
+            level: new Set(),
+            university: new Set(),
+            year: new Set(),
+            subject: new Set()
+        };
+        
+        scores?.forEach(score => {
+            const subject = score.concours?.subject;
+            const year = subject?.year;
+            const university = year?.university;
+            const level = university?.level;
+
+            if (level?.name) options.level.add(level.name);
+            if (university?.name) options.university.add(university.name);
+            if (year?.year) options.year.add(Number(year.year)); // Convert to number
+            if (subject?.name) options.subject.add(subject.name);
+        });
+
+        return {
+            level: [...options.level],
+            university: [...options.university],
+            year: [...options.year].sort((a, b) => b - a), // Sort years in descending order
+            subject: [...options.subject]
+        };
+    }, [scores]);
+
+    // Modified groupedScores
+    const groupedScores = useMemo(() => {
+        const filtered = scores?.filter(score => {
+            const subject = score.concours?.subject;
+            const year = subject?.year;
+            const university = year?.university;
+            const level = university?.level;
+
+            return (!filters.level || level?.name === filters.level) &&
+                   (!filters.university || university?.name === filters.university) &&
+                   (!filters.year || Number(year?.year) === Number(filters.year)) && // Compare as numbers
+                   (!filters.subject || subject?.name === filters.subject);
+        });
+
+        const groups = {};
+        filtered?.forEach(score => {
+            const key = `${score.concours?.subject?.year?.university?.level?.name}-${score.concours?.subject?.year?.university?.name}-${score.concours?.subject?.name}-${score.concours?.subject?.year?.year}`;
+            if (!groups[key]) {
+                groups[key] = [];
+            }
+            groups[key].push({
+                score: score.score,
+                date: new Date(score.created_at)
+            });
+        });
+
+        return groups;
+    }, [scores, filters]);
+
+    // Modified chart data preparation
+    const chartData = {
+        labels: Object.entries(groupedScores).flatMap(([_, data]) => 
+            data.map(item => new Date(item.date).toLocaleDateString())
+        ),
+        datasets: Object.entries(groupedScores).map(([key, data], index) => ({
+            label: key,
+            data: data.map(item => item.score),
+            borderColor: `hsl(${index * 137.5}, 70%, 50%)`,
+            backgroundColor: `hsla(${index * 137.5}, 70%, 50%, 0.5)`,
+            tension: 0.1
+        }))
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { 
+                position: 'top',
+                labels: {
+                    boxWidth: 10,
+                    usePointStyle: true
+                }
+            },
+            title: {
+                display: true,
+                text: 'Progression des scores'
+            }
+        },
+        scales: {
+            x: {
+                type: 'category',
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Date'
+                }
+            },
+            y: {
+                beginAtZero: true,
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Score'
+                }
+            }
+        }
+    };
+
     const pageSize = 5;
 
     const rows = scores?.map(score => ({
@@ -21,10 +157,32 @@ const DashboardNavbar = ({ scores }) => {
     return (
         <div>
             <h1 className="dashboard__title">Tableau de bord</h1>
+            
+            {/* Filters */}
+            <div className="dashboard__filters">
+                {Object.entries(filterOptions).map(([key, options]) => (
+                    <select
+                        key={key}
+                        value={filters[key]}
+                        onChange={(e) => setFilters(prev => ({
+                            ...prev, 
+                            [key]: key === 'year' ? Number(e.target.value) : e.target.value
+                        }))}
+                    >
+                        <option value="">All {key}s</option>
+                        {options.map(option => (
+                            <option key={option} value={option}>
+                                {key === 'year' ? option : option}
+                            </option>
+                        ))}
+                    </select>
+                ))}
+            </div>
+
             <div className="dashboard__tabs-navbar">
                 <button
-                    className={activeTab === "overview" ? "dashboard__tab--active" : "dashboard__tab"}
-                    onClick={() => setActiveTab("overview")}
+                    className={activeTab === "graph" ? "dashboard__tab--active" : "dashboard__tab"}
+                    onClick={() => setActiveTab("graph")}
                 >
                     Vue d'ensemble
                 </button>
@@ -37,8 +195,10 @@ const DashboardNavbar = ({ scores }) => {
             </div>
 
             <div className="dashboard__tab-content">
-                {activeTab === "overview" && (
-                    <div>Vue d'ensemble du tableau de bord</div>
+                {activeTab === "graph" && (
+                    <div className="dashboard__graph" style={{ height: '400px' }}>
+                        <Line data={chartData} options={chartOptions} />
+                    </div>
                 )}
                 {activeTab === "history" && (
                     <div className="table-wrapper">

@@ -101,3 +101,12 @@ class ScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = '__all__'
+
+
+class AllScoresSerializer(serializers.ModelSerializer):
+    concours = ConcourSerializer(read_only=True)
+    
+    class Meta:
+        model = Score
+        fields = '__all__'
+    

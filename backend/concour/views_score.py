@@ -120,18 +120,11 @@ class IncorrectAnswersListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user_id = 1  # Replace with request.user.id in production
-        try:
-            user = User.objects.get(id=user_id)
-        except User.DoesNotExist:
-            return Response(
-                {"detail": "User not found."},
-                status=status.HTTP_404_NOT_FOUND
-            )
+        user = request.user  # We already have the authenticated user
 
         concours_ids = UserAnswer.objects.filter(
             user=user,
-            choice__is_correct=False
+            user_choice__is_correct=False  # Changed from choice__is_correct to user_choice__is_correct
         ).values_list('concours_id', flat=True).distinct()
 
         concours_qs = Concours.objects.filter(id__in=concours_ids).select_related(

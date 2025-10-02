@@ -180,12 +180,7 @@ function formatSecondsToHMS(seconds) {
                 >
                     Mes Choix
                 </button>
-                {/* <button
-                    className={activeTab === "analyse" ? "score__tab--active" : "score__tab"}
-                    onClick={() => setActiveTab("analyse")}
-                >
-                    Analyse
-                </button> */}
+             
                 <button
                     className={activeTab === "graph" ? "score__tab--active" : "score__tab"}
                     onClick={() => setActiveTab("graph")}
@@ -201,11 +196,7 @@ function formatSecondsToHMS(seconds) {
                         {renderQuizSummary({quizData,data})}
                     </div>
                 )}
-                {/* {activeTab === "analyse" && (
-                    <div>
-                        <p>Analyse détaillée de vos réponses et des corrections.</p>
-                    </div>
-                )} */}
+                
                 {activeTab === "graph" && (
                    <Graph allScores={allScores} chartData={chartData} chartTimeData={chartTimeData} 
                    chartOptions={chartOptions} chartTimeOptions={chartTimeOptions}/>

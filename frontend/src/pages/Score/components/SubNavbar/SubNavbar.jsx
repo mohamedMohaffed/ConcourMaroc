@@ -7,7 +7,7 @@ import './SubNavbar.css';
 
 
 const SubNavbar=({data,concour_id})=>{
-    const [activeTab, setActiveTab] = useState("useranser"); // Set default to "useranser"
+    const [activeTab, setActiveTab] = useState("useranser"); 
     const [allScores, setAllScores] = useState([]);
 
     const [quizData, setQuizData] = useState(null);

@@ -25,7 +25,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="navbar__logo"><span className="navbar__logo--go">Con</span>Cours</div>
+      <div className="navbar__logo"><span className="navbar__logo--go">Con</span>Cours </div>
       <div className="navbar__items">
         {navbarItems.map((item, idx) => (
           <Link

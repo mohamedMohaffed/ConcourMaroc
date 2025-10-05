@@ -31,21 +31,11 @@ class ChoiceSerializer(serializers.ModelSerializer):
         fields = ['id', 'text', 'is_correct']
 
 class QuestionSerializer(serializers.ModelSerializer):
-    choices = serializers.SerializerMethodField()
-    explanation = serializers.SerializerMethodField()
-
+    choices = ChoiceSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Question
-        fields = ['id', 'question', 'explanation', 'choices']
-
-    def get_choices(self, obj):
-        return ChoiceSerializer(obj.choices.all(), many=True).data
-                                
-
-    def get_explanation(self, obj):
-        return obj.explanation
-
-
+        fields = '__all__'
 
 class ConcourSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer(read_only=True)
@@ -109,4 +99,5 @@ class AllScoresSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = '__all__'
+   
     

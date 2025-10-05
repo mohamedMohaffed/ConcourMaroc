@@ -12,7 +12,7 @@ import Score from './pages/Score/Score';
 import Dashboard from './pages/DashBoard/DashBoard';
 import Correction from './pages/Correction/Correction';
 import PracticeList from './pages/PracticeList/PracticeList';
-
+import PracticeQuiz from './pages/PracticeQuiz/PracticeQuiz';
 const App = () => {
     return (
         <BrowserRouter>
@@ -26,11 +26,13 @@ const App = () => {
                     <Route path="/concours/resultat/:concour_id/"  element={<Score/>}/>
                     <Route path="/tableau-de-bord" element={<Dashboard />} />
                     <Route path="/pratique" element={<PracticeList />} />
+
                 </Route>
                 {/* rr */}
                 
                 <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/:subject_slug/concour/" element={<Quiz />} />
-                
+                <Route path="/pratique/:concours_slug" element={<PracticeQuiz />} />
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/logout" element={<Logout />} />
 

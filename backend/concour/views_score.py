@@ -141,14 +141,8 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request, concour_slug):
-        user_id = 1 # Default to 1 for testing
-        try:
-            user = User.objects.get(id=user_id)
-        except User.DoesNotExist:
-            return Response(
-                {"detail": "User not found."}, 
-                status=status.HTTP_404_NOT_FOUND
-            )
+        user = request.user
+        
         try:
             concours = Concours.objects.get(slug=concour_slug)
         except Concours.DoesNotExist:
@@ -159,7 +153,7 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
         
         incorrect_questions_ids = UserAnswer.objects.filter(
             user=user, 
-            choice__is_correct=False,
+            user_choice__is_correct=False,
             concours=concours,
         ).values_list('question_id', flat=True).distinct()
         
@@ -170,10 +164,6 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
         serializer = QuestionSerializer(
             questions, 
             many=True,
-            context={
-                'show_is_correct': True,  
-                'show_explanation': True 
-            }
         )
         
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -289,4 +279,4 @@ class AllUserScoresAPIView(APIView):
         
         serializer = AllScoresSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
+            

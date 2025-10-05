@@ -8,10 +8,10 @@ Content-Type: application/json
 }
 
 ### 2. Call AI endpoint (replace <your_token> with actual token)
-POST http://127.0.0.1:8000/concour/ai/
+POST http://127.0.0.1:8000/concour/mauvaises-reponses/Bac-Ensa-2021-math/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU4OTM5NTc5LCJpYXQiOjE3NTg5Mzg2NzksImp0aSI6ImIyYTZkN2UyMTgzNTRjNDQ4Y2YxODQ0NTI1MzIyY2ZkIiwidXNlcl9pZCI6IjEifQ.0-pPhPjrUpQZXjdA4-8TLBsD3k5yW31ofyZGyzWklS8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5Njc1NzM1LCJpYXQiOjE3NTk2NzQ4MzUsImp0aSI6ImU3ZjUwM2ZjOTQ4NjQ2ODg5ZTIyNWQyZTllMThiZjdkIiwidXNlcl9pZCI6IjEifQ.Vd4zxsEuVOOX3jrKLotNaSMSYdiMSmxHL9Skfy37vnc
 
 {
-    "prompt" : "what is AI ?"
+    
 }

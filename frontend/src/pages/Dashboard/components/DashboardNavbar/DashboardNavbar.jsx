@@ -94,10 +94,10 @@ const DashboardNavbar = ({ scores }) => {
     const chartData = {
         labels: Object.entries(groupedScores).flatMap(([_, data]) => 
             data.map(item => new Date(item.date).toLocaleDateString())
-        ),
+        ).sort((a, b) => new Date(a) - new Date(b)),
         datasets: Object.entries(groupedScores).map(([key, data], index) => ({
             label: key,
-            data: data.map(item => item.score),
+            data: [...data].sort((a, b) => new Date(a.date) - new Date(b.date)).map(item => item.score),
             borderColor: `hsl(${index * 137.5}, 70%, 50%)`,
             backgroundColor: `hsla(${index * 137.5}, 70%, 50%, 0.5)`,
             tension: 0.1

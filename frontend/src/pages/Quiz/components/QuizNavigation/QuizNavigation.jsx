@@ -79,61 +79,38 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
     return (
         data && (
             <section className="quiz__navigation">
-                {/* Timer display */}
-                {/* <div className="quiz__timer">
-                    Temps écoulé: {
-                        (() => {
-                            const hours = Math.floor(elapsedSeconds / 3600);
-                            const minutes = Math.floor((elapsedSeconds % 3600) / 60);
-                            const seconds = elapsedSeconds % 60;
-                            return (
-                                ('0' + hours).slice(-2) + ':' +
-                                ('0' + minutes).slice(-2) + ':' +
-                                ('0' + seconds).slice(-2)
-                            );
-                        })()
-                    }
-                </div> */}
-
-                {/* Mobile question counter */}
-                <div className="quiz__mobile-counter">
-                    Question {index + 1} sur {totalQuestions}
-                </div>
-
                 <button 
-                disabled={index === 0}
-                onClick={goToPrevious}>
+                    className="btn1"
+                    disabled={index === 0}
+                    onClick={goToPrevious}>
                     <FontAwesomeIcon icon={faArrowLeft} /> 
                     <span className="quiz__nav-text">Précédent</span>
                 </button>
 
                 <div className="quiz__navigation__btn--endandsubmeit">
-                <button
-                    disabled={!isAnswered && !selectedChoice}
-                    onClick={isAnswered ? handleCancel : handleSubmet}
-                    style={isAnswered ? { backgroundColor: '#dc3545' } : {}}
-                >
-                    {isAnswered ? 'Annuler' : 'Soumettre'}
-                </button>
-
-                {allQuestionsAnswered && (
                     <button
-                        onClick={PostData}
-                        className="quiz__finish-btn"
-                        style={{
-                            backgroundColor: '#f59e0b',
-                            color: 'white',
-                            fontWeight: 'bold'
-                        }}
+                        disabled={!isAnswered && !selectedChoice}
+                        onClick={isAnswered ? handleCancel : handleSubmet}
+                        style={isAnswered ? { backgroundColor: '#dc3545' } : {}}
+                        className="btn1"
                     >
-                        Terminer
+                        {isAnswered ? 'Annuler' : 'Soumettre'}
                     </button>
-                )}
+
+                    {allQuestionsAnswered && (
+                        <button
+                            onClick={PostData}
+                            className="btn1 quiz__finish-btn"
+                        >
+                            Terminer
+                        </button>
+                    )}
                 </div>
 
                 <button 
-                disabled={index === totalQuestions - 1}
-                onClick={goToNext}>
+                    className="btn1"
+                    disabled={index === totalQuestions - 1}
+                    onClick={goToNext}>
                     <span className="quiz__nav-text">Suivant</span>
                     <FontAwesomeIcon icon={faArrowRight} />
                 </button>

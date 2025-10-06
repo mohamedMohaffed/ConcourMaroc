@@ -1,0 +1,608 @@
+{
+  "id": 1,
+  "subject": {
+    "id": 1,
+    "year": {
+      "id": 1,
+      "university": {
+        "id": 1,
+        "level": {
+          "id": 1,
+          "name": "BAC",
+          "slug": "Bac"
+        },
+        "name": "ENSA",
+        "is_open": true,
+        "slug": "ENSA"
+      },
+      "year": 2021,
+      "slug": "2021"
+    },
+    "name": "Mathématiques",
+    "slug": "Math"
+  },
+  "questions": [
+    {
+      "id": 1,
+      "choices": [
+        {
+          "id": 1,
+          "text": "Avoir répondu correctement à tout le QCM",
+          "is_correct": false
+        },
+        {
+          "id": 2,
+          "text": "Avoir au plus 25% de réponses fausses",
+          "is_correct": false
+        },
+        {
+          "id": 3,
+          "text": "Avoir au moins 50% de réponses correctes",
+          "is_correct": false
+        },
+        {
+          "id": 4,
+          "text": "Avoir passé le concours",
+          "is_correct": true
+        }
+      ],
+      "question": "Une condition nécessaire (pas forcément suffisante) pour réussir le concours de l'ENSA est:",
+      "explanation": "# Réponse correcte : (4) Avoir passé le concours ✅\r\n\r\n## Explication\r\n- Une **condition nécessaire** est quelque chose **sans quoi l’événement ne peut pas se produire**.\r\n- Pour réussir le concours de l’ENSA, **il faut obligatoirement avoir passé le concours**.\r\n- Cependant, passer le concours **ne garantit pas la réussite**, donc ce n’est **pas suffisant**.\r\n\r\n---\r\n\r\n## Les autres choix ❌\r\n1. **Avoir répondu correctement à tout le QCM**  \r\n   → C’est une condition **suffisante** (si tu as tout juste, tu réussis forcément), mais ce n’est pas **nécessaire** (on peut réussir sans avoir 100%).  \r\n\r\n2. **Avoir au plus 25% de réponses fausses**  \r\n   → Ce n’est pas forcément exigé pour réussir. Quelqu’un peut réussir même avec plus d’erreurs si d’autres critères sont pris en compte.  \r\n\r\n3. **Avoir au moins 50% de réponses correctes**  \r\n   → Ce seuil n’est pas fixé comme obligatoire. Ce n’est donc pas une **condition nécessaire** universelle.",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 5,
+      "choices": [
+        {
+          "id": 17,
+          "text": "$\\sqrt[3]{5^{\\frac{511}{256}}}$",
+          "is_correct": false
+        },
+        {
+          "id": 18,
+          "text": "$\\sqrt[3]{5^{\\frac{1023}{256}}}$",
+          "is_correct": false
+        },
+        {
+          "id": 19,
+          "text": "$\\sqrt[3]{5^{\\frac{1023}{512}}}$",
+          "is_correct": true
+        },
+        {
+          "id": 20,
+          "text": "$\\sqrt[3]{5^{\\frac{512}{1024}}}$",
+          "is_correct": false
+        }
+      ],
+      "question": "$$\\text{Le produit } \\prod_{k=0}^{9} \\sqrt[3 \\cdot 2^k]{5}$$",
+      "explanation": "## Explication \r\nChaque terme vaut$$\\sqrt[3\\cdot 2^k]{5}=5^{\\frac{1}{3\\cdot 2^k}}.$$Donc$$\\prod_{k=0}^{9} \\sqrt[3\\cdot 2^k]{5}\r\n=5^{\\sum_{k=0}^{9}\\frac{1}{3\\cdot 2^k}}\r\n=5^{\\frac{1}{3}\\sum_{k=0}^{9}\\frac{1}{2^k}}.$$Somme géométrique :$$\\sum_{k=0}^{9}\\frac{1}{2^k}\r\n=\\frac{1-\\left(\\frac12\\right)^{10}}{1-\\frac12}\r\n=2\\left(1-\\frac{1}{1024}\\right)\r\n=2\\cdot\\frac{1023}{1024}\r\n=\\frac{1023}{512}.$$Ainsi$$5^{\\frac{1}{3}\\cdot \\frac{1023}{512}}\r\n=5^{\\frac{1023}{1536}}\r\n=\\sqrt[3]{5^{\\frac{1023}{512}}}.$$",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 8,
+      "choices": [
+        {
+          "id": 29,
+          "text": "0",
+          "is_correct": false
+        },
+        {
+          "id": 30,
+          "text": "1",
+          "is_correct": false
+        },
+        {
+          "id": 31,
+          "text": "2",
+          "is_correct": true
+        },
+        {
+          "id": 32,
+          "text": "+∞",
+          "is_correct": false
+        }
+      ],
+      "question": "$\\lim_{x \\to \\frac{\\pi}{6}} \\frac{\\sqrt{3} \\sin x - \\cos x}{x - \\frac{\\pi}{6}} =$",
+      "explanation": "",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 9,
+      "choices": [
+        {
+          "id": 33,
+          "text": "e",
+          "is_correct": false
+        },
+        {
+          "id": 34,
+          "text": "0",
+          "is_correct": false
+        },
+        {
+          "id": 35,
+          "text": "$\\ln 3$",
+          "is_correct": false
+        },
+        {
+          "id": 36,
+          "text": "1 + e",
+          "is_correct": false
+        }
+      ],
+      "question": "$\\lim_{x \\to 0^+} x^{\\left( \\frac{1}{\\ln 3x} \\right)} =$",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 10,
+      "choices": [
+        {
+          "id": 37,
+          "text": "$f$est strictement croissante",
+          "is_correct": false
+        },
+        {
+          "id": 38,
+          "text": "$f$est strictement décroissante",
+          "is_correct": false
+        },
+        {
+          "id": 39,
+          "text": "$f$est la fonction nulle",
+          "is_correct": false
+        },
+        {
+          "id": 40,
+          "text": "$f$est une constante non nulle",
+          "is_correct": true
+        }
+      ],
+      "question": "Soit$f : \\mathbb{R} \\to \\mathbb{R}$une fonction$T$-périodique avec$T > 0$, telle que$\\lim_{x \\to +\\infty} f(x)$existe dans$\\mathbb{R}^*$. Alors:",
+      "explanation": "",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 12,
+      "choices": [
+        {
+          "id": 45,
+          "text": "$f''(0) = 0$",
+          "is_correct": false
+        },
+        {
+          "id": 46,
+          "text": "$f''(0) = 1$",
+          "is_correct": false
+        },
+        {
+          "id": 47,
+          "text": "$f''(0) = 2$",
+          "is_correct": false
+        },
+        {
+          "id": 48,
+          "text": "$f$n'est pas deux fois dérivable en 0",
+          "is_correct": true
+        }
+      ],
+      "question": "Pour la même fonction$f$de Q11, on note$f''$sa dérivée d'ordre 2. Alors:",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 16,
+      "choices": [
+        {
+          "id": 61,
+          "text": "$\\frac{1}{3}(1 - e^{-\\pi})$",
+          "is_correct": false
+        },
+        {
+          "id": 62,
+          "text": "$\\frac{1}{2}(1 + e^{-\\pi})$",
+          "is_correct": true
+        },
+        {
+          "id": 63,
+          "text": "$\\frac{1}{4}(1 - e^{-\\pi})$",
+          "is_correct": false
+        },
+        {
+          "id": 64,
+          "text": "$\\frac{1}{5}(1 + e^{-\\pi})$",
+          "is_correct": false
+        }
+      ],
+      "question": "Pour la même fonction$f$de Q15,$\\int_{0}^{\\pi} f(x) \\, dx =$",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 20,
+      "choices": [
+        {
+          "id": 77,
+          "text": "$\\cos^5\\theta + 10\\cos^3\\theta \\sin^2\\theta + 5\\cos\\theta \\sin^4\\theta$",
+          "is_correct": false
+        },
+        {
+          "id": 78,
+          "text": "$\\cos^5\\theta + 5\\cos^3\\theta \\sin^2\\theta + 10\\cos\\theta \\sin^4\\theta$",
+          "is_correct": false
+        },
+        {
+          "id": 79,
+          "text": "$\\cos^5\\theta - 10\\cos^3\\theta \\sin^2\\theta + \\cos\\theta \\sin^4\\theta$",
+          "is_correct": false
+        },
+        {
+          "id": 80,
+          "text": "$\\cos^5\\theta - 10\\cos^3\\theta \\sin^2\\theta + 5\\cos\\theta \\sin^4\\theta$",
+          "is_correct": true
+        }
+      ],
+      "question": "Le nombre$\\cos 5\\theta$est égal à:",
+      "explanation": "",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 6,
+      "choices": [
+        {
+          "id": 21,
+          "text": "1",
+          "is_correct": false
+        },
+        {
+          "id": 22,
+          "text": "0",
+          "is_correct": true
+        },
+        {
+          "id": 24,
+          "text": "e",
+          "is_correct": false
+        },
+        {
+          "id": 23,
+          "text": "+∞",
+          "is_correct": false
+        }
+      ],
+      "question": "$\\lim_{n \\to +\\infty} 3^n e^{-3n} =$",
+      "explanation": "## Explication \r\n\r\n### Méthode 1 — Réécriture en une puissance$$3^n e^{-3n}=\\left(\\frac{3}{e^3}\\right)^n.$$Comme$$\\frac{3}{e^3}<1 \\quad\\text{(car } e^3\\approx 20.085>3\\text{),}$$on a$$\\left(\\frac{3}{e^3}\\right)^n \\xrightarrow[n\\to\\infty]{} 0.$$### Méthode 2 — Exponentielle avec l’exposant$$3^n e^{-3n}=e^{n\\ln 3} \\cdot e^{-3n}=e^{n(\\ln 3-3)}.$$Or$$\\ln 3 \\approx 1.0986 < 3 \\;\\Rightarrow\\; \\ln 3 - 3 < 0,$$donc$$e^{n(\\ln 3-3)} \\xrightarrow[n\\to\\infty]{} e^{-\\infty}=0.$$",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 7,
+      "choices": [
+        {
+          "id": 25,
+          "text": "1",
+          "is_correct": false
+        },
+        {
+          "id": 26,
+          "text": "-1",
+          "is_correct": false
+        },
+        {
+          "id": 27,
+          "text": "0",
+          "is_correct": true
+        },
+        {
+          "id": 28,
+          "text": "+∞",
+          "is_correct": false
+        }
+      ],
+      "question": "En remarquant que pour tout$n \\in \\mathbb{N}$, le nombre$(3 + \\sqrt{5})^n + (3 - \\sqrt{5})^n$est un entier pair,$\\lim_{n \\to +\\infty} \\sin \\left( \\left( 3 + \\sqrt{5} \\right)^n \\pi \\right) =$",
+      "explanation": "## Explication\r\n\r\n1. Posons$$(3 + \\sqrt{5})^n + (3 - \\sqrt{5})^n = 2 k_n, \\quad k_n \\in \\mathbb{Z}.$$2. Alors$$(3 + \\sqrt{5})^n = 2 k_n - (3 - \\sqrt{5})^n.$$3. Utilisons la formule trigonométrique :$$\\sin(a - b) = \\sin a \\cos b - \\cos a \\sin b.$$Ici,$$a = 2 k_n \\pi, \\quad b = (3 - \\sqrt{5})^n \\pi.$$4. Donc$$\\sin\\big((3 + \\sqrt{5})^n \\pi \\big) \r\n= \\sin(2 k_n \\pi - (3 - \\sqrt{5})^n \\pi) \r\n= \\sin(2 k_n \\pi)\\cos((3 - \\sqrt{5})^n \\pi) - \\cos(2 k_n \\pi)\\sin((3 - \\sqrt{5})^n \\pi).$$5. Comme$$\\sin(2 k_n \\pi) = 0, \\quad \\cos(2 k_n \\pi) = 1,$$on obtient$$\\sin\\big((3 + \\sqrt{5})^n \\pi \\big) = - \\sin((3 - \\sqrt{5})^n \\pi).$$6. Or$$|3 - \\sqrt{5}| < 1 \\implies (3 - \\sqrt{5})^n \\to 0 \\text{ quand } n \\to +\\infty.$$Donc$$\\lim_{n \\to +\\infty} \\sin((3 - \\sqrt{5})^n \\pi) = 0.$$---\r\n\r\n## Conclusion$$\\lim_{n \\to +\\infty} \\sin \\left( (3 + \\sqrt{5})^n \\pi \\right) = 0.$$",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 3,
+      "choices": [
+        {
+          "id": 9,
+          "text": "17600",
+          "is_correct": false
+        },
+        {
+          "id": 10,
+          "text": "17680",
+          "is_correct": false
+        },
+        {
+          "id": 11,
+          "text": "17820",
+          "is_correct": false
+        },
+        {
+          "id": 12,
+          "text": "17901",
+          "is_correct": true
+        }
+      ],
+      "question": "$$\\text{Le produit } \\prod_{k=0}^{9} \\sqrt[3 \\cdot 2^k]{5}$$",
+      "explanation": "## Réponse correcte ✅\r\n**17901**\r\n\r\n---\r\n\r\n## Étape 1 : Factoriser chaque nombre en nombres premiers\r\n\r\n1.$$72 = 2^3 \\times 3^2 \\implies 72^{10} = 2^{30} \\times 3^{20}$$2.$$162 = 2 \\times 3^4 \\implies 162^{50} = 2^{50} \\times 3^{200}$$---\r\n\r\n## Étape 2 : Multiplier les facteurs premiers$$N = 72^{10} \\times 162^{50} = (2^{30} \\times 3^{20}) \\times (2^{50} \\times 3^{200}) = 2^{80} \\times 3^{220}$$---\r\n\r\n## Étape 3 : Formule pour le nombre de diviseurs\r\n\r\n### Théorème :\r\n\r\nSoit$n \\in \\mathbb{Z}^* \\setminus \\{1, -1\\}$et sa décomposition en produit de facteurs premiers :$$n = \\varepsilon \\cdot p_1^{\\alpha_1} \\cdot p_2^{\\alpha_2} \\cdots p_N^{\\alpha_N}$$en produit de facteurs premiers. Les diviseurs de \\( n \\) sont les entiers relatifs :$$d = \\varepsilon' \\cdot p_1^{\\gamma_1} \\cdot p_2^{\\gamma_2} \\cdots p_N^{\\gamma_N}$$avec$$\\forall k \\in \\{1, 2, \\dots, N\\}, \\quad 0 \\leq \\gamma_k \\leq \\alpha_k$$et$\\varepsilon' \\in \\{1, -1\\}$Le nombre de diviseurs **positifs** de \\( n \\) est :$$(1 + \\alpha_1)(1 + \\alpha_2) \\cdots (1 + \\alpha_N)$$### Application :$$N = 2^{80} \\times 3^{220} \\implies d(N) = (80 + 1) \\times (220 + 1) = 81 \\times 221$$---\r\n\r\n## Étape 4 : Calcul final$$81 \\times 221 = 17901$$Donc le **nombre de diviseurs de \\(N\\) = 17901** ✅",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 2,
+      "choices": [
+        {
+          "id": 5,
+          "text": "mardi",
+          "is_correct": false
+        },
+        {
+          "id": 7,
+          "text": "samedi",
+          "is_correct": false
+        },
+        {
+          "id": 8,
+          "text": "lundi",
+          "is_correct": false
+        },
+        {
+          "id": 6,
+          "text": "jeudi",
+          "is_correct": true
+        }
+      ],
+      "question": "Le 17 juillet 2021, jour du concours de l'ENSA, est un samedi. Quel jour de la semaine sera le 29 février 2024?",
+      "explanation": "## Réponse correcte ✅\r\n**Jeudi**\r\n\r\n## Étape 1 : Identifier les années\r\n| Année | Type     | Jours |\r\n|-------|---------|-------|\r\n| 2021  | normale | 365   |\r\n| 2022  | normale | 365   |\r\n| 2023  | normale | 365   |\r\n| 2024  | bissextile | 366 |\r\n\r\n## Étape 2 : Décalage par année entière (mod 7)\r\n- Année normale → +1 jour  \r\n- Année bissextile → +2 jours  \r\n\r\nUne année bissextile est une année de 366 jours, généralement divisible par 4 (avec exceptions pour 100 et 400)\r\nExemples d'années bissextiles : 2020, 2024, 2000\r\n\r\n\r\n\r\nCalcul :  \r\n- 17/07/2021 → 17/07/2022 : samedi → dimanche (+1)  \r\n- 17/07/2022 → 17/07/2023 : dimanche → lundi (+1)  \r\n- 17/07/2023 → 17/07/2024 : lundi → mercredi (+2)  \r\n\r\n## Étape 3 : Ajuster pour atteindre le 29 février 2024\r\n| Mois           | Jours | Décalage mod 7 | Jour de la semaine |\r\n|----------------|-------|----------------|-----------------|\r\n| Juillet 2023   | 14    | 0              | mercredi |\r\n| Août 2023      | 31    | 3              | samedi   |\r\n| Septembre 2023 | 30    | 2              | lundi    |\r\n| Octobre 2023   | 31    | 3              | jeudi    |\r\n| Novembre 2023  | 30    | 2              | samedi   |\r\n| Décembre 2023  | 31    | 3              | mardi    |\r\n| Janvier 2024   | 31    | 3              | vendredi |\r\n| Février 2024   | 29    | 1              | jeudi    |\r\n\r\nDonc le 29 février 2024 est **un jeudi**.",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 4,
+      "choices": [
+        {
+          "id": 13,
+          "text": "$2 - \\sqrt{3}$ou$2 + \\sqrt{3}$",
+          "is_correct": true
+        },
+        {
+          "id": 14,
+          "text": "$1 - \\sqrt{5}$ou$1 + \\sqrt{5}$",
+          "is_correct": false
+        },
+        {
+          "id": 15,
+          "text": "$1 - \\sqrt{3}$ou$1 + \\sqrt{3}$",
+          "is_correct": false
+        },
+        {
+          "id": 16,
+          "text": "$2 - \\sqrt{5}$ou$2 + \\sqrt{5}$",
+          "is_correct": false
+        }
+      ],
+      "question": "Soient$x$et$y$deux réels non nuls, inverses l'un de l'autre, tels que la somme du carré de leur somme avec la somme de leurs carrés est égale à 10. Le carré du nombre$x$vaut:",
+      "explanation": "## Réponse correcte ✅$$x^2 = 2 - \\sqrt{3} \\quad \\text{ou} \\quad x^2 = 2 + \\sqrt{3}$$---\r\n\r\n## Étape 1 : Traduire le problème en équation\r\n\r\nOn sait que$$x$$et$$y$$sont inverses :$$y = \\frac{1}{x}, \\quad x \\neq 0$$La condition donnée :$$(x + y)^2 + (x^2 + y^2) = 10$$---\r\n\r\n## Étape 2 : Substituer$$y = 1/x$$$$\\left(x + \\frac{1}{x}\\right)^2 + \\left(x^2 + \\frac{1}{x^2}\\right) = 10$$Développons :$$x^2 + 2 + \\frac{1}{x^2} + x^2 + \\frac{1}{x^2} = 10$$$$2x^2 + 2\\frac{1}{x^2} + 2 = 10$$---\r\n\r\n## Étape 3 : Simplifier$$2\\left(x^2 + \\frac{1}{x^2} + 1\\right) = 10 \\implies x^2 + \\frac{1}{x^2} + 1 = 5$$$$x^2 + \\frac{1}{x^2} = 4$$---\r\n\r\n## Étape 4 : Résolution avec$$X = x^2$$$$X + \\frac{1}{X} = 4$$Multiplions par$$X$$:$$X^2 - 4X + 1 = 0$$---\r\n\r\n## Étape 5 : Calcul du discriminant et solutions$$\\Delta = (-4)^2 - 4 \\cdot 1 \\cdot 1 = 12$$$$X = \\frac{4 \\pm \\sqrt{12}}{2} = 2 \\pm \\sqrt{3}$$---\r\n\r\n## Étape 6 : Conclusion$$x^2 = 2 - \\sqrt{3} \\quad \\text{ou} \\quad x^2 = 2 + \\sqrt{3}$$",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 11,
+      "choices": [
+        {
+          "id": 41,
+          "text": "$f'(0) = 1$",
+          "is_correct": true
+        },
+        {
+          "id": 42,
+          "text": "$f'(0) = 0$",
+          "is_correct": false
+        },
+        {
+          "id": 43,
+          "text": "$f'(0) = 2$",
+          "is_correct": false
+        },
+        {
+          "id": 44,
+          "text": "$f$n'est pas dérivable en 0",
+          "is_correct": false
+        }
+      ],
+      "question": "Soit la fonction$f$définie par :$f(x) = \\begin{cases} x^2 + x^3 \\cos \\left( \\frac{1}{x} \\right) & \\text{si } x \\neq 0 \\\\ f(0) = 0 \\end{cases}$. Soit$f'$la dérivée d'ordre 1 de$f$.",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 13,
+      "choices": [
+        {
+          "id": 49,
+          "text": "$\\frac{1}{2} \\left( e^{\\pi} + e^{\\pi/2} \\right)$",
+          "is_correct": false
+        },
+        {
+          "id": 50,
+          "text": "$e^{\\pi} - e^{\\pi/2}$",
+          "is_correct": false
+        },
+        {
+          "id": 51,
+          "text": "$e^{\\pi} + e^{\\pi/2}$",
+          "is_correct": false
+        },
+        {
+          "id": 52,
+          "text": "$e^{\\pi}$",
+          "is_correct": false
+        }
+      ],
+      "question": "L'aire de la région délimitée par la courbe d'équation$y = \\cos (\\ln x)$et les droites d'équations$x = e^{\\pi/2}$et$x = e^{\\pi}$est égale à:",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 14,
+      "choices": [
+        {
+          "id": 53,
+          "text": "$\\frac{\\alpha}{2}$",
+          "is_correct": true
+        },
+        {
+          "id": 54,
+          "text": "$\\alpha$",
+          "is_correct": false
+        },
+        {
+          "id": 55,
+          "text": "$1 + \\alpha$",
+          "is_correct": false
+        },
+        {
+          "id": 56,
+          "text": "$\\frac{1}{1 + \\alpha}$",
+          "is_correct": false
+        }
+      ],
+      "question": "Soit$f: [0; \\alpha] \\to \\mathbb{R}$continue telle que$f(x) \\neq -1$et$f(x). f(\\alpha - x) = 1$.$\\int_{0}^{\\alpha} \\frac{1}{1 + f(x)} \\, dx =$",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 15,
+      "choices": [
+        {
+          "id": 57,
+          "text": "$-f(x)$",
+          "is_correct": false
+        },
+        {
+          "id": 58,
+          "text": "$-4f(x)$",
+          "is_correct": false
+        },
+        {
+          "id": 59,
+          "text": "$4f(x)$",
+          "is_correct": true
+        },
+        {
+          "id": 60,
+          "text": "$-3f(x)$",
+          "is_correct": false
+        }
+      ],
+      "question": "Soit la fonction réelle$f(x) = e^{-x} \\sin (x)$et$f^{(4)}$sa dérivée d'ordre 4, alors:$f^{(4)}(x) =$",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 17,
+      "choices": [
+        {
+          "id": 65,
+          "text": "$Re(u) \\times Im(u) = 2$",
+          "is_correct": false
+        },
+        {
+          "id": 66,
+          "text": "$Re(u) \\times Im(u) = 1$",
+          "is_correct": true
+        },
+        {
+          "id": 67,
+          "text": "$Re(u) + Im(u) = 2$",
+          "is_correct": false
+        },
+        {
+          "id": 68,
+          "text": "u est un imaginaire pur",
+          "is_correct": false
+        }
+      ],
+      "question": "Soit u la solution de l'équation à variable complexe:$z\\overline{z} + 4iz = -3 + 4i$. Alors:",
+      "explanation": null,
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 18,
+      "choices": [
+        {
+          "id": 69,
+          "text": "$-\\frac{2\\sqrt{6}}{7}$",
+          "is_correct": false
+        },
+        {
+          "id": 70,
+          "text": "$\\frac{2\\sqrt{6}}{7}$",
+          "is_correct": false
+        },
+        {
+          "id": 71,
+          "text": "$\\frac{5}{7}$",
+          "is_correct": true
+        },
+        {
+          "id": 72,
+          "text": "$-\\frac{5}{7}$",
+          "is_correct": false
+        }
+      ],
+      "question": "Soient$z_1$et$z_2$les solutions de l'équation à variable complexe:$z^2 - 2\\overline{z} + 3 = 0$.$Re\\left(\\frac{z_1}{z_2}\\right) =$",
+      "explanation": "",
+      "concours": 1,
+      "course_parts": []
+    },
+    {
+      "id": 19,
+      "choices": [
+        {
+          "id": 73,
+          "text": "$\\frac{\\cos\\theta}{\\sin^3\\theta}$",
+          "is_correct": false
+        },
+        {
+          "id": 74,
+          "text": "$\\frac{\\sin 3\\theta}{\\sin^3\\theta}$",
+          "is_correct": false
+        },
+        {
+          "id": 75,
+          "text": "$\\frac{\\cos 3\\theta}{\\cos^3\\theta}$",
+          "is_correct": true
+        },
+        {
+          "id": 76,
+          "text": "$\\frac{\\sin \\theta}{\\cos^3\\theta}$",
+          "is_correct": false
+        }
+      ],
+      "question": "Soient$\\theta$un nombre réel non nul et$z$un nombre complexe tels que:$z = \\cos^2\\theta + i \\sin\\theta \\cos\\theta$. La partie réelle du nombre$z^{-3}$est:",
+      "explanation": "",
+      "concours": 1,
+      "course_parts": []
+    }
+  ],
+  "timer": "02:00:00",
+  "slug": "Bac-Ensa-2021-math"
+}

@@ -1,17 +1,19 @@
-# Please install OpenAI SDK first: `pip3 install openai`
 
 from openai import OpenAI
 
-client = OpenAI(api_key="sk-e6dfbfb7c98041c38bccca3940057538", 
-                base_url="https://api.deepseek.com")
-
-response = client.chat.completions.create(
-    model="deepseek-chat",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant"},
-        {"role": "user", "content": "Hello"},
-    ],
-    stream=False
+# Initialize the client with your OpenRouter API key
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key="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"  
 )
 
-print(response.choices[0].message.content)
+# Create a chat completion using DeepSeek R1 (free)
+completion = client.chat.completions.create(
+    model="deepseek/deepseek-r1-0528",
+    messages=[
+        {"role": "user", "content": "i anserr bad on this quation lim e^ln(x) can give me a list like [] for course should i focus on."}
+    ]
+)
+
+# Print the response from the model
+print(completion.choices[0].message.content)

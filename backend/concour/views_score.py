@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
 from datetime import timedelta
-from .serializers import (QuestionSerializer, ConcoursListSerializer,
+from .serializers import (QuestionSerializer, ConcourSerializer, ConcoursListSerializer,
                            UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)
 # from pprint import pprint
 
@@ -157,14 +157,10 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
             concours=concours,
         ).values_list('question_id', flat=True).distinct()
         
-        questions = Question.objects.filter(
-            id__in=incorrect_questions_ids
-        ).prefetch_related('choices')
+        # Filter the concours questions to only include incorrect ones
+        concours.questions.set(concours.questions.filter(id__in=incorrect_questions_ids))
       
-        serializer = QuestionSerializer(
-            questions, 
-            many=True,
-        )
+        serializer = ConcourSerializer(concours)
         
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -279,4 +275,3 @@ class AllUserScoresAPIView(APIView):
         
         serializer = AllScoresSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-            

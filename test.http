@@ -7,11 +7,7 @@ Content-Type: application/json
     "password":"#20050523#"
 }
 
-### 2. Call AI endpoint (replace <your_token> with actual token)
-POST http://127.0.0.1:8000/concour/mauvaises-reponses/Bac-Ensa-2021-math/
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5Njc1NzM1LCJpYXQiOjE3NTk2NzQ4MzUsImp0aSI6ImU3ZjUwM2ZjOTQ4NjQ2ODg5ZTIyNWQyZTllMThiZjdkIiwidXNlcl9pZCI6IjEifQ.Vd4zxsEuVOOX3jrKLotNaSMSYdiMSmxHL9Skfy37vnc
+###
+GET http://127.0.0.1:8000/concour/mauvaises-reponses/Bac-Ensa-2021-math/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2MDM2MTk4NSwiaWF0IjoxNzU5NzU3MTg1LCJqdGkiOiJhZDFiMTQ1OTExYzQ0MGUyOTBjOGZjMjJjYjkyNzk2NiIsInVzZXJfaWQiOiIxIn0.Yz0rW7nVYwDqOxPyXetrImRMLf_69AK5VSyjfOLooT8
 
-{
-    
-}

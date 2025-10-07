@@ -79,38 +79,45 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
     return (
         data && (
             <section className="quiz__navigation">
+                {/* Mobile question counter */}
+                <div className="quiz__mobile-counter">
+                    Question {index + 1} sur {totalQuestions}
+                </div>
+
                 <button 
-                    className="btn1"
-                    disabled={index === 0}
-                    onClick={goToPrevious}>
+                disabled={index === 0}
+                onClick={goToPrevious}>
                     <FontAwesomeIcon icon={faArrowLeft} /> 
                     <span className="quiz__nav-text">Précédent</span>
                 </button>
 
-                <div className="quiz__navigation__btn--endandsubmeit">
-                    <button
-                        disabled={!isAnswered && !selectedChoice}
-                        onClick={isAnswered ? handleCancel : handleSubmet}
-                        style={isAnswered ? { backgroundColor: '#dc3545' } : {}}
-                        className="btn1"
-                    >
-                        {isAnswered ? 'Annuler' : 'Soumettre'}
-                    </button>
+                <div className="quiz_navigation_btn--endandsubmeit">
+                <button
+                    disabled={!isAnswered && !selectedChoice}
+                    onClick={isAnswered ? handleCancel : handleSubmet}
+                    style={isAnswered ? { backgroundColor: '#dc3545' } : {}}
+                >
+                    {isAnswered ? 'Annuler' : 'Soumettre'}
+                </button>
 
-                    {allQuestionsAnswered && (
-                        <button
-                            onClick={PostData}
-                            className="btn1 quiz__finish-btn"
-                        >
-                            Terminer
-                        </button>
-                    )}
+                {allQuestionsAnswered && (
+                    <button
+                        onClick={PostData}
+                        className="quiz__finish-btn"
+                        style={{
+                            backgroundColor: '#f59e0b',
+                            color: 'white',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        Terminer
+                    </button>
+                )}
                 </div>
 
                 <button 
-                    className="btn1"
-                    disabled={index === totalQuestions - 1}
-                    onClick={goToNext}>
+                disabled={index === totalQuestions - 1}
+                onClick={goToNext}>
                     <span className="quiz__nav-text">Suivant</span>
                     <FontAwesomeIcon icon={faArrowRight} />
                 </button>

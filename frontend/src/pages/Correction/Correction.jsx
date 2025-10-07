@@ -18,13 +18,13 @@ const CorrectionNavigation = ({index,setIndex,totalQuestions})=>{
             disabled={index === 0}
             onClick={goToPrevious}>
             <FontAwesomeIcon icon={faArrowLeft} /> 
-            <span className="quiz__nav-text">Précédent</span>
+            <span className="correction__nav-text">Précédent</span>
         </button>
 
         <button 
         disabled={index === totalQuestions - 1}
         onClick={goToNext}>
-            <span className="quiz__nav-text">Suivant</span>
+            <span className="correction__nav-text">Suivant</span>
             <FontAwesomeIcon icon={faArrowRight} />
         </button>
         </div>

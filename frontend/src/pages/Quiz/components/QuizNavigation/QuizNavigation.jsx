@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
 import useQuizActions from '../../hooks/useQuizActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight,faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizNavigation.css';
 import { useNavigate } from 'react-router-dom';
-
+import {useRef,useState,useEffect} from 'react';
 import axiosInstance from '../../../../utils/axiosInstance';
+
 const QuizNavigation = ({ index, setIndex, totalQuestions, 
     selectedChoice,setSelectedChoice ,setUserAnser,userAnser,currentQuestion, data }) => {
 
@@ -85,6 +85,8 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 </div>
 
                 <button 
+                className="nbtn"
+
                 disabled={index === 0}
                 onClick={goToPrevious}>
                     <FontAwesomeIcon icon={faArrowLeft} /> 
@@ -93,6 +95,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
 
                 <div className="quiz_navigation_btn--endandsubmeit">
                 <button
+                    className="nbtn"
                     disabled={!isAnswered && !selectedChoice}
                     onClick={isAnswered ? handleCancel : handleSubmet}
                     style={isAnswered ? { backgroundColor: '#dc3545' } : {}}
@@ -103,7 +106,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 {allQuestionsAnswered && (
                     <button
                         onClick={PostData}
-                        className="quiz__finish-btn"
+                        className="quiz__finish-btn "
                         style={{
                             backgroundColor: '#f59e0b',
                             color: 'white',
@@ -115,7 +118,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 )}
                 </div>
 
-                <button 
+                <button className="nbtn"
                 disabled={index === totalQuestions - 1}
                 onClick={goToNext}>
                     <span className="quiz__nav-text">Suivant</span>

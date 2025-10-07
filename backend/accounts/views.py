@@ -11,7 +11,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 class CookieTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
-        print(request.COOKIES)
+        # print(request.COOKIES)
 
         if response.status_code == status.HTTP_200_OK:
             access_token = response.data.get('access')
@@ -44,9 +44,9 @@ class CookieTokenObtainPairView(TokenObtainPairView):
 class CookieTokenRefreshView(APIView):
     def post(self, request):
         refresh_token = request.COOKIES.get('refresh_token')
-        print(request.COOKIES)
+        # print(request.COOKIES)
         if not refresh_token:
-            print("❌ No refresh token found in cookies")
+            # print("❌ No refresh token found in cookies")
             return Response({'detail': 'Refresh token not found'}, status=status.HTTP_401_UNAUTHORIZED)
         
         try:
@@ -54,7 +54,7 @@ class CookieTokenRefreshView(APIView):
             
             access_token = str(refresh.access_token)
             
-            print("✅ Token refreshed successfully on backend")
+            # print("✅ Token refreshed successfully on backend")
             
             response = Response({'detail': 'Token refreshed successfully'})
             response.set_cookie(
@@ -69,11 +69,11 @@ class CookieTokenRefreshView(APIView):
             return response
         
         except TokenError as e:
-            print(f"❌ Token refresh failed: {e}")
+            # print(f"❌ Token refresh failed: {e}")
             response = Response({'detail': 'Veuillez vous connecter'}, status=440)
             response.delete_cookie("access_token")
             response.delete_cookie("refresh_token")
-            print(f"\033[34m{response}\033[0m")
+            # print(f"\033[34m{response}\033[0m")
             return response
 
 

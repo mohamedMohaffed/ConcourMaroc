@@ -11,21 +11,17 @@
   box-sizing: border-box;
 }
 
-.quiz__go__back-icon {
+.quiz .quiz__go__back-icon {
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
-.quiz__go__back-icon:hover {
+.quiz .quiz__go__back-icon:hover {
   color: #3b82f6;
 }
 
 
-@media (max-width: 768px) {
-  .quiz {
-    padding: 0.5rem;
-  }
-}
+
 
 @media (max-width: 48em) {
   .quiz {

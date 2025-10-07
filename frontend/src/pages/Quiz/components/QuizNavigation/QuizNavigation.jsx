@@ -75,7 +75,6 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
             alert('Erreur lors de la soumission du quiz');
         }
     };
-
     return (
         data && (
             <section className="quiz__navigation">
@@ -85,17 +84,14 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 </div>
 
                 <button 
-                className="nbtn"
-
                 disabled={index === 0}
                 onClick={goToPrevious}>
                     <FontAwesomeIcon icon={faArrowLeft} /> 
                     <span className="quiz__nav-text">Précédent</span>
                 </button>
 
-                <div className="quiz_navigation_btn--endandsubmeit">
+                <div className="quiz__navigation__btn--endandsubmeit">
                 <button
-                    className="nbtn"
                     disabled={!isAnswered && !selectedChoice}
                     onClick={isAnswered ? handleCancel : handleSubmet}
                     style={isAnswered ? { backgroundColor: '#dc3545' } : {}}
@@ -106,7 +102,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 {allQuestionsAnswered && (
                     <button
                         onClick={PostData}
-                        className="quiz__finish-btn "
+                        className="quiz__finish-btn"
                         style={{
                             backgroundColor: '#f59e0b',
                             color: 'white',
@@ -118,7 +114,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 )}
                 </div>
 
-                <button className="nbtn"
+                <button 
                 disabled={index === totalQuestions - 1}
                 onClick={goToNext}>
                     <span className="quiz__nav-text">Suivant</span>

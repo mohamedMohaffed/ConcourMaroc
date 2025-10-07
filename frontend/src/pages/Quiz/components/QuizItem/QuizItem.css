@@ -10,7 +10,7 @@
   min-height: 0;
 }
 
-.quizitem__question {
+.quizitem .quizitem__question {
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.4;
@@ -27,7 +27,7 @@
   max-height: 7rem;
 }
 
-.quizitem__choices {
+.quizitem .quizitem__choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -37,7 +37,7 @@
   overflow: auto;
 }
 
-.choice {
+.quizitem .choice {
   padding: 1rem;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
@@ -53,7 +53,7 @@
   overflow: hidden;
 }
 
-.choice::before {
+.quizitem .choice::before {
   content: '';
   position: absolute;
   left: 0;
@@ -66,33 +66,33 @@
   border-radius: 0 2px 2px 0;
 }
 
-.choice:hover:not(.choice__disabled) {
+.quizitem .choice:hover:not(.choice__disabled) {
   border-color: #3b82f6;
   background: #f8fafc;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
 }
 
-.choice:hover:not(.choice__disabled)::before {
+.quizitem .choice:hover:not(.choice__disabled)::before {
   transform: scaleY(1);
 }
 
-.choice__selected {
+.quizitem .choice__selected {
   border-color: #3b82f6 !important;
   background: #eff6ff !important;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
-.choice__selected::before {
+.quizitem .choice__selected::before {
   transform: scaleY(1);
 }
 
-.choice__disabled {
+.quizitem .choice__disabled {
   cursor: not-allowed;
   opacity: 0.6;
   background: #f1f5f9;
 }
 
-.quizitem__choices-label {
+.quizitem .quizitem__choices-label {
   position: absolute;
   top: 0.6rem;
   left: 0.6rem;
@@ -110,13 +110,13 @@
   z-index: 1;
 }
 
-.quizitem__choices-label--selected {
+.quizitem .quizitem__choices-label--selected {
   background: linear-gradient(135deg, #3b82f6, #1d4ed8);
   color: #ffffff;
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
-.choice-content {
+.quizitem .choice-content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -140,7 +140,7 @@
     flex-direction: column;
   }
 
-  .quizitem__question {
+  .quizitem .quizitem__question {
     font-size: 1.2rem;
     padding: 2rem 0.75rem;
     min-height: 8rem;
@@ -149,7 +149,7 @@
     flex-shrink: 0;
   }
 
-  .quizitem__choices {
+  .quizitem .quizitem__choices {
     grid-template-columns: 1fr;
     padding: 0.75rem 0.75rem 2rem 0.75rem;
     gap: 0.4rem;
@@ -157,7 +157,7 @@
     overflow: auto;
   }
 
-  .choice {
+  .quizitem .choice {
     padding: 0.4rem;
     min-height: 2.5rem;
     border-radius: 5px;
@@ -168,14 +168,14 @@
     display: none;
   }
 
-  .choice-content {
+  .quizitem .choice-content {
     padding-left: 2rem;
     padding-right: 0.4rem;
     font-size: 1rem;
     line-height: 1.2;
   }
 
-  .quizitem__choices-label {
+  .quizitem .quizitem__choices-label {
     width: 1.3rem;
     height: 1.3rem;
     font-size: 0.65rem;

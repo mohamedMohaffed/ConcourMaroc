@@ -99,7 +99,6 @@
 }
 
 .score__quiz-choice--user-correct {
-    /* If user and correct, keep correct style, maybe add a subtle highlight */
     box-shadow: 0 0 0 2px #b6f5c6;
 }
 
@@ -124,9 +123,7 @@
 
 .score {
     overflow-y: auto;
-    /* Optionally set a min-height or height if needed */
     min-height: 100vh;
-    /* Remove any height: 100vh from html/body to avoid double scrollbars */
 }
 
 
@@ -169,7 +166,7 @@
         font-size: 0.97rem;
     }
     
-   *
+   
     .score__detail__title {
         font-size: 1.125rem;
         

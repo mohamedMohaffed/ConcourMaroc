@@ -12,14 +12,14 @@
     flex-shrink: 0;
 }
 
-.quiz__header-info{
+.quiz__header .quiz__header-info{
     display:flex;
     align-items:center;
     gap:0.75rem;
     margin-bottom: 0.4rem;
 }
 
-.quiz_title{
+.quiz__header .quiz_title{
     font-size: 1.1rem;
     font-weight: 600;
     color: #1e293b;
@@ -27,19 +27,19 @@
     line-height: 1.2;
 }
 
-.quiz_title-prefix {
+.quiz__header .quiz_title-prefix {
     color: #64748b;
     font-weight: 400;
 }
 
-.quiz_title-phone{
+.quiz__header .quiz_title-phone{
     display:none;
     font-size: 1rem;
     font-weight: 600;
     color: #1e293b;
 }
 
-.quiz__go__back-icon {
+.quiz__header .quiz__go__back-icon {
   color: #64748b;
   transition: all 0.2s ease;
   padding: 0.4rem;
@@ -47,12 +47,12 @@
   cursor: pointer;
 }
 
-.quiz__go__back-icon:hover {
+.quiz__header .quiz__go__back-icon:hover {
   color: #3b82f6;
   background: rgba(59, 130, 246, 0.1);
 }
 
-.quiz_header-navigation{
+.quiz__header .quiz_header-navigation{
     display:flex;
     gap:0.4rem;
     justify-content:center;
@@ -66,7 +66,7 @@
 
 /* Circle style */
 
-.quiz__header-circle{
+.quiz__header .quiz__header-circle{
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
@@ -82,18 +82,18 @@
     border: 2px solid #e2e8f0;
 }
 
-.quiz__header-circle:hover {
+.quiz__header .quiz__header-circle:hover {
     background: #e2e8f0;
     border-color: #cbd5e1;
 }
 
-.quiz__header-circle.selected{
+.quiz__header .quiz__header-circle.selected{
     background: #3b82f6;
     color: #ffffff;
     border-color: #3b82f6;
 }
 
-.quiz__header-circle.submitted{
+.quiz__header .quiz__header-circle.submitted{
     background: #10b981;
     color: #ffffff;
     border-color: #10b981;
@@ -109,30 +109,30 @@
         border-radius: 6px;
     }
     
-    .quiz__header-info{
+    .quiz__header .quiz__header-info{
         margin-bottom: 0;
         gap: 0.5rem;
     }
     
-    .quiz_title{
+    .quiz__header .quiz_title{
         display:none;
     }
     
-    .quiz_title-phone{
+    .quiz__header .quiz_title-phone{
         display:block;
         font-size: 0.8rem;
         line-height: 1.1;
     }
 
-    .quiz_title-prefix {
+    .quiz__header .quiz_title-prefix {
         display: none; 
     }
 
-    .quiz_header-navigation {
+    .quiz__header .quiz_header-navigation {
         display: none;
     }
 
-    .quiz_go_back-icon {
+    .quiz__header .quiz_go_back-icon {
         padding: 0.25rem;
     }
 }

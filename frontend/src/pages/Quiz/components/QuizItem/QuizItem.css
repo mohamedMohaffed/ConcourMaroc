@@ -130,6 +130,7 @@
   font-size: 1.4rem;
 }
 
+
 @media (max-width: 48em) {
   .quizitem {
     border-radius: 8px;

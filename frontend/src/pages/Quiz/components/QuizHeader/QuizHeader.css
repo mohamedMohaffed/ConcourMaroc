@@ -99,6 +99,9 @@
     border-color: #10b981;
 }
 
+
+
+
 @media (max-width: 48em) {
     .quiz__header{
         padding: 0.3rem 0.6rem;
@@ -129,7 +132,7 @@
         display: none;
     }
 
-    .quiz__go__back-icon {
+    .quiz_go_back-icon {
         padding: 0.25rem;
     }
 }

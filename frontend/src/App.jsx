@@ -12,6 +12,8 @@ import Dashboard from './pages/DashBoard/DashBoard';
 import Correction from './pages/Correction/Correction';
 import PracticeList from './pages/PracticeList/PracticeList';
 import PracticeQuiz from './pages/PracticeQuiz/PracticeQuiz';
+import LearnQuiz from './pages/LearnQuiz/LearnQuiz';
+
 const App = () => {
     return (
         <BrowserRouter>
@@ -32,7 +34,7 @@ const App = () => {
                 </Route>
                 {/* rr */}
                 
-                <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/:subject_slug/concour/" element={<Quiz />} />
+                <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/:subject_slug/concour/" element={<LearnQuiz />} />
                 <Route path="/pratique/:concours_slug" element={<PracticeQuiz />} />
 
                 <Route path="/login" element={<Login />} />

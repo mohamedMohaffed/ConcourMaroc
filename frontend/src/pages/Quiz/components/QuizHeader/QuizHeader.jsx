@@ -24,9 +24,9 @@ const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circ
             </Link>
             <h3 className="quiz_title">
                 <span className="quiz_title-prefix">Concours de</span> {subject} - 
-                {universite.toUpperCase()} ({niveau}, {year}) 
+                {universite} ({niveau}, {year}) 
             </h3>
-            <div className="quiz_title-phone">{universite.toUpperCase()} ({niveau}, {year}) 
+            <div className="quiz_title-phone">{universite} ({niveau}, {year}) 
             </div>
             </div>
             <div className="quiz_header-navigation">
@@ -47,3 +47,5 @@ const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circ
 };
 
 export default QuizHeader;
+
+// toUpperCase()

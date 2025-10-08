@@ -14,14 +14,16 @@ const CorrectionNavigation = ({index,setIndex,totalQuestions})=>{
 
     return(
         <div className="correction__navigation">
-        <button 
+        <button
+            className="cbtn"
             disabled={index === 0}
             onClick={goToPrevious}>
             <FontAwesomeIcon icon={faArrowLeft} /> 
             <span className="correction__nav-text">Précédent</span>
         </button>
 
-        <button 
+        <button
+        className="cbtn" 
         disabled={index === totalQuestions - 1}
         onClick={goToNext}>
             <span className="correction__nav-text">Suivant</span>
@@ -56,8 +58,8 @@ const Correction = () => {
                    orrigé du concours
                 </h1>
                 <h1 className="correction__title mobile-title">
-                    <span className="correction__title--first-letter">R</span>
-                   ésultats
+                    <span className="correction__title--first-letter">C</span>
+                   orrigé
                 </h1>
                 <div className="correction__path">
                     <Link to="/concours/niveaux">

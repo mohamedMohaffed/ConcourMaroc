@@ -20,7 +20,7 @@ const PracticeList = () => {
             <div className="practice-list__items">
                 {data.map((item, index) => (
                     <Link 
-                        to={`/practice/${item.concours_slug}`} 
+                        to={`/pratique/${item.concours_slug}`} 
                         key={index} 
                         className="practice-list-item"
                     >

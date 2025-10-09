@@ -5,10 +5,17 @@ import useApi from '../../hooks/useApi';
 const PracticeQuiz=()=>{
     const { concours_slug } = useParams();
     const { data, error, loading } = useApi(`concour/mauvaises-reponses/${concours_slug}`);
-    console.log(data)
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+    if (!data) return null;
     return(
         <section>
-            <h1>DATA</h1>
+          
+            <Quiz 
+                data={data} subject_slug={data.subject.slug}
+                universite_slug={data.subject.year.university.slug}
+                niveau_slug={data.subject.year.university.level.slug} 
+                year_slug={data.subject.year.slug} type={"Practice"}/>
         </section>
     )
 

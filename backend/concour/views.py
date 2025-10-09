@@ -50,20 +50,6 @@ class ConcoursAPIView(APIView):
     permission_classes = [AllowAny]
     
     def get(self, request, niveau_slug, universite_slug, year_slug, subject_slug):
-        # Define allowed query parameters
-        # allowed_params = ['mode']
-        
-        # Check if there are any disallowed parameters
-        # invalid_params = [param for param in request.query_params.keys() if param not in allowed_params]
-        # if invalid_params:
-        #     return Response(
-        #         {"error": f"Invalid query parameters: {', '.join(invalid_params)}. Only 'mode' is allowed."},
-        #         status=status.HTTP_400_BAD_REQUEST
-        #     )
-        
-        # quiz_mode = request.query_params.get('mode', 'entrainement')
-
-       
         concours = Concours.objects.filter(
             subject__slug=subject_slug,
             subject__year__slug=year_slug,
@@ -79,20 +65,6 @@ class ConcoursAPIView(APIView):
             'questions__choices',
             'questions__course_parts'
         )
-        
-        # if quiz_mode not in ['entrainement', 'examen', 'correction']:
-        #     return Response(
-        #         {"error": "Invalid type. Allowed values are 'entrainement', 'examen', 'correction'."},
-        #         status=status.HTTP_400_BAD_REQUEST
-        #     )
-        
-        # show_is_correct = quiz_mode in ['entrainement', 'correction']
-        # show_explanation = quiz_mode != 'examen'
-        serializer = ConcourSerializer(concours, many=True, 
-            # context={
-            #     'show_is_correct': show_is_correct,
-            #     'show_explanation': show_explanation
-            # }
-        )
+        serializer = ConcourSerializer(concours, many=True)
         return Response(serializer.data)
 

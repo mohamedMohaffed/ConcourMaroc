@@ -1,12 +1,11 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import UserAnswer, Question, Choice,Score,Concours
+from .models import UserAnswer,Choice,Score,Concours
 # from .serializers import UserAnswerCreateSerializer
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import status
-from django.contrib.auth.models import User
 from datetime import timedelta
-from .serializers import (QuestionSerializer, ConcourSerializer, ConcoursListSerializer,
+from .serializers import ( ConcourSerializer, ConcoursListSerializer,
                            UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)
 # from pprint import pprint
 
@@ -60,7 +59,7 @@ class UserAnswerScoreAPIView(APIView):
             # type=type 
         )
         score_value = 0
-        serializer_errors = []
+        # serializer_errors = []
 
         # Check for None in any question or choice before proceeding
         for ans in answers:
@@ -157,11 +156,8 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
             concours=concours,
         ).values_list('question_id', flat=True).distinct()
         
-        # Filter the concours questions to only include incorrect ones
         concours.questions.set(concours.questions.filter(id__in=incorrect_questions_ids))
-      
         serializer = ConcourSerializer(concours)
-        
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class LastUserScoreAPIView(APIView):
@@ -275,3 +271,6 @@ class AllUserScoresAPIView(APIView):
         
         serializer = AllScoresSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+

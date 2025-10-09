@@ -8,13 +8,10 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug})=>{
     const [userAnser,setUserAnser] = useState([])
     const [selectedChoice, setSelectedChoice] = useState(null);
     const [startTime, setStartTime] = useState(null);
-    // console.log("userAnser :",userAnser)
     
 
-    // console.log(data)
     useEffect(() => {
         if (data !== null) {
-            // console.log("Fetched data:", data);
             if (!startTime) {
                 setStartTime(new Date());
             }
@@ -25,11 +22,14 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug})=>{
      const [index, setIndex] = useState(0);
     
     const currentQuestion = useMemo(() => 
-        data?.[0]?.questions?.[index], [data, index]
+        // data?.[0]?.questions?.[index], [data, index]
+        data?.questions?.[index], [data, index]
+
     );
     const totalQuestions = useMemo(() => {
-        const length = data?.[0]?.questions?.length || 0;
-        // console.log("Total questions:", length);
+        // const length = data?.[0]?.questions?.length || 0;
+        const length = data?.questions?.length || 0;
+
         return length;
         }, [data]);
 

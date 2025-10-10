@@ -5,7 +5,7 @@ from .models import UserAnswer,Choice,Score,Concours
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import status
 from datetime import timedelta
-from .serializers import ( ConcourSerializer, ConcoursListSerializer,
+from .serializers import ( QuestionSerializer,ConcourSerializer, ConcoursListSerializer,
                            UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)
 # from pprint import pprint
 
@@ -138,10 +138,10 @@ class IncorrectAnswersListAPIView(APIView):
 
 class QuestionIncorrectAnswersUserAPIView(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def get(self, request, concour_slug):
         user = request.user
-        
+
         try:
             concours = Concours.objects.get(slug=concour_slug)
         except Concours.DoesNotExist:
@@ -149,17 +149,23 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
                 {"detail": "Concours not found."},
                 status=status.HTTP_404_NOT_FOUND
             )
-        
-        incorrect_questions_ids = UserAnswer.objects.filter(
-            user=user, 
-            user_choice__is_correct=False,
-            concours=concours,
-        ).values_list('question_id', flat=True).distinct()
-        
-        concours.questions.set(concours.questions.filter(id__in=incorrect_questions_ids))
-        serializer = ConcourSerializer(concours)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
+        # Get IDs of questions the user answered incorrectly
+        incorrect_question_ids = UserAnswer.objects.filter(
+            user=user,
+            user_choice__is_correct=False,
+            concours=concours
+        ).values_list('question_id', flat=True).distinct()
+
+        # Filter only incorrect questions (DO NOT modify concours.questions)
+        incorrect_questions = concours.questions.filter(id__in=incorrect_question_ids)
+
+        # Serialize concours but replace 'questions' with only incorrect ones
+        concours_data = ConcourSerializer(concours).data
+        concours_data['questions'] = QuestionSerializer(incorrect_questions, many=True).data
+
+        return Response(concours_data, status=status.HTTP_200_OK)
+    
 class LastUserScoreAPIView(APIView):
     permission_classes = [IsAuthenticated]
 

@@ -64,7 +64,7 @@ class Subject(models.Model):
 
 class Concours(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="concours")
-    timer = models.DurationField()
+    timer = models.DurationField(blank=True, null=True)
     #add note type
     slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 

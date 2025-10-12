@@ -47,11 +47,6 @@
     padding: 1.5rem 0;
 }
 
-.score__quiz-summary {
-    margin: 0 auto;
-    max-width: 700px;
-}
-
 .score__quiz-question {
     margin-bottom: 2rem;
     text-align: left;
@@ -149,10 +144,6 @@
         font-size: 0.98rem;
         padding: 1rem 0.2rem;
         min-height: 80px;
-    }
-    .score__quiz-summary {
-        max-width: 98vw;
-        padding: 0 0.5rem;
     }
     .score__quiz-question {
         margin-bottom: 1.2rem;

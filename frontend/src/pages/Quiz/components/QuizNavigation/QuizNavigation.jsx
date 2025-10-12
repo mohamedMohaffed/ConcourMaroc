@@ -12,10 +12,8 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
     const { goToPrevious, goToNext } = useQuizActions(index, setIndex, totalQuestions);
     const navigate = useNavigate();
 
-    // Check if current question is already answered
     const isAnswered = userAnser.some(ans => ans.question_id === currentQuestion?.id);
     
-    // Check if all questions are answered
     const allQuestionsAnswered = userAnser.length === totalQuestions && totalQuestions > 0;
     
     const handleSubmet = () => {
@@ -34,11 +32,9 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
         }
     }
 
-    // Timer state
     const [elapsedSeconds, setElapsedSeconds] = useState(0);
     const timerRef = useRef(null);
 
-    // Start timer on mount
     useEffect(() => {
         timerRef.current = setInterval(() => {
             setElapsedSeconds(prev => prev + 1);
@@ -48,7 +44,6 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
 
     const PostData = async () => {
         try {
-            // Format elapsedSeconds as "HH:MM:SS"
             const hours = Math.floor(elapsedSeconds / 3600);
             const minutes = Math.floor((elapsedSeconds % 3600) / 60);
             const seconds = elapsedSeconds % 60;
@@ -59,17 +54,17 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
 
             const quizData = {
                 concour_id: data?.[0]?.id,
-                time_spent: timeSpentStr, // send as "HH:MM:SS"
+                time_spent: timeSpentStr, 
                 answers: userAnser
             };
 
-            console.log("Posting quiz data:", quizData);
-            
             const response = await axiosInstance.post('/concour/utilisateur-score-et-reponses/', quizData);
 
             if (response.status === 200 || response.status === 201) {
                 navigate(`/concours/resultat/${quizData.concour_id}/`);
             }
+
+
         } catch (error) {
             console.error('Error posting quiz data:', error);
             alert('Erreur lors de la soumission du quiz');
@@ -78,7 +73,6 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
     return (
         data && (
             <section className="quiz__navigation">
-                {/* Mobile question counter */}
                 <div className="quiz__mobile-counter">
                     Question {index + 1} sur {totalQuestions}
                 </div>

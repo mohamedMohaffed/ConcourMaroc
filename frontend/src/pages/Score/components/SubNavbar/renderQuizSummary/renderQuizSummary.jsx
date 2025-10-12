@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import LatexRenderer from '../../../../Quiz/components/LatexRenderer/LatexRenderer';
+import './renderQuizSummary.css'
 
 const renderQuizSummary = ({quizData,data}) => {
         if (!quizData || !quizData[0] || !quizData[0].questions) return <p>Chargement du résumé...</p>;
@@ -13,6 +15,12 @@ const renderQuizSummary = ({quizData,data}) => {
     }
         return (
             <div className="score__quiz-summary">
+                <div className="score__quiz-summary-header">
+                    <h2 className="score__quiz-summary-title">Résumé de vos réponses</h2>
+                    <Link to="/quiz" className="score__quiz-summary-btn">
+                        Nouveau Quiz
+                    </Link>
+                </div>
                 {questions.map((q, idx) => {
                     const userChoiceId = userAnswerMap[q.id];
                     const correctChoice = q.choices.find(c => c.is_correct);

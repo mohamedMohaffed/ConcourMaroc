@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import axiosInstance from '../../../../utils/axiosInstance';
-import renderQuizSummary from './components/renderQuizSummary';
+import renderQuizSummary from './renderQuizSummary/renderQuizSummary';
 import Graph from "./components/Graph/Graph";
 import './SubNavbar.css';
 

@@ -2,12 +2,10 @@ from django.urls import path
 from .views import (LevelAPIView, UniverstyAPIView,
                     YearAPIView,SubjectAPIView,ConcoursAPIView)
 from .views_score import (UserAnswerScoreAPIView, 
-QuestionIncorrectAnswersUserAPIView,IncorrectAnswersListAPIView,
 LastUserScoreAPIView,DeleteLastScoreAPIView,
 AllScoresForConcourAPIView, AllUserScoresAPIView)
-
 from .views_ai import AIResponderAPIView
-
+from .views_pratice import IncorrectAnswersListAPIView,QuestionIncorrectAnswersUserAPIView
 
 urlpatterns = [
     #get data
@@ -22,10 +20,11 @@ urlpatterns = [
     path('utilisateur-score-et-reponses/', UserAnswerScoreAPIView.as_view(), name='user-score'),
     #-----END--score and anser
 
-    #
+    ### ----Practice--- ###
     path('list-mauvaises-reponses/',IncorrectAnswersListAPIView.as_view()),
     path('mauvaises-reponses/<slug:concour_slug>/', QuestionIncorrectAnswersUserAPIView.as_view(), name='user-bad'),
-
+    ##
+    
     path('last-score/<int:concour_id>/', LastUserScoreAPIView.as_view(), name='last-score-by-concour'),
     path('delete-last-score/<int:concour_id>/', DeleteLastScoreAPIView.as_view(), name='delete-last-score-by-concour'),
 

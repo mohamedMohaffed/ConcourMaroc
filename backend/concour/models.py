@@ -123,9 +123,8 @@ class UserAnswer(models.Model):
     user_choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name='user_answers_concours')
     created_at = models.DateTimeField(auto_now_add=True)
-    score = models.ForeignKey(Score, on_delete=models.CASCADE, 
-                                related_name="user_answers_score",null=True, blank=True
-)
+    score = models.ForeignKey(Score, on_delete=models.CASCADE, related_name="user_answers_score",null=True, blank=True)
+    incorrect_answer_count = models.IntegerField(default=0)
 
 
     def is_correct(self):

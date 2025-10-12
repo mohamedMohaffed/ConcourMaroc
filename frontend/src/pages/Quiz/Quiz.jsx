@@ -22,13 +22,13 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug})=>{
      const [index, setIndex] = useState(0);
     
     const currentQuestion = useMemo(() => 
-        // data?.[0]?.questions?.[index], [data, index]
-        data?.questions?.[index], [data, index]
+        data?.[0]?.questions?.[index], [data, index]
+        // data?.questions?.[index], [data, index]
 
     );
     const totalQuestions = useMemo(() => {
-        // const length = data?.[0]?.questions?.length || 0;
-        const length = data?.questions?.length || 0;
+        const length = data?.[0]?.questions?.length || 0;
+        // const length = data?.questions?.length || 0;
 
         return length;
         }, [data]);

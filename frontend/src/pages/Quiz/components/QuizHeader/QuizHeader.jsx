@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizHeader.css';
 
-const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circlesArray, changeIndex, currentIndex, userAnser, data }) => {
+const QuizHeader = ({ subject, universite, niveau, year,circlesArray, changeIndex, currentIndex, userAnser, data,type }) => {
     
     // Function to check if a question is submitted
     const isQuestionSubmitted = (questionIndex) => {
@@ -15,7 +15,7 @@ const QuizHeader = ({ subject, universite, niveau, year, quizMode, getData, circ
     return (
         <div className="quiz__header">
             <div className="quiz__header-info">
-            <Link to={`/concours/${niveau}/${universite}/${year}/matieres`}>
+            <Link to={ type == "Learn" ? `/concours/${niveau}/${universite}/${year}/matieres` : `/pratique` }>
                 <FontAwesomeIcon 
                     icon={faArrowLeft} 
                     className="quiz__go__back-icon"

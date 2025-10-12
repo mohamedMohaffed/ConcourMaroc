@@ -54,6 +54,8 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
                 currentIndex={index}
                 userAnser={userAnser}
                 data={data}
+                type={type}
+
             />
 
             <QuizItem 

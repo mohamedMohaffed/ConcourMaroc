@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
-const QuizItem = ({getData, currentQuestion, userAnser, selectedChoice, setSelectedChoice}) => {
+const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice,type}) => {
 
     useEffect(() => {
         if (currentQuestion && userAnser) {

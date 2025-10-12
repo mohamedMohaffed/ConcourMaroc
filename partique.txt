@@ -2,7 +2,8 @@
 {'id': 1, 'year': 
 {'id': 1, 'university': 
 {'id': 1, 'level': 
-{'id': 1, 'name': 'BAC', 'slug': 'Bac'}, 'name': 'ENSA', 'is_open': True, 'slug': 'ENSA'},
+{'id': 1, 'name': 'BAC', 'slug': 'Bac'}, 'name': 'ENSA', 'is_open': True, 'slug':
+ 'ENSA'},
 'year': 2021, 'slug': '2021'}, 
 'name': 'Mathématiques', 'slug': 'Math'},
 'questions': 

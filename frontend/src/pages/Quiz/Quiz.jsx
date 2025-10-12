@@ -65,9 +65,11 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
                 userAnser={userAnser}
                 selectedChoice={selectedChoice}
                 setSelectedChoice={setSelectedChoice}
+                type={type}
             />
             
-            <QuizNavigation index={index} 
+            <QuizNavigation 
+                index={index} 
                 setIndex={setIndex} 
                 totalQuestions={totalQuestions}
                 getData={data}
@@ -78,6 +80,7 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
                 currentQuestion={currentQuestion}
                 data={data}
                 startTime={startTime}
+                type={type}
             />
 
         </section>

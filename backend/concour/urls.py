@@ -5,7 +5,7 @@ from .views_score import (UserAnswerScoreAPIView,
 LastUserScoreAPIView,DeleteLastScoreAPIView,
 AllScoresForConcourAPIView, AllUserScoresAPIView)
 from .views_ai import AIResponderAPIView
-from .views_pratice import IncorrectAnswersListAPIView,QuestionIncorrectAnswersUserAPIView
+from .views_pratice import IncorrectAnswersListAPIView,QuestionIncorrectAnswersUserAPIView, DeleteCorrectAnswersAPIView
 
 urlpatterns = [
     #get data
@@ -23,6 +23,7 @@ urlpatterns = [
     ### ----Practice--- ###
     path('list-mauvaises-reponses/',IncorrectAnswersListAPIView.as_view()),
     path('mauvaises-reponses/<slug:concour_slug>/', QuestionIncorrectAnswersUserAPIView.as_view(), name='user-bad'),
+    path('delete-correct-answers/<int:concour_id>/', DeleteCorrectAnswersAPIView.as_view(), name='delete-correct-answers'),
     ##
     
     path('last-score/<int:concour_id>/', LastUserScoreAPIView.as_view(), name='last-score-by-concour'),

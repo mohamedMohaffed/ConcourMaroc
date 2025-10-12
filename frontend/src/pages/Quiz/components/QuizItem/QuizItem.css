@@ -130,6 +130,26 @@
   font-size: 1.4rem;
 }
 
+.choice__correct {
+    background-color: #d4edda !important;
+    border-color: #28a745 !important;
+}
+
+.choice__incorrect {
+    background-color: #f8d7da !important;
+    border-color: #dc3545 !important;
+}
+
+.quizitem__choices-label--correct {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+
+.quizitem__choices-label--incorrect {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+
 
 @media (max-width: 48em) {
   .quizitem {

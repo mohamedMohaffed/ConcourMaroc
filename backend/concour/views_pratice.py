@@ -1,4 +1,3 @@
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -59,4 +58,48 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
         concours_data['questions'] = QuestionSerializer(incorrect_questions, many=True).data
 
         return Response(concours_data, status=status.HTTP_200_OK)
-    
+
+class DeleteCorrectAnswersAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, concour_id):
+        user = request.user
+        correct_answers = request.data.get('correct_answers', [])
+
+        if not correct_answers:
+            return Response(
+                {"detail": "No correct answers provided to delete."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            concours = Concours.objects.get(id=concour_id)
+        except Concours.DoesNotExist:
+            return Response(
+                {"detail": "Concours not found."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # Extract question_ids from correct_answers
+        question_ids = [ans.get('question_id') for ans in correct_answers if ans.get('question_id')]
+        
+        if not question_ids:
+            return Response(
+                {"detail": "No valid question IDs provided."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Delete user answers for the provided correct answer question IDs
+        deleted_count, _ = UserAnswer.objects.filter(
+            user=user,
+            concours=concours,
+            question_id__in=question_ids
+        ).delete()
+
+        return Response(
+            {
+                "detail": f"Successfully deleted {deleted_count} correct answers.",
+                "deleted_count": deleted_count
+            },
+            status=status.HTTP_200_OK
+        )

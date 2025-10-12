@@ -4,7 +4,7 @@ import QuizItem from './components/QuizItem/QuizItem';
 import QuizHeader from './components/QuizHeader/QuizHeader';
 import QuizNavigation from './components/QuizNavigation/QuizNavigation'
 
-const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug})=>{
+const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
     const [userAnser,setUserAnser] = useState([])
     const [selectedChoice, setSelectedChoice] = useState(null);
     const [startTime, setStartTime] = useState(null);
@@ -21,28 +21,28 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug})=>{
     
      const [index, setIndex] = useState(0);
     
-    const currentQuestion = useMemo(() => 
-        data?.[0]?.questions?.[index], [data, index]
-        // data?.questions?.[index], [data, index]
-
-    );
+    const currentQuestion = useMemo(() => {
+        if(type == "Learn"){
+            return data?.[0]?.questions?.[index];
+        } else {
+            return data?.questions?.[index];
+        }
+    }, [data, index, type]);
+    
     const totalQuestions = useMemo(() => {
-        const length = data?.[0]?.questions?.length || 0;
-        // const length = data?.questions?.length || 0;
-
-        return length;
-        }, [data]);
+        if(type == "Learn"){
+            return data?.[0]?.questions?.length || 0;
+        } else {
+            return data?.questions?.length || 0;
+        }
+    }, [data, type]);
 
 
     const circlesArray = useMemo(() => {
         return Array.from({ length: totalQuestions });
         }, [totalQuestions]);
-
-    
     return(
-
         <section className="quiz">
-
             <QuizHeader 
                 subject={subject_slug} 
                 universite={universite_slug} 

@@ -73,3 +73,32 @@
   background: #e0e0e0;
   color: #22223b;
 }
+
+@media (max-width: 48em) {
+  .delete-overlay {
+    padding-top: 80px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .delete-popup {
+    width: 100%;
+    max-width: 320px;
+    padding: 24px 20px 20px 20px;
+    border-radius: 12px;
+  }
+
+  .delete-popup p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .delete-popup button {
+    margin: 0 6px;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    min-width: 80px;
+    border-radius: 8px;
+  }
+}

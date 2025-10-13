@@ -49,25 +49,28 @@
 
 
 @media (max-width: 48em) {
+    .practice-list {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
     .practice-list__header {
-        padding: 0.5rem 1rem;
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background: white;
-        z-index: 50;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 1rem;
     }
 
     .practice-list__items {
         padding: 1rem;
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        flex: 1;
+        justify-content: flex-start;
     }
 
     .practice-list-item {
-        width: 80%;
-        font-size: 1rem;
-
+        width: 100%;
+        max-width: 20rem;
+        height: 2.5rem;
+        font-size: 0.9rem;
+        padding: 0.75rem;
     }
 }

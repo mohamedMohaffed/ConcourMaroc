@@ -15,7 +15,7 @@ const CorrectionNavigation = ({index,setIndex,totalQuestions})=>{
     return(
         <div className="correction__navigation">
         <button
-            className="cbtn"
+            className="correction__btn"
             disabled={index === 0}
             onClick={goToPrevious}>
             <FontAwesomeIcon icon={faArrowLeft} /> 
@@ -23,7 +23,7 @@ const CorrectionNavigation = ({index,setIndex,totalQuestions})=>{
         </button>
 
         <button
-        className="cbtn" 
+        className="correction__btn" 
         disabled={index === totalQuestions - 1}
         onClick={goToNext}>
             <span className="correction__nav-text">Suivant</span>
@@ -51,7 +51,7 @@ const Correction = () => {
     ] : [];
 
     return (
-        <section>
+        <section className="correction">
             <div className="correction__header">
                 <h1 className="correction__title desktop-title">
                     <span className="correction__title--first-letter">C</span>
@@ -81,6 +81,7 @@ const Correction = () => {
             </div>
 
             <div className="correction__content">
+                <div className="correction__question_and_choices">
                 <h2 className="correction__question">{<LatexRenderer latex={question.question}/>} </h2>
                 <ul className="correction__choices">
                     {question.choices.map((choice) => (
@@ -93,6 +94,7 @@ const Correction = () => {
                         </li>
                     ))}
                 </ul>
+                </div>
                 {question.explanation && (
                     <div className="correction__explanation">
                         <MarkdownWithMath content={question.explanation} />

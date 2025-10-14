@@ -62,7 +62,7 @@ const Correction = () => {
                    orrigé
                 </h1>
                 <div className="correction__path">
-                    <Link to="/concours/niveaux">
+                    <Link to="">
                         <FontAwesomeIcon icon={faHouse} style={{ cursor: "pointer" }} />
                     </Link>
                     {breadcrumbs.map((crumb, i) => (

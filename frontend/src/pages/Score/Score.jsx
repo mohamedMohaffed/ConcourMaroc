@@ -57,15 +57,6 @@ const Score = () => {
         setShowDeleteModal(false);
     };
 
-    // Helper: Map question_id -> user_choice_id
-    
-
-
-
-    
-
-    
-   
     return (
         <motion.section 
             initial={{opacity: 0}}

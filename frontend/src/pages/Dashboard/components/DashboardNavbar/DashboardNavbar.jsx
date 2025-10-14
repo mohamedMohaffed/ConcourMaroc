@@ -156,8 +156,6 @@ const DashboardNavbar = ({ scores }) => {
 
     return (
         <div>
-            <h1 className="dashboard__title">Tableau de bord</h1>
-            
             {/* Filters */}
             <div className="dashboard__filters">
                 {Object.entries(filterOptions).map(([key, options]) => (

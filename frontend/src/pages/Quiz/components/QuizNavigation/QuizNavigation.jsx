@@ -204,8 +204,8 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                     visible={showDeleteModal}
                     onConfirm={confirmDelete}
                     onCancel={cancelDelete}
-                    message="Veux-tu supprimer les questions dont la réponse est correcte ?
-"
+                    message="Veux-tu supprimer les questions dont la réponse est correcte ?"
+                    buttonColor="#218838"
                 />
             </>
         )

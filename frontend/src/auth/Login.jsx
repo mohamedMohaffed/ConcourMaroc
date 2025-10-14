@@ -11,11 +11,9 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // إرسال بيانات تسجيل الدخول
             await axiosInstance.post('accounts/api/token/', { username, password });
 
-            // لا حاجة لتخزين التوكن في localStorage، لأنه موجود في HTTP-only cookies
-            navigate('/concours/niveaux'); // Fixed the navigation path
+            navigate('/concours/Bac/universites'); 
         } catch (err) {
             setError('Invalid credentials');
             console.log("error is ",err);

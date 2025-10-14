@@ -23,6 +23,11 @@ const PracticeList = () => {
             <div className="practice-list__items">
                 {loading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Loading/></div>}
                 {error && <div>Error: {error.message}</div>}
+                {data && data.length === 0 && (
+                    <div className="practice-list__empty">
+                        <p>Aucun exercice de pratique disponible pour le moment.</p>
+                    </div>
+                )}
                 {data && data.map((item, index) => (
                     <Link 
                         to={`/pratique/${item.concours_slug}`} 

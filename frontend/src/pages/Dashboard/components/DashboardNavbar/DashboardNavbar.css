@@ -1,8 +1,10 @@
 .dashboard__title {
     font-weight: 500;
     color: var(--color-text-primary);
-    padding-left: 2rem;
-    margin-bottom: 1.5rem;
+   
+    padding: 2rem;
+    margin:0;
+
    
 }
 

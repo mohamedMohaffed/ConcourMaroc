@@ -13,7 +13,7 @@ const YearsList = () => {
     );
 
     const breadcrumbs = data && data.length > 0 ? [
-        { text: data[0].university.level.name, link: "/concours/niveaux" },
+        { text: data[0].university.level.name, link: "" },
         { text: data[0].university.name, link: `/concours/${data[0].university.level.slug}/universites` }
     ] : [];
 

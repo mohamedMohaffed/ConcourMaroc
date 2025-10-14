@@ -21,7 +21,7 @@ const SubjectsList = () => {
     }, [data]);
 
     const breadcrumbs = data && data.length > 0 ? [
-        { text: data[0].year.university.level.name, link: "/concours/niveaux" },
+        { text: data[0].year.university.level.name, link: "" },
         { text: data[0].year.university.name, link: `/concours/${data[0].year.university.level.slug}/universites` },
         { text: data[0].year.year, link: `/concours/${data[0].year.university.level.slug}/${data[0].year.university.slug}/year` },
     ] : [];

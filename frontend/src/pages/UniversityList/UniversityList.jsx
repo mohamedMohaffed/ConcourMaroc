@@ -3,7 +3,7 @@ import BrowseList from '../../components/BrowseList/BrowseList';
 import { Link, useParams } from 'react-router-dom';
 
 const UniversityList = () => {
-    const { niveau_slug } = useParams();
+    const niveau_slug  = "Bac";
     const { data, error, loading } = useApi(`concour/${niveau_slug}/universites`, { needAuth: false });
 
     const renderUniversity = (item, key) => (
@@ -15,7 +15,7 @@ const UniversityList = () => {
     );
 
     const breadcrumbs = data && data.length > 0 ? [
-        { text: data[0].level.name, link: "/concours/niveaux" }
+        { text: data[0].level.name, link: "" }
     ] : [];
 
     return (

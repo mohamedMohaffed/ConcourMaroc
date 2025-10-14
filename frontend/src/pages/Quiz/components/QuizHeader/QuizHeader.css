@@ -95,9 +95,8 @@
 
 /* Orange for Learn mode submitted questions */
 .quiz__header .quiz__header-circle.submitted {
-    background-color: #f59e0b !important;
-    color: white !important;
-    border-color: #f59e0b !important;
+    background-color: #FF6700 ;
+    color: white ;
 }
 
 .quiz__header .quiz__header-circle.submitted:hover {

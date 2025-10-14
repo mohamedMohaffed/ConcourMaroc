@@ -2,6 +2,7 @@ import './BrowseList.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading'
 import {motion } from 'framer-motion';
 const BrowseList = ({
     title,
@@ -50,8 +51,8 @@ const BrowseList = ({
             </div>
 
             <div className="browse-list__items">
-                {loading && <p style={{ display: 'flex', justifyContent: 'center', 
-                    alignItems: 'center' }}>Loading...</p>}
+                {loading && <div style={{ display: 'flex', justifyContent: 'center', 
+                    alignItems: 'center' }}><Loading/></div>}
                 {error && <p className="error">Error: {error.message}</p>}
                 {items &&
                 

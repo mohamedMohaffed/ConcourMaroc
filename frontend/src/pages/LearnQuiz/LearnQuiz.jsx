@@ -1,12 +1,12 @@
 import useApi from '../../hooks/useApi';
 import { Link, useParams } from 'react-router-dom';
 import Quiz from '../Quiz/Quiz';
-
+import Loading from '../../components/Loading/Loading';
 const LearnQuiz=()=>{
     const { niveau_slug, universite_slug, year_slug, subject_slug } = useParams();
     const url = `/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/`;
     const { data, error, loading } = useApi(url);
-      if (loading) return <div>Loading...</div>;
+    if (loading) return <div><Loading/></div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data) return null;
     

@@ -1,17 +1,17 @@
-import HeaderScore from './components/HeaderScore/HeaderScore';
-import SubNavbar from './components/SubNavbar/SubNavbar';
-import InfoScore from './components/InfoScore/InfoScore';
-
-//
 import useApi from '../../hooks/useApi';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import './Score.css';
 import axiosInstance from '../../utils/axiosInstance';
 import { motion } from 'framer-motion';
 
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
+//
+import HeaderScore from './components/HeaderScore/HeaderScore';
+import SubNavbar from './components/SubNavbar/SubNavbar';
+import InfoScore from './components/InfoScore/InfoScore';
 import DeleteModal from '../../components/DeleteModal/DeleteModal';
-
+import Loading from '../../components/Loading/Loading';
+//
 
 const Score = () => {
     const { concour_id } = useParams();
@@ -19,16 +19,9 @@ const Score = () => {
     const navigate = useNavigate();
     console.log(data);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    
 
-    // Fetch all scores for graph tab
-    
-
-   
-
-    // Only render after loading is done and no error
     if (loading) {
-        return <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Loading...</p>;
+        return <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Loading/></p>;
     }
     if (error) {
         return <p className="error">Error: {error.message}</p>;
@@ -36,7 +29,6 @@ const Score = () => {
     if (!data || !data.score) {
         return null;
     }
-
 
     const handlleDeleteLastScore = () => {
         setShowDeleteModal(true);
@@ -46,7 +38,7 @@ const Score = () => {
         try {
             await axiosInstance.delete(`/concour/delete-last-score/${concour_id}/`);
             setShowDeleteModal(false);
-            navigate("/concours/niveaux");
+            navigate("/concours/Bac/universites");
         } catch (err) {
             alert("Erreur lors de la suppression du score.");
             setShowDeleteModal(false);

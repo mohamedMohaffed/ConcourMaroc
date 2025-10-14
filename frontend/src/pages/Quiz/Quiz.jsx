@@ -2,7 +2,7 @@ import React,{ useState,useEffect,useMemo } from 'react';
 import './Quiz.css';
 import QuizItem from './components/QuizItem/QuizItem';
 import QuizHeader from './components/QuizHeader/QuizHeader';
-import QuizNavigation from './components/QuizNavigation/QuizNavigation'
+import QuizNavigation from './components/QuizNavigation/QuizNavigation';
 
 const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
     const [userAnser,setUserAnser] = useState([])

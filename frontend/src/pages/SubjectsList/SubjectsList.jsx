@@ -2,7 +2,7 @@ import useApi from '../../hooks/useApi';
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faHouse, faTimes } from '@fortawesome/free-solid-svg-icons';
-
+import Loading from '../../components/Loading/Loading'
 import './SubjectsList.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -72,7 +72,7 @@ const SubjectsList = () => {
             </div>
 
             <div className="subjects-list__items">
-                {loading && <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Loading...</p>}
+                {loading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Loading/></div>}
                 {error && <p className="error">Error: {error.message}</p>}
                 <AnimatePresence mode="popLayout">
                     {data && data

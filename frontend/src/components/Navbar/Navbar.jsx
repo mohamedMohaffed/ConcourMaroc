@@ -5,13 +5,14 @@ import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const navbarItems = [
-    { name: "CONCOURS", mobileName: "CONCOURS", icon: faBook, to: "/concours/niveaux" },
+    { name: "CONCOURS", mobileName: "CONCOURS", icon: faBook, to: "/concours/Bac/universites" },
     { name: "MON SCORE", mobileName: "SCORE", icon: faGauge, to: "/tableau-de-bord" },
     // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
     { name: "PRATIQUE", mobileName: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
     // { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
-    // { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH, to: "/plus" }
-    { name: "SETTINGS", mobileName: "SETTINGS", icon: faGear, to: "/settings" }
+    // { name: "SETTINGS", mobileName: "SETTINGS", icon: faGear, to: "/settings" }
+    { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH, to: "/plus" }
+
 
   ];
 

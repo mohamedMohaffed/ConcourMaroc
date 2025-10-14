@@ -31,8 +31,8 @@ const BrowseList = ({
                     {(titleMobile || title).slice(1)}
                 </h1>
                 <div className="browse-list__path">
-                    <Link to="/concours/niveaux">
-                        <FontAwesomeIcon icon={faHouse} style={{ cursor: "pointer" }} />
+                    <Link to="">
+                        <FontAwesomeIcon icon={faHouse} style={{ cursor: "not-allowed" }} />
                     </Link>
                     {breadcrumbs && breadcrumbs.map((crumb, index) => (
                         <span key={index}>
@@ -42,7 +42,7 @@ const BrowseList = ({
                                     <span style={{ cursor: "pointer" }}>{crumb.text}</span>
                                 </Link>
                             ) : (
-                                <span>{crumb.text}</span>
+                                <span style={{ cursor: "not-allowed" }}>{crumb.text}</span>
                             )}
                         </span>
                     ))}

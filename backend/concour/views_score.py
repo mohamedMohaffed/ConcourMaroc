@@ -230,6 +230,7 @@ class AllScoresForConcourAPIView(APIView):
         serializer = ScoreSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 class AllUserScoresAPIView(APIView):
     permission_classes = [IsAuthenticated]
 

@@ -161,27 +161,28 @@
   }
 
   .quizitem .quizitem__question {
-    font-size: 1.2rem;
-    padding: 2rem 0.75rem;
-    min-height: 8rem;
+    font-size: 1.05rem; /* slightly bigger font */
+    padding: 0.9rem 0.5rem; /* slightly more padding */
+    min-height: 2.8rem; /* slightly more height */
     max-height: none;
-    line-height: 1.3;
+    line-height: 1.15;
     flex-shrink: 0;
   }
 
   .quizitem .quizitem__choices {
     grid-template-columns: 1fr;
-    padding: 0.75rem 0.75rem 2rem 0.75rem;
-    gap: 0.4rem;
+    padding: 0.22rem 0.22rem 0.5rem 0.22rem; /* less padding */
+    gap: 0.15rem; /* less gap */
     flex: 1;
     overflow: auto;
   }
 
   .quizitem .choice {
-    padding: 0.4rem;
-    min-height: 2.5rem;
-    border-radius: 5px;
+    padding: 0.13rem; 
+    min-height: 1.1rem; 
+    border-radius: 4px;
     position: relative;
+    font-size: 1.2rem; 
   }
 
   .choice::before {
@@ -189,18 +190,18 @@
   }
 
   .quizitem .choice-content {
-    padding-left: 2rem;
-    padding-right: 0.4rem;
-    font-size: 1rem;
-    line-height: 1.2;
+    padding-left: 1rem;
+    padding-right: 0.1rem;
+    font-size: 1rem; 
+    line-height: 1.05;
   }
 
   .quizitem .quizitem__choices-label {
-    width: 1.3rem;
-    height: 1.3rem;
-    font-size: 0.65rem;
-    top: 0.3rem;
-    left: 0.3rem;
+    width: 0.9rem;
+    height: 0.9rem;
+    font-size: 0.5rem;
+    top: 0.1rem;
+    left: 0.1rem;
     font-weight: 700;
   }
 }

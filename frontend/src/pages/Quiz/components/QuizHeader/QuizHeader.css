@@ -129,14 +129,14 @@
 
 @media (max-width: 48em) {
     .quiz__header{
-        padding: 0.3rem 0.6rem;
-        margin-bottom: 0.4rem;
-        border-radius: 6px;
+        padding: 0.15rem 0.3rem; /* less padding */
+        margin-bottom: 0.2rem; /* less margin */
+        border-radius: 5px;
     }
     
     .quiz__header .quiz__header-info{
         margin-bottom: 0;
-        gap: 0.5rem;
+        gap: 0.3rem; /* less gap */
     }
     
     .quiz__header .quiz_title{
@@ -145,7 +145,7 @@
     
     .quiz__header .quiz_title-phone{
         display:block;
-        font-size: 0.8rem;
+        font-size: 0.7rem; /* smaller font */
         line-height: 1.1;
     }
 
@@ -158,6 +158,7 @@
     }
 
     .quiz__header .quiz_go_back-icon {
-        padding: 0.25rem;
+        padding: 0.15rem; /* less padding */
+        font-size: 1rem; /* smaller icon */
     }
 }

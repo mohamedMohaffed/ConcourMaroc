@@ -77,14 +77,14 @@
         padding: 0.5rem 1rem;
         flex-direction: column;
         gap: 0.5rem;
-        position: fixed; /* Fixed positioning */
+        position: fixed;
         left: 0;
         top: 0;
         width: 100%;
-        background: white; /* Add background to prevent content showing through */
-        z-index: 50; /* Ensure it's above content but below navbar */
+        background: white; 
+        z-index: 50; 
         box-sizing: border-box;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add shadow for better visibility */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
     }
     
     .browse-list__path svg {

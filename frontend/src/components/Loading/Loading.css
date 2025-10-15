@@ -1,0 +1,17 @@
+.loading__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+@media (max-width: 48em) {
+  .loading__container {
+    height: 60px;
+  }
+  /* Target react-spinners FadeLoader for smaller size on phone */
+  .loading__container > span {
+    /* FadeLoader renders as a span */
+    transform: scale(0.7);
+  }
+}

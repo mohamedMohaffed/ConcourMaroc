@@ -19,6 +19,7 @@ import {
   SquareLoader, 
   SyncLoader 
 } from "react-spinners";
+import './Loading.css'; // Add this import
 
 const Loading = ()=> {
   const containerStyle = { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px' };
@@ -40,8 +41,11 @@ const Loading = ()=> {
 //   return <div style={containerStyle}><DotLoader color="#1CB0F6" size={50} /></div>;
   
   // Option 5 - FadeLoader ***
-  return <div style={containerStyle}><FadeLoader color="#1CB0F6" height={15} width={5} /></div>;
-  
+  return (
+    <div className="loading__container">
+      <FadeLoader color="#1CB0F6" height={15} width={5} />
+    </div>
+    );  
   // Option 6 - GridLoader
 //   return <div style={containerStyle}><GridLoader color="#1CB0F6" size={15} /></div>;
   

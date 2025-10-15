@@ -11,15 +11,16 @@ const useApi = (url) => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                // Add artificial delay for testing loading component
-                // await new Promise(resolve => setTimeout(resolve, 12000));
-                
                 const response = await axiosInstance.get(url);
                 setData(response.data);
-                // console.log("call dabase",data);
+                setError(null);
             } catch (e) {
                 setError(e);
-              
+                setData(null);
+                // Let axiosInstance handle the redirect
+                if (e.response?.status === 401) {
+                    console.log('Unauthorized access, handling in axios interceptor');
+                }
             } finally {
                 setLoading(false);
             }

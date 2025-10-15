@@ -1,74 +1,39 @@
 import axios from 'axios';
 
+const baseURL = 'http://localhost:8000';
+
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000', // PC
-    // baseURL: 'http://192.168.1.100:8000/',  // Phone
-    withCredentials: true, 
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    baseURL,
+    withCredentials: true,
 });
 
-let isRefreshing = false;
-let failedQueue = [];
-
-const processQueue = (error, token = null) => {
-    failedQueue.forEach(prom => {
-        if (error) {
-            prom.reject(error);
-        } else {
-            prom.resolve(token);
-        }
-    });
-    
-    failedQueue = [];
-};
-
-axiosInstance.interceptors.request.use(
-    (config) => {
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
-);
-
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._tretry) {
-            if (isRefreshing) {
-                return new Promise((resolve, reject) => {
-                    failedQueue.push({ resolve, reject });
-                }).then(() => {
-                    return axiosInstance(originalRequest);
-                }).catch(err => {
-                    return Promise.reject(err);
-                });
-            }
-
+        // Handle 401 errors that are not refresh attempts
+        if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
-            isRefreshing = true;
+            console.log('Token expired, attempting to refresh...');
 
             try {
-                await axiosInstance.post('/accounts/api/token/refresh/');
-              
-                processQueue(null);
-                isRefreshing = false;
-                
+                await axios.post(`${baseURL}/accounts/api/token/refresh/`, {}, { withCredentials: true });
+                console.log('Token refresh successful');
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
-                processQueue(refreshError);
-                isRefreshing = false;
-                
-                
-                window.location.href = '/login';
-                
+                console.error('Token refresh failed:', refreshError);
+                // Redirect to login
+                if (window.location.pathname !== '/login') {
+                    window.location.href = `/login?redirect=${window.location.pathname}`;
+                }
+                return Promise.reject(refreshError);
             }
+        }
+        
+        // Handle other 401 errors (like failed login attempts)
+        if (error.response?.status === 401 && window.location.pathname !== '/login') {
+            window.location.href = `/login?redirect=${window.location.pathname}`;
         }
 
         return Promise.reject(error);

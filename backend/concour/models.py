@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from .choices import COURSE_PART_CHOICES, TOPIC_PART_CHOICES
 from django.utils.text import slugify
-
+from django.utils import timezone
 
 class Level(models.Model):
     name = models.CharField(max_length=20, unique=True)
@@ -89,7 +89,11 @@ class Question(models.Model):
     question = models.TextField()
     explanation = models.TextField(blank=True, null=True)  
     course_parts = models.ManyToManyField('CoursePart', related_name="questions", blank=True)
-    
+    created_at = models.DateTimeField(auto_now_add=True)  # remove default
+
+    class Meta:
+        ordering = ['-created_at']  # order by creation time descending
+
     def __str__(self):
         return f"Q: {self.question[:50]}"
 

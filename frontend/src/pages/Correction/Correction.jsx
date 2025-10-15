@@ -38,16 +38,26 @@ const Correction = () => {
     const { niveau_slug, universite_slug, year_slug, subject_slug } = useParams();
     const { data, error, loading } = useApi(`/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/`);
 
+    console.log("im",data)
     if (loading || !data) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data[0] || !data[0].questions || !data[0].questions[index]) return <div>No data found.</div>;
 
     const question = data[0].questions[index];
     const breadcrumbs = data && data[0] && data[0].subject ? [
-        { text: data[0].subject.year.university.level.slug, link: "/concours/niveaux" },
-        { text: data[0].subject.year.university.slug , link: `/concours/${data[0].subject.year?.niveau?.slug}/universites` },
-        { text: data[0].subject.year?.year, link: `/concours/${data[0].subject.year?.niveau?.slug}/${data[0].subject.year?.universite?.slug}/year` },
-        { text: data[0].subject?.slug, link: `/concours/${data[0].subject.year?.niveau?.slug}/${data[0].subject.year?.universite?.slug}/${data[0].subject.year?.year}/matieres` }
+        { text: data[0].subject.year.university.level.slug, link: "" },
+        { 
+            text: data[0].subject.year.university.slug, 
+            link: `/concours/${data[0].subject.year.university.level.slug}/universites` 
+        },
+        { 
+            text: data[0].subject.year.slug, 
+            link: `/concours/${data[0].subject.year.university.level.slug}/${data[0].subject.year.university.slug}/year` 
+        },
+        { 
+            text: data[0].subject.slug, 
+            link: `/concours/${data[0].subject.year.university.level.slug}/${data[0].subject.year.university.slug}/${data[0].subject.year.slug}/matieres` 
+        }
     ] : [];
 
     return (
@@ -63,7 +73,7 @@ const Correction = () => {
                 </h1>
                 <div className="correction__path">
                     <Link to="">
-                        <FontAwesomeIcon icon={faHouse} style={{ cursor: "pointer" }} />
+                        <FontAwesomeIcon icon={faHouse} style={{ cursor: "not-allowed" }} />
                     </Link>
                     {breadcrumbs.map((crumb, i) => (
                         <span key={i}>
@@ -73,7 +83,7 @@ const Correction = () => {
                                     <span style={{ cursor: "pointer" }}>{crumb.text}</span>
                                 </Link>
                             ) : (
-                                <span>{crumb.text}</span>
+                                <span style={{ cursor: "not-allowed" }}>{crumb.text}</span>
                             )}
                         </span>
                     ))}

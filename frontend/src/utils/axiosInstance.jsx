@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// Create axios instance
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:8000', // PC
     // baseURL: 'http://192.168.1.100:8000/',  // Phone
@@ -34,7 +33,6 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-// Response interceptor - handles 401 errors and token refresh
 axiosInstance.interceptors.response.use(
     (response) => {
         return response;
@@ -42,10 +40,8 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
-        // Check if error is 401 and we haven't already tried to refresh
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (error.response?.status === 401 && !originalRequest._tretry) {
             if (isRefreshing) {
-                // If already refreshing, queue this request
                 return new Promise((resolve, reject) => {
                     failedQueue.push({ resolve, reject });
                 }).then(() => {
@@ -59,27 +55,19 @@ axiosInstance.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                // Attempt to refresh the token
                 await axiosInstance.post('/accounts/api/token/refresh/');
-                
-                // Log success message with pink color
-                
-                // Refresh successful, process queued requests
+              
                 processQueue(null);
                 isRefreshing = false;
                 
-                // Retry the original request
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
                 processQueue(refreshError);
                 isRefreshing = false;
-                console.log("im working")
                 
                 
-                // Redirect to login page
                 window.location.href = '/login';
                 
-                // return Promise.reject(refreshError);
             }
         }
 

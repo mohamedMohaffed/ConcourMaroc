@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.conf import settings
 from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
 
 class LoginView(APIView):
     def post(self, request):
@@ -85,4 +86,18 @@ class RegisterView(APIView):
         if User.objects.filter(username=username).exists():
             return Response({'detail': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
         user = User.objects.create_user(username=username, password=password)
-        return Response({'detail': 'User registered successfully'}, status=status.HTTP_201_CREATED)
+        return Response({'detail': 'User registered successfully'}, 
+                        status=status.HTTP_201_CREATED)
+    
+    
+
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+        })

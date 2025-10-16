@@ -12,6 +12,11 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
 
+        // If skipAuthRedirect is set, do not redirect to login
+        if (error.response?.status === 401 && originalRequest?.skipAuthRedirect) {
+            return Promise.reject(error);
+        }
+
         // Handle 401 errors that are not refresh attempts
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
@@ -39,5 +44,19 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+/**
+ * Checks if the user is logged in by requesting the current user endpoint.
+ * Returns a Promise<boolean>.
+ * Accepts skipRedirect param to avoid login redirect for this check.
+ */
+export async function isLoggedIn({ skipRedirect = false } = {}) {
+    try {
+        await axiosInstance.get('/accounts/api/current_user/', { skipAuthRedirect: skipRedirect });
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
 
 export default axiosInstance;

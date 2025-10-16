@@ -4,7 +4,7 @@ import { faArrowRight,faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizNavigation.css';
 import { useNavigate } from 'react-router-dom';
 import {useRef,useState,useEffect} from 'react';
-import axiosInstance from '../../../../utils/axiosInstance';
+import axiosInstance, { isLoggedIn } from '../../../../utils/axiosInstance';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 
 const QuizNavigation = ({ index, setIndex, totalQuestions, 
@@ -13,7 +13,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
     const { goToPrevious, goToNext } = useQuizActions(index, setIndex, totalQuestions);
     const navigate = useNavigate();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-
+    const [showAuth,setShowAuth]=useState(false);
     const isAnswered = userAnser.some(ans => ans.question_id === currentQuestion?.id);
     
     const allQuestionsAnswered = userAnser.length === totalQuestions && totalQuestions > 0;
@@ -89,6 +89,12 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 navigate(`/concours/resultat/${quizData.concour_id}/`);
             }
         } catch (error) {
+            // Check if user is logged in, skip redirect
+            const loggedIn = await isLoggedIn({ skipRedirect: true });
+            if (!loggedIn) {
+                setShowAuth(true)
+                return;
+            }
             console.error('Error posting quiz data:', error);
             alert('Erreur lors de la soumission du quiz');
         }
@@ -205,6 +211,14 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                     onConfirm={confirmDelete}
                     onCancel={cancelDelete}
                     message="Veux-tu supprimer les questions dont la réponse est correcte ?"
+                    buttonColor="#218838"
+                />
+
+                <DeleteModal
+                    visible={showAuth}
+                    onConfirm={""}
+                    onCancel={""}
+                    message="Maybe u should login or register ?"
                     buttonColor="#218838"
                 />
             </>

@@ -181,29 +181,39 @@
 
 @media (max-width: 48em) {
   .login {
-    grid-template-columns: 1fr;
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
     min-height: 100vh;
+    grid-template-columns: unset;
+    padding: 0;
   }
 
   .login__icon {
-    padding-top: 16px;
+    padding-top: 8px;
     font-size: 1.5rem;
     justify-content: flex-start;
     margin-left: 10px;
     padding-bottom: 0;
-    height: 32px; /* smaller height for icon on phone */
+    height: 32px;
+    margin-bottom: 8px;
   }
 
   .login__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
     height: auto;
     padding: 0 8px;
-    gap: 20px;
-    margin: 0px 8px 16px 8px; /* even smaller top margin */
+    margin: 0px 8px 16px 8px;
     border: 1.5px solid #e0e7ef;
     border-radius: 12px;
     box-shadow: 0 4px 24px 0 rgba(28,176,246,0.08), 0 1.5px 8px 0 rgba(60,60,60,0.04);
     background: #fff;
+    margin-top: 0;
   }
 
   .login__logo {

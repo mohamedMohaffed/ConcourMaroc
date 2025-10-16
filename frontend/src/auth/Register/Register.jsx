@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Loading from "../../components/Loading/Loading";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { submitPendingQuizAnswers } from '../../utils/submitPendingQuizAnswers';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -23,9 +24,19 @@ const Register = () => {
     setLoading(true);
     try {
       await axiosInstance.post('/accounts/api/register/', { username, password });
-      setMsg("Inscription réussie ! Veuillez vous connecter.");
+      setMsg("Inscription réussie !");
       setMsgType("success");
-      setTimeout(() => navigate('/login'), 1500); 
+      // Try to log in immediately after registration
+      try {
+        await axiosInstance.post('accounts/api/token/', { username, password });
+        // Use utility function for pending quiz answers
+        const handled = await submitPendingQuizAnswers(navigate);
+        if (handled) return;
+        navigate('/concours/Bac/universites');
+      } catch (loginError) {
+        // If login fails, fallback to login page
+        setTimeout(() => navigate('/login'), 1500);
+      }
     } catch (error) {
       setMsg("Échec de l'inscription !");
       setMsgType("error");

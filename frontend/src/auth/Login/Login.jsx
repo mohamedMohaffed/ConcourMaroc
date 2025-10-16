@@ -7,6 +7,8 @@ import blackImage from '../../assets/imgGirl.jpeg';
 import { motion } from 'framer-motion';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Loading from "../../components/Loading/Loading"
+import { submitPendingQuizAnswers } from '../../utils/submitPendingQuizAnswers';
+
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -33,6 +35,9 @@ const Login = () => {
       await axiosInstance.post('accounts/api/token/', { username, password });
       setMsg('Connecté!');
       setMsgType('success');
+      // Use utility function for pending quiz answers
+      const handled = await submitPendingQuizAnswers(navigate);
+      if (handled) return;
       navigate('/concours/Bac/universites');
     } catch (error) {
       setMsg('Identifiants invalides');
@@ -46,7 +51,8 @@ const Login = () => {
   return (
     <div className="login">
       <div className="login__icon">
-        <Link to="/concours/Bac/universites"><FontAwesomeIcon icon={faTimes} /></Link>
+        <Link to="/concours/Bac/universites">
+        <FontAwesomeIcon icon={faTimes} /></Link>
       </div>
       <div className="login__form">
         <div className="login__logo">

@@ -216,7 +216,16 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
 
                 <DeleteModal
                     visible={showAuth}
-                    onConfirm={() => navigate('/login')}
+                    onConfirm={() => {
+                        // Save answers and quiz info to localStorage
+                        localStorage.setItem('pendingQuizAnswers', JSON.stringify({
+                            concour_id: data?.[0]?.id || data?.id,
+                            answers: userAnser,
+                            elapsedSeconds,
+                        }));
+                        setShowAuth(false);
+                        navigate('/login?redirect=score');
+                    }}
                     onCancel={()=> setShowAuth(false)}
                     message="Vous devez vous connecter ou vous inscrire. Ne vous inquiétez pas, nous enregistrerons vos réponses actuelles et vous pourrez voir le résultat après la connexion ou l'inscription."
                     buttonColor="#218838"

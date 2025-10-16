@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import LatexRenderer from '../../../../Quiz/components/LatexRenderer/LatexRenderer';
 import './renderQuizSummary.css'
 
-const renderQuizSummary = ({quizData,data}) => {
+const renderQuizSummary = ({quizData,data,slug_university,slug_year,slug_subject}) => {
         if (!quizData || !quizData[0] || !quizData[0].questions) return <p>Chargement du résumé...</p>;
         // Reverse questions so first question is first
         const questions = [...quizData[0].questions].reverse();
@@ -17,8 +17,8 @@ const renderQuizSummary = ({quizData,data}) => {
             <div className="score__quiz-summary">
                 <div className="score__quiz-summary-header">
                     <h2 className="score__quiz-summary-title">Résumé de vos réponses</h2>
-                    <Link to="/quiz" className="score__quiz-summary-btn">
-                        Nouveau Quiz
+                    <Link to={`/concours/Bac/${slug_university}/${slug_year}/${slug_subject}/correction-concour/`} className="score__quiz-summary-btn">
+                        Voir la correction complète
                     </Link>
                 </div>
                 {questions.map((q, idx) => {

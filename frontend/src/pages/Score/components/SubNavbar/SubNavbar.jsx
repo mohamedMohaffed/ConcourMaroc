@@ -168,6 +168,9 @@ function formatSecondsToHMS(seconds) {
     return [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
 }
     
+    // Extract slugs for renderQuizSummary
+    const { slug_university, slug_year, slug_subject } = data?.score || {};
+
     return(
 
          <div>
@@ -193,7 +196,7 @@ function formatSecondsToHMS(seconds) {
             <div className="score__tab-content">
                 {activeTab === "useranser" && (
                     <div>
-                        {renderQuizSummary({quizData,data})}
+                        {renderQuizSummary({quizData,data,slug_university,slug_year,slug_subject})}
                     </div>
                 )}
                 

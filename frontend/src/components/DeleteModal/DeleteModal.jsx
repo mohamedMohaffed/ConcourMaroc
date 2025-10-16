@@ -1,7 +1,7 @@
 import React from 'react';
-import './DeleteModal.css';  // استخدم الاسم الذي تريده للملف
+import './DeleteModal.css';  
 
-const DeleteModal = ({ visible, onConfirm, onCancel, message, buttonColor }) => {
+const DeleteModal = ({ visible, onConfirm, onCancel, message, buttonColor, confirmText }) => {
   if (!visible) return null;
 
   return (
@@ -13,7 +13,7 @@ const DeleteModal = ({ visible, onConfirm, onCancel, message, buttonColor }) => 
           onClick={onConfirm} 
           style={buttonColor ? { background: buttonColor } : undefined}
         >
-          Delete
+          {confirmText || "Delete"}
         </button>
       </div>
     </div>

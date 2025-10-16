@@ -216,10 +216,11 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
 
                 <DeleteModal
                     visible={showAuth}
-                    onConfirm={""}
-                    onCancel={""}
-                    message="Maybe u should login or register ?"
+                    onConfirm={() => navigate('/login')}
+                    onCancel={()=> setShowAuth(false)}
+                    message="Vous devez vous connecter ou vous inscrire. Ne vous inquiétez pas, nous enregistrerons vos réponses actuelles et vous pourrez voir le résultat après la connexion ou l'inscription."
                     buttonColor="#218838"
+                    confirmText="Continuer"
                 />
             </>
         )

@@ -180,5 +180,55 @@
   border: 1px solid #1CB0F6;
 }
 
+@media (max-width: 48em) {
+  .login {
+    grid-template-columns: 1fr;
+    height: 100vh;
+    min-height: 100vh;
+  }
+
+  .login__icon {
+    padding-top: 16px;
+    font-size: 1.5rem;
+    justify-content: flex-start;
+    margin-left: 10px;
+    padding-bottom: 0;
+    height: 32px; /* smaller height for icon on phone */
+  }
+
+  .login__form {
+    height: auto;
+    padding: 0 8px;
+    gap: 20px;
+    margin: 0px 8px 16px 8px; /* even smaller top margin */
+    border: 1.5px solid #e0e7ef;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px 0 rgba(28,176,246,0.08), 0 1.5px 8px 0 rgba(60,60,60,0.04);
+    background: #fff;
+  }
+
+  .login__logo {
+    font-size: 40px;
+  }
+
+  .login__form form,
+  .login__input-group,
+  .login__input-group input {
+    max-width: 100%;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .login__btn,
+  .login__register-btn {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .login__image {
+    display: none;
+  }
+}
+
 
 

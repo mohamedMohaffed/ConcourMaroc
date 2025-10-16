@@ -228,5 +228,9 @@
   .register__image {
     display: none;
   }
+
+  .register__loading-overlay {
+  top: -100px;
+}
 }
 

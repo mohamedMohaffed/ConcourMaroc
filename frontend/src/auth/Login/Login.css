@@ -45,7 +45,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(255,255,255,0.8);
   z-index: 10;
   pointer-events: none;
 }
@@ -228,6 +227,10 @@
   .login__image {
     display: none;
   }
+
+  .login__loading-overlay {
+  top: -70px;
+}
 }
 
 

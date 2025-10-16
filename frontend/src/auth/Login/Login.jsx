@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 import './Login.css';
-// import blackImage from '../../assets/blackimage.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import blackImage from '../../assets/imgGirl.jpeg';
 import { motion } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import Loading from "../../components/Loading/Loading"
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +16,15 @@ const Login = () => {
   const [msgType, setMsgType] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.has('redirect')) {
+      setMsg("Vous devez être connecté pour accéder à cette page.");
+      setMsgType("error");
+    }
+  }, [location.search]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,30 +44,22 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-form" style={{ position: 'relative' }}>
-        <div className="logo-login" style={{ position: 'relative' }}>
+    <div className="login">
+      <div className="login__icon">
+        <Link to="/concours/Bac/universites"><FontAwesomeIcon icon={faTimes} /></Link>
+      </div>
+      <div className="login__form">
+        <div className="login__logo">
           CONCOURS
           {loading && (
-            <div style={{
-              position: 'absolute',
-              top: -100,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              background: 'rgba(255,255,255,0.8)',
-              zIndex: 10,
-              pointerEvents: 'none'
-            }}>
+            <div className="login__loading-overlay">
               <Loading />
             </div>
           )}
         </div>
+        <p className={`login__msg${msgType ? ' login__msg--' + msgType : ''}`}>{msg}</p>
         <form onSubmit={handleSubmit} autoComplete="off">
-          <div className="input-group">
+          <div className="login__input-group">
             <input
               type="text"
               name="user_login"
@@ -81,7 +83,7 @@ const Login = () => {
             </motion.label>
           </div>
 
-          <div className="input-group">
+          <div className="login__input-group">
             <input
               type="password"
               name="user_pass"
@@ -106,12 +108,11 @@ const Login = () => {
           </div>
 
           <p>Vous avez oublié votre mot de passe?</p>
-          <button type="submit" className="login-btn" disabled={loading}>Se connecter</button>
-          <Link to="/register" className="register-btn">S'inscrire</Link>
-          <p className={`login-msg${msgType ? ' ' + msgType : ''}`}>{msg}</p>
+          <button type="submit" className="login__btn" disabled={loading}>Se connecter</button>
+          <Link to="/register" className="login__register-btn">S'inscrire</Link>
         </form>
       </div>
-      <div className="image-login">
+      <div className="login__image">
         <img src={blackImage} alt="Black" />
       </div>
     </div>

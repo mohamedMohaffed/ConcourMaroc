@@ -1,17 +1,62 @@
-.login-container {
+.login {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 100px 1fr 1031px;
   height: 100vh;
   overflow: hidden;
 }
 
-.login-container .image-login {
+.login__icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 30px;
+  font-size: 2rem;
+  color: #1CB0F6;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 30px;
+  padding: 0 80px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.login__logo {
+  font-family: "Lugrasimo", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 80px;
+  color: #1CB0F6;
+  position: relative;
+
+}
+
+.login__loading-overlay {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.8);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.login__image {
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
-.login-container .image-login img {
+.login__image img {
   width: 600px;
   height: 785px;
   object-fit: cover;
@@ -23,26 +68,7 @@
   transform: translateY(-50%);
 }
 
-.login-container .login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
-  gap: 30px;
-  padding: 0 150px;
-  box-sizing: border-box;
-}
-
-.login-container .logo-login {
-  font-family: "Lugrasimo", cursive;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 80px;
-  color: #1CB0F6;
-}
-
-.login-container form {
+.login__form form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -50,7 +76,7 @@
   max-width: 400px;
 }
 
-.login-container form input {
+.login__form input {
   padding: 12px;
   font-size: 16px;
   border: none;
@@ -61,12 +87,12 @@
   color: #777777;
 }
 
-.login-container form input::placeholder {
+.login__form input::placeholder {
   color: #777777;
   letter-spacing: 1px;
 }
 
-.login-container .login-btn {
+.login__btn {
   padding: 12px;
   font-size: 16px;
   border: 1px solid #1CB0F6;
@@ -74,17 +100,16 @@
   transition: all 0.3s ease;
   font-family: 'Inter', sans-serif;
   letter-spacing: 1px;
-   background: #1CB0F6;
+  background: #1CB0F6;
   color: #fff;
 }
 
-.login-container .login-btn:hover {
-    background:#1CB0F6cc;
-      border: 1px solid #1CB0F6cc;
-
+.login__btn:hover {
+  background: #1CB0F6cc;
+  border: 1px solid #1CB0F6cc;
 }
 
-.login-container .login-btn:disabled {
+.login__btn:disabled {
   background: #b3e4fa;
   color: #777777;
   border: 1px solid #b3e4fa;
@@ -92,7 +117,7 @@
   opacity: 0.7;
 }
 
-.login-container form .register-btn {
+.login__register-btn {
   padding: 12px;
   font-size: 16px;
   border: 1px solid #1CB0F6;
@@ -100,20 +125,21 @@
   transition: all 0.3s ease;
   font-family: 'Inter', sans-serif;
   letter-spacing: 1px;
-   background: #fff;
-  color: #1CB0F6;
+  background: #fff;
+  color: #1CB0F6 !important;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
 }
 
-
-
-.login-container .input-group {
+.login__input-group {
   position: relative;
   margin-bottom: 20px;
   width: 100%;
   max-width: 400px;
 }
 
-.login-container .input-group input {
+.login__input-group input {
   width: 100%;
   padding: 14px 10px 8px 10px;
   font-size: 16px;
@@ -125,29 +151,14 @@
   color: #777777;
 }
 
-.login-container .input-group label {
+.login__input-group label {
   position: absolute;
   left: 10px;
   pointer-events: none;
   color: #777777;
 }
 
-.register-btn {
-  display: inline-block;
-  text-align: center;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #1CB0F6;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
-  letter-spacing: 1px;
-  background: #fff;
-  color: #1CB0F6;
-  text-decoration: none;
-}
-
-.login-msg {
+.login__msg {
   margin-top: 10px;
   font-size: 16px;
   font-weight: 500;
@@ -157,15 +168,17 @@
   transition: background 0.3s, color 0.3s;
 }
 
-.login-msg.error {
+.login__msg--error {
   color: #fff;
   background: #e74c3c;
   border: 1px solid #e74c3c;
 }
 
-.login-msg.success {
+.login__msg--success {
   color: #fff;
   background: #1CB0F6;
   border: 1px solid #1CB0F6;
 }
+
+
 

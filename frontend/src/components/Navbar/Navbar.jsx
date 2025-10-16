@@ -7,8 +7,8 @@ const Navbar = () => {
   const navbarItems = [
     { name: "CONCOURS", mobileName: "CONCOURS", icon: faBook, to: "/concours/Bac/universites" },
     { name: "MON SCORE", mobileName: "SCORE", icon: faGauge, to: "/tableau-de-bord" },
-    // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
     { name: "PRATIQUE", mobileName: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
+    // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
     // { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
     // { name: "SETTINGS", mobileName: "SETTINGS", icon: faGear, to: "/settings" }
     { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH, to: "/plus" }

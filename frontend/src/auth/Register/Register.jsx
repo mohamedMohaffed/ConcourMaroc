@@ -4,7 +4,9 @@ import './Register.css';
 import blackImage from '../../assets/imgGirl.jpeg';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import Loading from "../../components/Loading/Loading"
+import Loading from "../../components/Loading/Loading";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -34,32 +36,22 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-form" style={{ position: 'relative' }}>
-        <div className="logo-register" style={{ position: 'relative' }}>
+    <div className="register">
+      <div className="register__icon">
+        <Link to="/concours/Bac/universites"><FontAwesomeIcon icon={faTimes} /></Link>
+      </div>
+      <div className="register__form">
+        <div className="register__logo">
           CONCOURS
           {loading && (
-            <div style={{
-              position: 'absolute',
-              top: -80,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              // background: 'rgba(255,255,255,0.8)',
-              zIndex: 10,
-              pointerEvents: 'none'
-            }}>
+            <div className="register__loading-overlay">
               <Loading />
             </div>
           )}
         </div>
-        
-
+        <p className={`register__msg${msgType ? ' register__msg--' + msgType : ''}`}>{msg}</p>
         <form onSubmit={handleSubmit} autoComplete="off">
-          <div className="input-group">
+          <div className="register__input-group">
             <input
               type="text"
               name="username"
@@ -83,7 +75,7 @@ const Register = () => {
             </motion.label>
           </div>
 
-          <div className="input-group">
+          <div className="register__input-group">
             <input
               type="password"
               name="password"
@@ -107,12 +99,11 @@ const Register = () => {
             </motion.label>
           </div>
 
-          <button type="submit" className="register-btn" disabled={loading}>S'inscrire</button>
-          <Link to="/login" className="login-btn">Se connecter</Link>
-          <p className={`register-msg${msgType ? ' ' + msgType : ''}`}>{msg}</p>
+          <button type="submit" className="register__btn" disabled={loading}>S'inscrire</button>
+          <Link to="/login" className="register__login-btn">Se connecter</Link>
         </form>
       </div>
-      <div className="image-register">
+      <div className="register__image">
         <img src={blackImage} alt="Black" />
       </div>
     </div>

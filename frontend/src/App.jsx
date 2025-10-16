@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './Layout/Layout';
 import LevelsList from './pages/LevelsList/LevelsList';
-import Login from './auth/Login';
+import Login from './auth/Login/Login';
+import Register from './auth/Register/Register';
 import Logout from './auth/Logout';
 import UniversityList from './pages/UniversityList/UniversityList';
 import YearsList from './pages/YearsList/YearsList';
@@ -38,6 +39,7 @@ const App = () => {
                 <Route path="/pratique/:concours_slug" element={<PracticeQuiz />} />
 
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register/>}/>
                 <Route path="/logout" element={<Logout />} />
 
             </Routes>

@@ -86,12 +86,10 @@ class ConcoursListSerializer(serializers.ModelSerializer):
         fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']
         fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']
 
-
 class ScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = '__all__'
-
 
 class AllScoresSerializer(serializers.ModelSerializer):
     concours = ConcourSerializer(read_only=True)

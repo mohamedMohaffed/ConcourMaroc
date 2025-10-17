@@ -34,6 +34,17 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
         return selectedChoice?.is_correct || false;
     };
 
+    // Get incorrect count for a question (Practice mode)
+    const getIncorrectCount = (questionIndex) => {
+        if (type !== "Practice" || !data?.questions?.[questionIndex]) return 0;
+        return data.questions[questionIndex].incorrect_answer_count || 0;
+    };
+
+    // Get incorrect count for the current question (Practice mode)
+    const currentIncorrectCount = type === "Practice" && data?.questions?.[currentIndex]
+        ? data.questions[currentIndex].incorrect_answer_count || 0
+        : 0;
+
     // Function to get circle class name
     const getCircleClassName = (questionIndex) => {
         let className = `quiz__header-circle ${currentIndex === questionIndex ? 'selected' : ''}`;
@@ -110,8 +121,12 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
                     </div>
                 )}
             </div>
-
-
+            {/* Show incorrect count phase/message for current question in Practice mode, under circles */}
+            {type === "Practice" && currentIncorrectCount > 0 && (
+                <div className="quiz__header-phase" style={{ marginTop: '8px' }}>
+                    You answered incorrectly for this question {currentIncorrectCount} time{currentIncorrectCount > 1 ? 's' : ''}
+                </div>
+            )}
         </div>
     );
 };

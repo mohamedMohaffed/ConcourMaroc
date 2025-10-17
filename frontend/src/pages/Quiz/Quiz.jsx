@@ -1,4 +1,4 @@
-import React,{ useState,useEffect,useMemo } from 'react';
+import React,{ useState,useEffect,useMemo, useRef } from 'react';
 import './Quiz.css';
 import QuizItem from './components/QuizItem/QuizItem';
 import QuizHeader from './components/QuizHeader/QuizHeader';
@@ -41,6 +41,28 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
     const circlesArray = useMemo(() => {
         return Array.from({ length: totalQuestions });
         }, [totalQuestions]);
+
+    // Timer logic in parent
+    const [elapsedSeconds, setElapsedSeconds] = useState(0);
+    const [isTimerRunning, setIsTimerRunning] = useState(true);
+    const timerRef = useRef(null);
+
+    useEffect(() => {
+        if (type === "Learn" && isTimerRunning) {
+            timerRef.current = setInterval(() => {
+                setElapsedSeconds(prev => prev + 1);
+            }, 1000);
+        }
+        return () => clearInterval(timerRef.current);
+    }, [isTimerRunning, type]);
+
+    // Toggle timer running state
+    const handleToggleTimer = () => setIsTimerRunning(prev => !prev);
+    const handleRestartTimer = () => {
+        setElapsedSeconds(0);
+        setIsTimerRunning(true);
+    };
+
     return(
         <section className="quiz">
             <QuizHeader 
@@ -55,7 +77,10 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
                 userAnser={userAnser}
                 data={data}
                 type={type}
-
+                elapsedSeconds={type === "Learn" ? elapsedSeconds : undefined}
+                onToggleTimer={type === "Learn" ? handleToggleTimer : undefined}
+                onRestartTimer={type === "Learn" ? handleRestartTimer : undefined}
+                isTimerRunning={type === "Learn" ? isTimerRunning : undefined}
             />
 
             <QuizItem 
@@ -79,11 +104,10 @@ const Quiz =({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
                 userAnser={userAnser}
                 currentQuestion={currentQuestion}
                 data={data}
-                startTime={startTime}
                 type={type}
+                elapsedSeconds={type === "Learn" ? elapsedSeconds : undefined}
             />
 
         </section>
-
     )}
 export default Quiz;

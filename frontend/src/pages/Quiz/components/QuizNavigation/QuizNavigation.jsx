@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight,faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizNavigation.css';
 import { useNavigate } from 'react-router-dom';
-import {useRef,useState,useEffect} from 'react';
+import {useState} from 'react';
 import axiosInstance, { isLoggedIn } from '../../../../utils/axiosInstance';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 
 const QuizNavigation = ({ index, setIndex, totalQuestions, 
-    selectedChoice, setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type }) => {
+    selectedChoice, setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type, elapsedSeconds }) => {
 
     const { goToPrevious, goToNext } = useQuizActions(index, setIndex, totalQuestions);
     const navigate = useNavigate();
@@ -34,16 +34,6 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
             setUserAnser(prev => prev.filter(ans => ans.question_id !== currentQuestion.id));
         }
     }
-
-    const [elapsedSeconds, setElapsedSeconds] = useState(0);
-    const timerRef = useRef(null);
-
-    useEffect(() => {
-        timerRef.current = setInterval(() => {
-            setElapsedSeconds(prev => prev + 1);
-        }, 1000);
-        return () => clearInterval(timerRef.current);
-    }, []);
 
     const PostData = async () => {
         if (type === "Practice") {
@@ -221,7 +211,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                         localStorage.setItem('pendingQuizAnswers', JSON.stringify({
                             concour_id: data?.[0]?.id || data?.id,
                             answers: userAnser,
-                            elapsedSeconds,
+                            elapsedSeconds, // use prop
                         }));
                         setShowAuth(false);
                         navigate('/login?redirect=score');

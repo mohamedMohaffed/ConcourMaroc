@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faStop, faRedo, faPlay } from '@fortawesome/free-solid-svg-icons';
 import './QuizHeader.css';
 
-const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeIndex, currentIndex, userAnser, data, type }) => {
+const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeIndex, currentIndex, userAnser, data, type, elapsedSeconds, onToggleTimer, onRestartTimer, isTimerRunning }) => {
     
     // Function to check if a question is submitted
     const isQuestionSubmitted = (questionIndex) => {
@@ -51,6 +51,14 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
         return className;
     };
 
+    // Format elapsedSeconds as hh:mm:ss
+    const formatTime = (seconds) => {
+        const h = String(Math.floor(seconds / 3600)).padStart(2, '0');
+        const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+        const s = String(seconds % 60).padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    };
+
     return (
         <div className="quiz__header">
             <div className="quiz__header-info">
@@ -69,6 +77,7 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
             </div>
             </div>
             <div className="quiz_header-navigation">
+                
                 {circlesArray.map((_, circleIndex) => (
                     <div 
                         key={circleIndex} 
@@ -78,6 +87,28 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
                         <span>{circleIndex + 1}</span>
                     </div>
                 ))}
+                {/* Timer display and controls only for Learn */}
+                {type === "Learn" && (
+                    <div className="quiz__header-timer-controls">
+                        <span className="quiz__header-timer">
+                            {formatTime(elapsedSeconds)}
+                        </span>
+                        <button
+                            onClick={onToggleTimer}
+                            className="quiz__header-timer-btn"
+                            title={isTimerRunning ? "Stop" : "Continue"}
+                        >
+                            <FontAwesomeIcon icon={isTimerRunning ? faStop : faPlay} />
+                        </button>
+                        <button
+                            onClick={onRestartTimer}
+                            className="quiz__header-timer-btn"
+                            title="Restart"
+                        >
+                            <FontAwesomeIcon icon={faRedo} />
+                        </button>
+                    </div>
+                )}
             </div>
 
 

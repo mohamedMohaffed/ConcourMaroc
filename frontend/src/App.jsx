@@ -3,7 +3,7 @@ import Layout from './Layout/Layout';
 import LevelsList from './pages/LevelsList/LevelsList';
 import Login from './auth/Login/Login';
 import Register from './auth/Register/Register';
-import Logout from './auth/Logout';
+import Logout from './auth/Logout/Logout';
 import UniversityList from './pages/UniversityList/UniversityList';
 import YearsList from './pages/YearsList/YearsList';
 import SubjectsList from './pages/SubjectsList/SubjectsList';

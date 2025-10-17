@@ -9,8 +9,7 @@ const Dashboard = () => {
         <div className="dashboard">
             <h1 className="dashboard__title"><span className="browse-list__title--first-letter">T</span>ableau de bord</h1>
             {loading && <div><Loading/></div>}
-            {error && <div>Error: {error.message}</div>}
-            {!loading && !error && <DashboardNavbar scores={scores} />}
+            {!loading && !error && scores && <DashboardNavbar scores={scores} />}
         </div>
     );
 }

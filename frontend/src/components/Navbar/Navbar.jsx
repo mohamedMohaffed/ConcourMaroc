@@ -11,7 +11,7 @@ const Navbar = () => {
     { name: "PRATIQUE", mobileName: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
     // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
     // { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
-    { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH, to: "/plus" }
+    { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH }
   ];
 
   const plusDropdownItems = [

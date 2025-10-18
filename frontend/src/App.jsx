@@ -14,6 +14,7 @@ import Correction from './pages/Correction/Correction';
 import PracticeList from './pages/PracticeList/PracticeList';
 import PracticeQuiz from './pages/PracticeQuiz/PracticeQuiz';
 import LearnQuiz from './pages/LearnQuiz/LearnQuiz';
+import EmailVerification from './auth/EmailVerification/EmailVerification';
 
 const App = () => {
     return (
@@ -41,6 +42,7 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/verify-email/:uid/:token" element={<EmailVerification />} />
 
             </Routes>
         </BrowserRouter>

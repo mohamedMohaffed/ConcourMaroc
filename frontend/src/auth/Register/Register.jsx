@@ -11,8 +11,10 @@ import { submitPendingQuizAnswers } from '../../utils/submitPendingQuizAnswers';
 
 const Register = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [usernameFocused, setUsernameFocused] = useState(false);
+  const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [msg, setMsg] = useState('');
   const [msgType, setMsgType] = useState('');
@@ -23,20 +25,14 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axiosInstance.post('/accounts/api/register/', { username, password });
-      setMsg("Inscription réussie !");
+      await axiosInstance.post('/accounts/api/register/', { 
+        username, 
+        email,
+        password 
+      });
+      setMsg("Inscription réussie ! Veuillez vérifier votre email pour activer votre compte.");
       setMsgType("success");
-      // Try to log in immediately after registration
-      try {
-        await axiosInstance.post('accounts/api/token/', { username, password });
-        // Use utility function for pending quiz answers
-        const handled = await submitPendingQuizAnswers(navigate);
-        if (handled) return;
-        navigate('/concours/Bac/universites');
-      } catch (loginError) {
-        // If login fails, fallback to login page
-        setTimeout(() => navigate('/login'), 1500);
-      }
+      // setTimeout(() => navigate('/login'), 3000);
     } catch (error) {
       setMsg("Échec de l'inscription !");
       setMsgType("error");
@@ -83,6 +79,30 @@ const Register = () => {
               transition={{ duration: 0.3 }}
             >
               Nom d'utilisateur
+            </motion.label>
+          </div>
+
+          <div className="register__input-group">
+            <input
+              type="email"
+              name="email"
+              autoComplete="off"
+              value={email}
+              onFocus={() => setEmailFocused(true)}
+              onBlur={() => setEmailFocused(false)}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <motion.label
+              initial={{ top: '14px', fontSize: '16px', color: '#777777' }}
+              animate={
+                emailFocused || email
+                  ? { top: '-10px', fontSize: '12px', color: '#1CB0F6' }
+                  : { top: '14px', fontSize: '16px', color: '#777777' }
+              }
+              transition={{ duration: 0.3 }}
+            >
+              Email
             </motion.label>
           </div>
 

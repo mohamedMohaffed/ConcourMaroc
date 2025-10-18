@@ -1,0 +1,30 @@
+.email-verification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.verification-loading,
+.verification-success,
+.verification-error {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.verification-success {
+  color: #28a745;
+}
+
+.verification-error {
+  color: #dc3545;
+}
+
+.verification-loading p {
+  margin-top: 15px;
+  color: #666;
+}

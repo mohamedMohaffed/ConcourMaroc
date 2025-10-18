@@ -7,7 +7,7 @@ from rest_framework import status
 from datetime import timedelta
 from .serializers import ( 
                            UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)
-# from pprint import pprint
+from django.shortcuts import get_object_or_404
 
 class UserAnswerScoreAPIView(APIView):
     permission_classes = [AllowAny]
@@ -56,10 +56,8 @@ class UserAnswerScoreAPIView(APIView):
             concours_id=concour_id,
             score=0,  # will update after loop
             time_spent=time_spent_td,
-            # type=type 
         )
         score_value = 0
-        # serializer_errors = []
 
         # Check for None in any question or choice before proceeding
         for ans in answers:
@@ -74,17 +72,7 @@ class UserAnswerScoreAPIView(APIView):
         choices_qs = Choice.objects.filter(question_id__in=question_ids, id__in=choice_ids)
         choices_lookup = {(c.question_id, c.id): c for c in choices_qs}
 
-        # Check for existing UserAnswers
-        existing_user_answers = UserAnswer.objects.filter(
-            user=user,
-            concours_id=concour_id,
-            question_id__in=question_ids
-        ).select_related('user_choice')
-        existing_lookup = {ua.question_id: ua for ua in existing_user_answers}
-
         user_answer_objs = []
-        user_answers_to_update = []
-        
         for ans in answers:
             question_id = ans.get("question_id")
             choice_id = ans.get("choice_id")
@@ -95,39 +83,20 @@ class UserAnswerScoreAPIView(APIView):
                     {"detail": "Choice does not exist for this question."},
                     status=status.HTTP_404_NOT_FOUND
                 )
-            
-            existing_answer = existing_lookup.get(question_id)
-            if existing_answer:
-                # Question already answered, increment incorrect_answer_count for any wrong answer
-                if not choice.is_correct:
-                    existing_answer.incorrect_answer_count += 1
-                existing_answer.user_choice = choice
-                existing_answer.score = score_obj
-                user_answers_to_update.append(existing_answer)
-            else:
-                # New question, prepare UserAnswer instance with initial incorrect count
-                initial_incorrect_count = 1 if not choice.is_correct else 0
-                user_answer_objs.append(UserAnswer(
-                    user=user,
-                    concours_id=concour_id,
-                    question_id=question_id,
-                    user_choice=choice,
-                    score=score_obj,
-                    incorrect_answer_count=initial_incorrect_count
-                ))
-            
+            user_answer_objs.append(UserAnswer(
+                user=user,
+                concours_id=concour_id,
+                question_id=question_id,
+                user_choice=choice,
+                score=score_obj,
+            ))
             if choice.is_correct:
                 score_value += 1
 
-        # Bulk create new UserAnswer objects and update existing ones
+        # Bulk create new UserAnswer objects
         try:
             if user_answer_objs:
                 UserAnswer.objects.bulk_create(user_answer_objs)
-            if user_answers_to_update:
-                UserAnswer.objects.bulk_update(
-                    user_answers_to_update, 
-                    ['incorrect_answer_count', 'user_choice', 'score']
-                )
         except Exception as e:
             UserAnswer.objects.filter(score=score_obj).delete()
             score_obj.delete()
@@ -143,7 +112,6 @@ class UserAnswerScoreAPIView(APIView):
             {"detail": "All answers saved successfully."},
             status=status.HTTP_201_CREATED
         )
-
 
 class LastUserScoreAPIView(APIView):
     permission_classes = [IsAuthenticated]
@@ -230,7 +198,6 @@ class AllScoresForConcourAPIView(APIView):
         serializer = ScoreSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
 class AllUserScoresAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -257,6 +224,17 @@ class AllUserScoresAPIView(APIView):
         
         serializer = AllScoresSerializer(scores, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class DeleteScoreByIdAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, score_id):
+        user = request.user
+        score = get_object_or_404(Score, id=score_id, user=user)
+        # Only delete UserAnswer objects linked to this score
+        UserAnswer.objects.filter(score=score).delete()
+        score.delete()
+        return Response({"detail": "Score deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
 
 
 

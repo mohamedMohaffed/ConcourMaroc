@@ -43,23 +43,21 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Get UserAnswer objects for incorrect answers
+        # Get all incorrect UserAnswer objects for this user and concours
         incorrect_user_answers = UserAnswer.objects.filter(
             user=user,
-            user_choice__is_correct=False,
-            concours=concours
+            concours=concours,
+            user_choice__is_correct=False
         )
 
-        # Map question_id to incorrect_answer_count
-        incorrect_counts = {
-            ua.question_id: ua.incorrect_answer_count
-            for ua in incorrect_user_answers
-        }
+        # Count incorrect answers per question
+        from collections import Counter
+        incorrect_counts = Counter(incorrect_user_answers.values_list('question_id', flat=True))
 
         # Get IDs of questions the user answered incorrectly
-        incorrect_question_ids = incorrect_counts.keys()
+        incorrect_question_ids = list(incorrect_counts.keys())
 
-        # Filter only incorrect questions (DO NOT modify concours.questions)
+        # Filter only incorrect questions
         incorrect_questions = concours.questions.filter(id__in=incorrect_question_ids)
 
         # Serialize concours but replace 'questions' with only incorrect ones

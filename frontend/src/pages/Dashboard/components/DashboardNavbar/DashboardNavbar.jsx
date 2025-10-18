@@ -11,6 +11,9 @@ import {
   Legend,
 } from 'chart.js';
 import './DashboardNavbar.css';
+import axiosInstance from '../../../../utils/axiosInstance';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +25,7 @@ ChartJS.register(
   Legend
 );
 
-const DashboardNavbar = ({ scores }) => {
+const DashboardNavbar = ({ scores: initialScores }) => {
     const [activeTab, setActiveTab] = useState("graph");
     const [currentPage, setCurrentPage] = useState(0);
     const [filters, setFilters] = useState({
@@ -31,6 +34,7 @@ const DashboardNavbar = ({ scores }) => {
         year: '',
         subject: ''
     });
+    const [scores, setScores] = useState(initialScores);
     
     // Modified filter options
     const filterOptions = useMemo(() => {
@@ -142,7 +146,8 @@ const DashboardNavbar = ({ scores }) => {
 
     const pageSize = 5;
 
-    const rows = scores?.map(score => ({
+    const rows = scores?.map((score, idx) => ({
+        id: score.id || score.pk || idx, // Ensure each row has a unique id
         subject: score.concours?.subject?.name,
         university: score.concours?.subject?.year?.university?.name,
         year: score.concours?.subject?.year?.year,
@@ -153,6 +158,19 @@ const DashboardNavbar = ({ scores }) => {
 
     const totalPages = Math.ceil((rows?.length || 0) / pageSize);
     const paginatedRows = rows.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
+
+    // Delete score from backend and update UI
+    const handleDeleteScore = async (rowIdx) => {
+        const scoreId = paginatedRows[rowIdx].id;
+        if (window.confirm("Are you sure you want to delete this score?")) {
+            try {
+                await axiosInstance.delete(`concour/score/${scoreId}/`);
+                setScores(prev => prev.filter(s => (s.id || s.pk) !== scoreId));
+            } catch (err) {
+                alert("Failed to delete score.");
+            }
+        }
+    };
 
     return (
         <div>
@@ -178,18 +196,17 @@ const DashboardNavbar = ({ scores }) => {
             </div>
 
             <div className="dashboard__tabs-navbar">
-                <button
-                    className={activeTab === "graph" ? "dashboard__tab--active" : "dashboard__tab"}
+                <div className={activeTab === "graph" ? "dashboard__tab--active" : "dashboard__tab"}
                     onClick={() => setActiveTab("graph")}
                 >
                     Vue d'ensemble
-                </button>
-                <button
+                </div>
+                <div
                     className={activeTab === "history" ? "dashboard__tab--active" : "dashboard__tab"}
                     onClick={() => setActiveTab("history")}
                 >
                     History
-                </button>
+                </div>
             </div>
 
             <div className="dashboard__tab-content">
@@ -209,10 +226,11 @@ const DashboardNavbar = ({ scores }) => {
                                     <th>Score</th>
                                     <th>Time Spent</th>
                                     <th>Date</th>
+                                    <th>Delete</th> {/* New column */}
                                 </tr>
                             </thead>
                             <tbody>
-                                {paginatedRows.map(row => (
+                                {paginatedRows.map((row, idx) => (
                                     <tr key={row.id}>
                                         <td>{row.subject}</td>
                                         <td>{row.university}</td>
@@ -220,6 +238,16 @@ const DashboardNavbar = ({ scores }) => {
                                         <td>{row.score}</td>
                                         <td>{row.time_spent}</td>
                                         <td>{row.created_at}</td>
+                                        <td>
+                                            <button
+                                                className="delete-score-btn"
+                                                title="Delete score"
+                                                onClick={() => handleDeleteScore(idx)}
+                                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2em' }}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

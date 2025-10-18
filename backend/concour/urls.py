@@ -3,7 +3,7 @@ from .views import (LevelAPIView, UniverstyAPIView,
                     YearAPIView,SubjectAPIView,ConcoursAPIView)
 from .views_score import (UserAnswerScoreAPIView, 
 LastUserScoreAPIView,DeleteLastScoreAPIView,
-AllScoresForConcourAPIView, AllUserScoresAPIView)
+AllScoresForConcourAPIView, AllUserScoresAPIView,DeleteScoreByIdAPIView)
 from .views_ai import AIResponderAPIView
 from .views_pratice import IncorrectAnswersListAPIView,QuestionIncorrectAnswersUserAPIView, DeleteCorrectAnswersAPIView
 
@@ -34,7 +34,8 @@ urlpatterns = [
 
     #AI chat
     
-    path('ai/',AIResponderAPIView.as_view())
+    path('ai/',AIResponderAPIView.as_view()),
+    path('score/<int:score_id>/', DeleteScoreByIdAPIView.as_view(), name='delete-score-by-id'),
 
 ]
 

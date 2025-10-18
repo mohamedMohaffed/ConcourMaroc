@@ -124,7 +124,7 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
             {/* Show incorrect count phase/message for current question in Practice mode, under circles */}
             {type === "Practice" && currentIncorrectCount > 0 && (
                 <div className="quiz__header-phase" style={{ marginTop: '8px' }}>
-                    You answered incorrectly for this question {currentIncorrectCount} time{currentIncorrectCount > 1 ? 's' : ''}
+                    Vous avez répondu incorrectement à cette question {currentIncorrectCount} fois
                 </div>
             )}
         </div>

@@ -6,12 +6,24 @@
 }
 
 .dashboard__tabs-navbar {
-    display: flex;
+   display: flex;
     justify-content: center;
     gap: 2.5rem;
     border-bottom: 1.5px solid #e0e0e0;
     margin: 2.5rem 0 1.5rem 0;
 }
+.dashboard__tabs-navbar * {
+background: none;
+    border: none;
+    outline: none;
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: #777777;
+    padding: 0.5rem 1.2rem 0.7rem 1.2rem;
+    cursor: pointer;
+    border-bottom: 2.5px solid transparent;
+    transition: color 0.18s, border-color 0.18s;
+   }
 
 .dashboard__tab {
     background: none;
@@ -20,30 +32,17 @@
     font-size: 1rem;
     font-weight: 500;
     color: #777777;
-    padding: 0.5rem 1.2rem 0.7rem 1.2rem;
+    /* padding: 0.5rem 1.2rem 0.7rem 1.2rem; */
+    padding-bottom:0.5rem;
     cursor: pointer;
     position: relative;
 }
 
 .dashboard__tab--active {
     color: #1CB0F6;
-    font-size: 1rem;
-    font-weight: 500;
     border-bottom: 2.5px solid #1CB0F6;
     background: #f6fbff;
     border-radius: 8px 8px 0 0;
-}
-
-.dashboard__tab--active::after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 20%;
-    right: 20%;
-    bottom: -2.5px;
-    height: 2.5px;
-    background: #1CB0F6;
-    border-radius: 2px;
 }
 
 .dashboard__tab-content {
@@ -116,6 +115,15 @@
     margin: 1rem;
     position: relative;
     height: 400px;
+}
+
+.delete-score-btn .fa-trash {
+    transition: color 0.2s;
+    color: #777777;
+}
+
+.delete-score-btn:hover .fa-trash {
+    color: red;
 }
 
 @media (max-width: 48em) {

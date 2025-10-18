@@ -69,45 +69,53 @@ const Navbar = () => {
               onMouseEnter={() => setPlusHover(true)}
               onMouseLeave={() => setPlusHover(false)}
             >
-              <Link
-                to={item.to}
-                style={{ textDecoration: 'none', color: 'inherit', }}
+              <div
+                className="navbar__item"
+                style={
+                  plusHover
+                    ? {
+                        background: '#F5F7FA',
+                        border: '0.125rem solid transparent',
+                        borderRadius: '0.625rem',
+                        cursor: 'pointer'
+                      }
+                    : { cursor: 'pointer' }
+                }
               >
-                <div className={`navbar__item${activeIndex === idx ? " navbar__item--active" : ""}`}>
-                  <div className={`navbar__item-img${activeIndex === idx ? " navbar__item-img--active" : ""}`}>
-                    <FontAwesomeIcon
-                      icon={item.icon}
-                      className="navbar__icon"
-                      size="8x"
-                    />
-                  </div>
-                  <div
-                    className={`navbar__item-name${activeIndex === idx ? " navbar__item-name--active" : ""}`}
-                  >
-                    <span className="navbar__item-name--desktop">{item.name}</span>
-                    <span className="navbar__item-name--mobile">{item.mobileName}</span>
-                  </div>
+                <div className="navbar__item-img">
+                  <FontAwesomeIcon
+                    icon={item.icon}
+                    className="navbar__icon"
+                    size="8x"
+                  />
                 </div>
-              </Link>
+                <div className="navbar__item-name">
+                  <span className="navbar__item-name--desktop">{item.name}</span>
+                  <span className="navbar__item-name--mobile">{item.mobileName}</span>
+                </div>
+              </div>
               {plusHover && (
-                <div className="navbar__plus-dropdown">
+                <div
+                  className="navbar__plus-dropdown"
+                  onMouseEnter={() => setPlusHover(true)}
+                  onMouseLeave={() => setPlusHover(false)}
+                >
                   {plusDropdownItems.map((dropItem, dropIdx) =>
-                      <Link
-                        to={dropItem.to}
-                        key={dropItem.name}
-                        style={{ textDecoration: 'none', color: 'inherit', }}
-                      >
-                        <div className="navbar__item">
-                          <div className="navbar__item-img">
-                            <FontAwesomeIcon icon={dropItem.icon} className="navbar__icon" size="8x" />
-                          </div>
-                          <div className="navbar__item-name">
-                            <span className="navbar__item-name--desktop">{dropItem.name}</span>
-                            <span className="navbar__item-name--mobile">{dropItem.mobileName}</span>
-                          </div>
+                    <Link
+                      to={dropItem.to}
+                      key={dropItem.name}
+                      style={{ textDecoration: 'none', color: 'inherit', }}
+                    >
+                      <div className="navbar__item">
+                        <div className="navbar__item-img">
+                          <FontAwesomeIcon icon={dropItem.icon} className="navbar__icon" size="8x" />
                         </div>
-                      </Link>
-                    
+                        <div className="navbar__item-name">
+                          <span className="navbar__item-name--desktop">{dropItem.name}</span>
+                          <span className="navbar__item-name--mobile">{dropItem.mobileName}</span>
+                        </div>
+                      </div>
+                    </Link>
                   )}
                 </div>
               )}

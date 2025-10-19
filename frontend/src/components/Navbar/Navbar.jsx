@@ -15,8 +15,9 @@ const Navbar = () => {
   ];
 
   const plusDropdownItems = [
-    { name: "SETTINGS", mobileName: "SETTINGS", icon: faGear, to: "/settings" },
-    { name: "LOGOUT", mobileName: "LOGOUT", icon: faRightFromBracket, to: "/logout"}
+    { name: "À PROPOS", mobileName: "À PROPOS", icon: faCircleInfo, to: "/apropos" },
+    { name: "PARAMÈTRES", mobileName: "PtARAMÈTRES", icon: faGear, to: "/parametres" },
+    { name: "DÉCONNEXION", mobileName: "DÉCONNEXION", icon: faRightFromBracket, to: "/deconnexion"}
   ];
 
   const location = useLocation();

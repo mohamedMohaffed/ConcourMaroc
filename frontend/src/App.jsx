@@ -43,7 +43,7 @@ const App = () => {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register/>}/>
-                <Route path="/logout" element={<Logout />} />
+                <Route path="/deconnexion" element={<Logout />} />
                 <Route path="/verify-email/:uid/:token" element={<EmailVerification />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />

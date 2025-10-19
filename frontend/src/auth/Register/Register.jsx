@@ -32,7 +32,7 @@ const Register = () => {
       });
       setMsg("Inscription réussie ! Veuillez vérifier votre email pour activer votre compte.");
       setMsgType("success");
-      // setTimeout(() => navigate('/login'), 3000);
+      // setTimeout(() => navigate('/connexion'), 3000);
     } catch (error) {
       setMsg("Échec de l'inscription !");
       setMsgType("error");
@@ -131,7 +131,7 @@ const Register = () => {
           </div>
 
           <button type="submit" className="register__btn" disabled={loading}>S'inscrire</button>
-          <Link to="/login" className="register__login-btn">Se connecter</Link>
+          <Link to="/connexion" className="register__login-btn">Se connecter</Link>
         </form>
       </div>
       <div className="register__image">

@@ -17,11 +17,11 @@ const Logout = () => {
                 });
                 
                 // Redirect to login page after successful logout
-                navigate('/login');
+                navigate('/connexion');
             } catch (error) {
                 console.error('Logout error:', error);
                 // Even if logout fails, redirect to login
-                navigate('/login');
+                navigate('/connexion');
             }
         };
 

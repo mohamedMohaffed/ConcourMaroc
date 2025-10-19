@@ -33,7 +33,7 @@ const ForgotPassword = () => {
   return (
     <div className="forgot-password">
       <div className="forgot-password__icon">
-        <Link to="/login">
+        <Link to="/connexion">
           <FontAwesomeIcon icon={faTimes} />
         </Link>
       </div>
@@ -72,7 +72,7 @@ const ForgotPassword = () => {
           <button type="submit" className="forgot-password__btn" disabled={loading}>
             Envoyer le lien
           </button>
-          <Link to="/login" className="forgot-password__register-btn">Retour à la connexion</Link>
+          <Link to="/connexion" className="forgot-password__register-btn">Retour à la connexion</Link>
         </form>
       </div>
       <div className="forgot-password__image">

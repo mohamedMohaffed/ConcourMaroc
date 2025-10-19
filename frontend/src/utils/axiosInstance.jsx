@@ -29,16 +29,16 @@ axiosInstance.interceptors.response.use(
             } catch (refreshError) {
                 console.error('Token refresh failed:', refreshError);
                 // Redirect to login
-                if (window.location.pathname !== '/login') {
-                    window.location.href = `/login?redirect=${window.location.pathname}`;
+                if (window.location.pathname !== '/connexion') {
+                    window.location.href = `/connexion?redirect=${window.location.pathname}`;
                 }
                 return Promise.reject(refreshError);
             }
         }
         
         // Handle other 401 errors (like failed login attempts)
-        if (error.response?.status === 401 && window.location.pathname !== '/login') {
-            window.location.href = `/login?redirect=${window.location.pathname}`;
+        if (error.response?.status === 401 && window.location.pathname !== '/connexion') {
+            window.location.href = `/connexion?redirect=${window.location.pathname}`;
         }
 
         return Promise.reject(error);
@@ -46,11 +46,10 @@ axiosInstance.interceptors.response.use(
 );
 
 /**
- * Checks if the user is logged in by requesting the current user endpoint.
- * Returns a Promise<boolean>.
- * Accepts skipRedirect param to avoid login redirect for this check.
+    isLoggedIn
  */
 export async function isLoggedIn({ skipRedirect = false } = {}) {
+    console.log('isLoggedIn called');
     try {
         await axiosInstance.get('/accounts/api/current_user/', { skipAuthRedirect: skipRedirect });
         return true;

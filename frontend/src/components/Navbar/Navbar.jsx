@@ -1,16 +1,29 @@
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGauge, faGamepad, faEllipsisH, faUserGraduate, faBook, faPlus, faCircleInfo, faCompass, faDumbbell, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faGauge, faGamepad, faEllipsisH, faUserGraduate, faBook, faPlus, faCircleInfo, faCompass, faDumbbell, faGear, faRightFromBracket, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { isLoggedIn } from '../../utils/axiosInstance';
 
 const Navbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [plusHover, setPlusHover] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  React.useEffect(() => {
+    isLoggedIn({ skipRedirect: true }).then(setUserLoggedIn);
+    // console.log('isLoggedIn called');
+
+  }, []);
+
   const navbarItems = [
     { name: "CONCOURS", mobileName: "CONCOURS", icon: faBook, to: "/concours/Bac/universites" },
     { name: "MON SCORE", mobileName: "SCORE", icon: faGauge, to: "/tableau-de-bord" },
     { name: "PRATIQUE", mobileName: "PRATIQUE", icon: faDumbbell, to: "/pratique " },
     // { name: "APPRENDRE", icon: faUserGraduate, to: "/apprendre" },
     // { name: "UNIVERSITÉS", mobileName: "UNIVERSITÉS", icon: faCircleInfo, to: "/universites" },
+    { name: "CONNEXION", mobileName: "CONNEXION", icon: faRightToBracket, to: "/connexion" },
     { name: "PLUS", mobileName: "PLUS", icon: faEllipsisH }
   ];
 
@@ -20,8 +33,6 @@ const Navbar = () => {
     { name: "DÉCONNEXION", mobileName: "DÉCONNEXION", icon: faRightFromBracket, to: "/deconnexion"}
   ];
 
-  const location = useLocation();
-  const navigate = useNavigate();
   const activeIndex = navbarItems.findIndex(item => { 
     if (item.name === "CONCOURS") {
       return location.pathname.startsWith("/concours");
@@ -29,13 +40,21 @@ const Navbar = () => {
     return item.to === "/" ? location.pathname === "/" : location.pathname.startsWith(item.to.trim());
   });
 
-  const [plusHover, setPlusHover] = useState(false);
+  // Filter out "CONNEXION" if logged in
+  const filteredNavbarItems = userLoggedIn
+    ? navbarItems.filter(item => item.name !== "CONNEXION")
+    : navbarItems;
+
+  // Filter out "DÉCONNEXION" if not logged in
+  const filteredPlusDropdownItems = userLoggedIn
+    ? plusDropdownItems
+    : plusDropdownItems.filter(item => item.name !== "DÉCONNEXION");
 
   return (
     <nav className="navbar">
       <div className="navbar__logo"><span className="navbar__logo--go">Con</span>Cours </div>
       <div className="navbar__items">
-        {navbarItems.map((item, idx) => {
+        {filteredNavbarItems.map((item, idx) => {
           const isPlus = item.name === "PLUS";
           if (!isPlus) {
             return (
@@ -101,7 +120,7 @@ const Navbar = () => {
                   onMouseEnter={() => setPlusHover(true)}
                   onMouseLeave={() => setPlusHover(false)}
                 >
-                  {plusDropdownItems.map((dropItem, dropIdx) =>
+                  {filteredPlusDropdownItems.map((dropItem, dropIdx) =>
                     <Link
                       to={dropItem.to}
                       key={dropItem.name}

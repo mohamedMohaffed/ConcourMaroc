@@ -36,7 +36,7 @@ const ResetPassword = () => {
       });
       setMsg('Mot de passe réinitialisé avec succès');
       setMsgType('success');
-      setTimeout(() => navigate('/login'), 2000);
+      setTimeout(() => navigate('/connexion'), 2000);
     } catch (error) {
       setMsg('Erreur lors de la réinitialisation du mot de passe');
       setMsgType('error');
@@ -48,7 +48,7 @@ const ResetPassword = () => {
   return (
     <div className="reset-password">
       <div className="reset-password__icon">
-        <Link to="/login">
+        <Link to="/connexion">
           <FontAwesomeIcon icon={faTimes} />
         </Link>
       </div>
@@ -108,7 +108,7 @@ const ResetPassword = () => {
           <button type="submit" className="reset-password__btn" disabled={loading}>
             Réinitialiser
           </button>
-          <Link to="/login" className="reset-password__register-btn">Retour à la connexion</Link>
+          <Link to="/connexion" className="reset-password__register-btn">Retour à la connexion</Link>
         </form>
       </div>
       <div className="reset-password__image">

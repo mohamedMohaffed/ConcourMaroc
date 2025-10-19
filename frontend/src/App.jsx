@@ -41,12 +41,12 @@ const App = () => {
                 <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/:subject_slug/concour/" element={<LearnQuiz />} />
                 <Route path="/pratique/:concours_slug" element={<PracticeQuiz />} />
 
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register/>}/>
+                <Route path="/connexion" element={<Login />} />
+                <Route path="/inscription" element={<Register/>}/>
                 <Route path="/deconnexion" element={<Logout />} />
-                <Route path="/verify-email/:uid/:token" element={<EmailVerification />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
+                <Route path="/verifier-email/:uid/:token" element={<EmailVerification />} />
+                <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
+                <Route path="/reinitialiser-mot-de-passe/:uid/:token" element={<ResetPassword />} />
 
             </Routes>
         </BrowserRouter>

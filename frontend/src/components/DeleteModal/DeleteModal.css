@@ -74,6 +74,13 @@
   color: #22223b;
 }
 
+.delete-popup .loading__container {
+  margin: 0;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+}
+
 @media (max-width: 48em) {
   .delete-overlay {
     padding-top: 80px;

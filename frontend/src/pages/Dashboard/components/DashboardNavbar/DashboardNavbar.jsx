@@ -14,6 +14,7 @@ import './DashboardNavbar.css';
 import axiosInstance from '../../../../utils/axiosInstance';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import DeleteModal from '../../../../components/DeleteModal/DeleteModal'; // Add import
 
 ChartJS.register(
   CategoryScale,
@@ -35,6 +36,8 @@ const DashboardNavbar = ({ scores: initialScores }) => {
         subject: ''
     });
     const [scores, setScores] = useState(initialScores);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteRowIdx, setDeleteRowIdx] = useState(null);
     
     // Modified filter options
     const filterOptions = useMemo(() => {
@@ -160,15 +163,16 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     const paginatedRows = rows.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
 
     // Delete score from backend and update UI
-    const handleDeleteScore = async (rowIdx) => {
-        const scoreId = paginatedRows[rowIdx].id;
-        if (window.confirm("Are you sure you want to delete this score?")) {
-            try {
-                await axiosInstance.delete(`concour/score/${scoreId}/`);
-                setScores(prev => prev.filter(s => (s.id || s.pk) !== scoreId));
-            } catch (err) {
-                alert("Failed to delete score.");
-            }
+    const handleDeleteScore = async () => {
+        const scoreId = paginatedRows[deleteRowIdx].id;
+        try {
+            await axiosInstance.delete(`concour/score/${scoreId}/`);
+            setScores(prev => prev.filter(s => (s.id || s.pk) !== scoreId));
+        } catch (err) {
+            alert("Failed to delete score.");
+        } finally {
+            setShowDeleteModal(false);
+            setDeleteRowIdx(null);
         }
     };
 
@@ -242,7 +246,10 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                                             <button
                                                 className="delete-score-btn"
                                                 title="Delete score"
-                                                onClick={() => handleDeleteScore(idx)}
+                                                onClick={() => {
+                                                    setDeleteRowIdx(idx);
+                                                    setShowDeleteModal(true);
+                                                }}
                                                 style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2em' }}
                                             >
                                                 <FontAwesomeIcon icon={faTrash} />
@@ -269,6 +276,17 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                                 Next
                             </button>
                         </div>
+                        <DeleteModal
+                            visible={showDeleteModal}
+                            onConfirm={handleDeleteScore}
+                            onCancel={() => {
+                                setShowDeleteModal(false);
+                                setDeleteRowIdx(null);
+                            }}
+                            message="Are you sure you want to delete this score?"
+                            buttonColor="#e74c3c"
+                            confirmText="Delete"
+                        />
                     </div>
                 )}
             </div>

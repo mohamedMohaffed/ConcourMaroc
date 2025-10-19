@@ -15,6 +15,8 @@ import PracticeList from './pages/PracticeList/PracticeList';
 import PracticeQuiz from './pages/PracticeQuiz/PracticeQuiz';
 import LearnQuiz from './pages/LearnQuiz/LearnQuiz';
 import EmailVerification from './auth/EmailVerification/EmailVerification';
+import ForgotPassword from './auth/ForgotPassword/ForgotPassword';
+import ResetPassword from './auth/ResetPassword/ResetPassword';
 
 const App = () => {
     return (
@@ -43,6 +45,8 @@ const App = () => {
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/verify-email/:uid/:token" element={<EmailVerification />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
 
             </Routes>
         </BrowserRouter>

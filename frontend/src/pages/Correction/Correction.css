@@ -185,7 +185,11 @@
     color: #22c55e;
 }
 
-
+.correction__question__copy{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 @media (max-width: 48em) {
     .correction {
@@ -201,7 +205,7 @@
     }
 
     .correction__navigation {
-        bottom: 6rem; /* Adjust for mobile navbar height */
+        bottom: 6rem;
         padding: 0.5rem 1rem;
     }
 
@@ -221,5 +225,8 @@
 
     .correction__choices {
         grid-template-columns: 1fr;
+    }
+    .correction__circles-nav {
+        display: none !important;
     }
 }

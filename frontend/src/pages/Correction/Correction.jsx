@@ -26,7 +26,7 @@ const CorrectionNavigation = ({index,setIndex,totalQuestions})=>{
         className="correction__btn" 
         disabled={index === totalQuestions - 1}
         onClick={goToNext}>
-            <span className="correction__nav-text">Suivant</span>
+            <span className="correction__nav-text">Suivant   </span>
             <FontAwesomeIcon icon={faArrowRight} />
         </button>
         </div>
@@ -139,7 +139,7 @@ const Correction = () => {
                 <CorrectionCircles currentIndex={index} setIndex={setIndex} totalQuestions={data[0].questions.length} />
 
                 <div className="correction__question_and_choices">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div className="correction__question__copy">
                         <h2 className="correction__question">
                             {<LatexRenderer latex={question.question}/>}
                         </h2>

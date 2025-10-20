@@ -9,7 +9,7 @@
 
 .correction__header {
     display: flex;
-    padding: 2rem;
+    padding: 2rem 2rem 0 2rem ;
     flex-direction: column;
     gap: 1rem;
 
@@ -116,7 +116,7 @@
 
 .correction__navigation {
     position: fixed;
-    bottom: 6rem;  /* Increase bottom spacing to account for navbar */
+    bottom: 2rem;  /* Increase bottom spacing to account for navbar */
     left: 0;
     width: 100%;
     padding: 0.5rem;
@@ -161,6 +161,28 @@
 .correction__nav-text {
     display: inline-block;
     white-space: nowrap;
+}
+
+.correction__circle.selected {
+    background: #3b82f6 !important;
+    color: #fff !important;
+    border-color: #3b82f6 !important;
+}
+
+.correction__copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    font-size: 1.1rem;
+    color: #64748b;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.correction__copy-btn.copied {
+    color: #22c55e;
 }
 
 

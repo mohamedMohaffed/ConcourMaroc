@@ -214,7 +214,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                             elapsedSeconds, // use prop
                         }));
                         setShowAuth(false);
-                        navigate('/login?redirect=score');
+                        navigate('/connexion?redirect=score');
                     }}
                     onCancel={()=> setShowAuth(false)}
                     message="Vous devez vous connecter ou vous inscrire. Ne vous inquiétez pas, nous enregistrerons vos réponses actuelles et vous pourrez voir le résultat après la connexion ou l'inscription."

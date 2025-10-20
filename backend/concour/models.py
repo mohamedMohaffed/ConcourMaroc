@@ -35,7 +35,8 @@ class Year(models.Model):
     year = models.IntegerField()
     university = models.ForeignKey(University, on_delete=models.CASCADE, 
                                 related_name='years')
-    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
+    slug = models.SlugField(max_length=30, unique=True, blank=True, 
+                            db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -43,6 +44,7 @@ class Year(models.Model):
         super().save(*args, **kwargs)
     class Meta:
         unique_together = ('year', 'university')
+        ordering = ['-year']  
 
     def __str__(self):
         return f"{self.year} - {self.university.name}"

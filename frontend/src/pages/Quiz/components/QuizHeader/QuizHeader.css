@@ -159,8 +159,8 @@
     color: #1e293b;
     border: 2px solid #3b82f6;
     border-radius: 50%;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 2rem;
+    height: 2rem;
     font-size: 1.1em;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;

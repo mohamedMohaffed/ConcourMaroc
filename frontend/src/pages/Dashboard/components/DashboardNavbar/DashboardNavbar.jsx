@@ -250,7 +250,8 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                                                     setDeleteRowIdx(idx);
                                                     setShowDeleteModal(true);
                                                 }}
-                                                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2em' }}
+                                                style={{ background: 'none', border: 'none', cursor: 'pointer',
+                                                     fontSize: '1.2em' }}
                                             >
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </button>

@@ -121,7 +121,7 @@ background: none;
 }
 
 .delete-score-btn:hover .fa-trash {
-    color: red;
+    color: #CC0000;
 }
 
 @media (max-width: 48em) {

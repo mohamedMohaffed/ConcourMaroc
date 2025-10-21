@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
-    const [showContext, setShowContext] = useState(false);
+    const [showContext, setShowContext] = useState(true);
 
     useEffect(() => {
         if (currentQuestion && userAnser) {

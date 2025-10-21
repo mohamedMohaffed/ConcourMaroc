@@ -37,6 +37,8 @@
   border: 2px solid #3b82f6;
   padding: 0.3rem;
   box-sizing: border-box;
+  border-radius: 8px;
+
 
   
 }
@@ -170,61 +172,6 @@
 }
 
 
-@media (max-width: 48em) {
-  .quizitem {
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-    height: calc(100vh - 8rem);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .quizitem .quizitem__question {
-    font-size: 1.05rem; /* slightly bigger font */
-    padding: 0.9rem 0.5rem; /* slightly more padding */
-    min-height: 2.8rem; /* slightly more height */
-    max-height: none;
-    line-height: 1.15;
-    flex-shrink: 0;
-  }
-
-  .quizitem .quizitem__choices {
-    grid-template-columns: 1fr;
-    padding: 0.22rem 0.22rem 0.5rem 0.22rem; /* less padding */
-    gap: 0.15rem; /* less gap */
-    flex: 1;
-    overflow: auto;
-  }
-
-  .quizitem .choice {
-    padding: 0.13rem; 
-    min-height: 1.1rem; 
-    border-radius: 4px;
-    position: relative;
-    font-size: 1.2rem; 
-  }
-
-  .choice::before {
-    display: none;
-  }
-
-  .quizitem .choice-content {
-    padding-left: 1rem;
-    padding-right: 0.1rem;
-    font-size: 1rem; 
-    line-height: 1.05;
-  }
-
-  .quizitem .quizitem__choices-label {
-    width: 0.9rem;
-    height: 0.9rem;
-    font-size: 0.5rem;
-    top: 0.1rem;
-    left: 0.1rem;
-    font-weight: 700;
-  }
-}
-
 .quizitem__context-modal {
   position: fixed;
   top: 0;
@@ -283,4 +230,154 @@
   font-size: 1.1rem;
   padding-top: 1.2rem;
   text-align: center;
+}
+
+
+
+@media (max-width: 48em) {
+  .quizitem {
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    height: calc(100vh - 8rem);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .quizitem .quizitem__question {
+    font-size: 1.05rem; /* slightly bigger font */
+    padding: 0.9rem 0.5rem; /* slightly more padding */
+    min-height: 2.8rem; /* slightly more height */
+    max-height: none;
+    line-height: 1.15;
+    flex-shrink: 0;
+  }
+
+  .quizitem .quizitem__choices {
+    grid-template-columns: 1fr;
+    padding: 0.22rem 0.22rem 0.5rem 0.22rem; /* less padding */
+    gap: 0.15rem; /* less gap */
+    flex: 1;
+    overflow: auto;
+  }
+
+  .quizitem .choice {
+    padding: 0.13rem; 
+    min-height: 1.1rem; 
+    border-radius: 4px;
+    position: relative;
+    font-size: 1.2rem; 
+  }
+
+  .choice::before {
+    display: none;
+  }
+
+  .quizitem .choice-content {
+    padding-left: 1rem;
+    padding-right: 0.1rem;
+    font-size: 1rem; 
+    line-height: 1.05;
+  }
+
+  .quizitem .quizitem__choices-label {
+    width: 0.9rem;
+    height: 0.9rem;
+    font-size: 0.5rem;
+    top: 0.1rem;
+    left: 0.1rem;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 30em) { /* ~480px - phone styles */
+  .quizitem__context-modal {
+    align-items: flex-end; /* place modal at bottom like a sheet */
+    padding: 0;
+    background: rgba(30,41,59,0.45); /* slightly darker overlay on phones */
+  }
+
+  .quizitem__context-modal-content {
+    width: 100vw;
+    max-width: 100%;
+    border-radius: 12px 12px 0 0; /* rounded top only */
+    max-height: 90vh;
+    height: auto;
+    margin: 0;
+    padding: 0.75rem 0.75rem 0.5rem 0.75rem;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.18);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 2px solid #3b82f6; /* visual handle */
+    cursor: default; /* disable drag cursor feel on phones */
+  }
+
+  .quizitem__context-modal-content:active {
+    cursor: default;
+  }
+
+  .quizitem__context-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: rgba(255,255,255,0.02);
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    color: #475569;
+  }
+
+  .quizitem__context-modal-body {
+    overflow-y: auto;
+    max-height: calc(90vh - 48px); /* leave space for header/close */
+    padding-top: 1.2rem;
+    padding-bottom: 1rem;
+    text-align: left;
+  }
+
+  /* optional: increase the tappable area for labels/close on very small phones */
+  .quizitem__context-modal-close:focus,
+  .quizitem__context-modal-close:hover {
+    outline: none;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.12);
+  }
+
+  /* make the question icon a larger, touch-friendly target on phones */
+  .quizitem__question-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;    
+    height: 40px;
+    padding: 0.25rem;   
+    font-size: 1.05rem;
+    border-radius: 8px;
+    border-width: 1.5px;
+    border-style: solid;
+    box-sizing: border-box;
+    margin-right: 0.5rem;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+
+  /* style the inner SVG from FontAwesome (keeps icon crisp) */
+  .quizitem__question-icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    display: block;
+  }
+
+  /* touch feedback */
+  .quizitem__question-icon:active,
+  .quizitem__question-icon:focus {
+    transform: translateY(1px);
+    box-shadow: 0 4px 12px rgba(59,130,246,0.12);
+    outline: none;
+  }
+
+  /* ensure the question text has room to the right if layout changes */
+  .quizitem .quizitem__question {
+    padding-right: 0.5rem;
+  }
 }

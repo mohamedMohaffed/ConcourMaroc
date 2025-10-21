@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
+    // keep context modal closed by default
     const [showContext, setShowContext] = useState(true);
 
     useEffect(() => {
@@ -82,7 +83,7 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
         currentQuestion && (
             <section className="quizitem">
                 <div className="quizitem__question">
-                    {currentQuestion.context_text &&
+                    {currentQuestion.exercice_context && currentQuestion.exercice_context.context_text &&
                         <span
                             className="quizitem__question-icon"
                             onClick={() => setShowContext(true)}
@@ -125,7 +126,8 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>
                             <div className="quizitem__context-modal-body">
-                                <LatexRenderer latex={currentQuestion.context_text} />
+                                {/* render the nested exercice_context text (safe access) */}
+                                <LatexRenderer latex={currentQuestion.exercice_context?.context_text || ''} />
                             </div>
                         </motion.div>
                     </div>

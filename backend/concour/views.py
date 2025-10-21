@@ -63,6 +63,7 @@ class ConcoursAPIView(APIView):
         ).prefetch_related(
             'questions',
             'questions__choices',
+            'questions__exercice_context'  # ensure context is prefetched with questions
         )
         serializer = ConcourSerializer(concours, many=True)
         return Response(serializer.data)

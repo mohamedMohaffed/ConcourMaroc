@@ -78,18 +78,31 @@ class Concours(models.Model):
     def __str__(self):
         return f"Concours ({self.subject.name})"
 
-
 class Question(models.Model):
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name="questions")
     question = models.TextField()
-    explanation = models.TextField(blank=True, null=True) 
-    context_text= models.TextField(blank=True, null=True) 
-    created_at = models.DateTimeField(auto_now_add=True) 
+    explanation = models.TextField(blank=True, null=True)
+    # link a question to an exercise context (one ExerciceContext can have many questions)
+    exercice_context = models.ForeignKey(
+        'ExerciceContext',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name='questions'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']  
     def __str__(self):
         return f"Q: {self.question[:50]}"
+    
+class ExerciceContext(models.Model):
+    
+    context_text= models.TextField(blank=True, null=True) 
+
+    def __str__(self):
+        return f"Context: {self.context_text[:60] if self.context_text else 'Empty'}"
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="choices")

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (Level,University,Year,Subject,
-                    Concours,Choice,Question,UserAnswer,Score)
+                    Concours,Choice,Question,UserAnswer,Score,ExerciceContext)
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,12 +30,18 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choice
         fields = ['id', 'text', 'is_correct']
 
+class ExerciceContextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExerciceContext
+        fields = '__all__'
+
 class QuestionSerializer(serializers.ModelSerializer):
     choices = ChoiceSerializer(many=True, read_only=True)
-    
+    exercice_context = ExerciceContextSerializer(read_only=True)
+
     class Meta:
         model = Question
-        fields = '__all__'
+        fields = ['id', 'question', 'explanation', 'choices', 'exercice_context', 'created_at']
 
 class ConcourSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer(read_only=True)
@@ -97,5 +103,4 @@ class AllScoresSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = '__all__'
-   
-    
+

@@ -63,7 +63,6 @@ class ConcoursAPIView(APIView):
         ).prefetch_related(
             'questions',
             'questions__choices',
-            'questions__course_parts'
         )
         serializer = ConcourSerializer(concours, many=True)
         return Response(serializer.data)

@@ -47,7 +47,7 @@ class Year(models.Model):
         ordering = ['-year']  
 
     def __str__(self):
-        return f"{self.year} - {self.university.name}"
+        return f"{self.year} - {self.university.name}"  
 
 class Subject(models.Model):
     name = models.CharField(max_length=50)
@@ -78,24 +78,16 @@ class Concours(models.Model):
     def __str__(self):
         return f"Concours ({self.subject.name})"
 
-class CoursePart(models.Model):
-    course = models.CharField(max_length=100, choices=COURSE_PART_CHOICES,blank=True, null=True)
-    topic = models.CharField(max_length=100, choices=TOPIC_PART_CHOICES,blank=True, null=True)
-
-
-    def __str__(self):
-        return f"{dict(COURSE_PART_CHOICES).get(self.course, self.course)} - {self.topic}"
 
 class Question(models.Model):
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name="questions")
     question = models.TextField()
-    explanation = models.TextField(blank=True, null=True)  
-    course_parts = models.ManyToManyField('CoursePart', related_name="questions", blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)  # remove default
+    explanation = models.TextField(blank=True, null=True) 
+    context_text= models.TextField(blank=True, null=True) 
+    created_at = models.DateTimeField(auto_now_add=True) 
 
     class Meta:
-        ordering = ['-created_at']  # order by creation time descending
-
+        ordering = ['-created_at']  
     def __str__(self):
         return f"Q: {self.question[:50]}"
 

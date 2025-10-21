@@ -11,6 +11,10 @@
 }
 
 .quizitem .quizitem__question {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.4;
@@ -18,13 +22,28 @@
   padding: 1.25rem;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border-bottom: 1px solid #e2e8f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
   flex-shrink: 0;
   min-height: 5rem;
   max-height: 7rem;
+}
+
+.quizitem__question-icon {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  color: #3b82f6;
+  margin-right: 0.5rem;
+  border: 2px solid #3b82f6;
+  padding: 0.3rem;
+  box-sizing: border-box;
+
+  
+}
+
+.quizitem__question-text {
+  flex: 1;
+  text-align: left;
 }
 
 .quizitem .quizitem__choices {
@@ -204,4 +223,64 @@
     left: 0.1rem;
     font-weight: 700;
   }
+}
+
+.quizitem__context-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 41, 59, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.quizitem__context-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90vw;
+  max-height: 70vh;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow: hidden;
+  cursor: grab;
+  border: 2px solid #3b82f6;
+  /* Optionally, add a subtle blue shadow for more blue accent */
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.18);
+  gap: 0; /* Remove extra gap between close button and content */
+}
+
+.quizitem__context-modal-content:active {
+  cursor: grabbing;
+  border-color: #1d4ed8;
+}
+
+.quizitem__context-modal-close {
+  align-self: flex-end;
+  position: static;
+  background: none;
+  border: none;
+  font-size: 1.4rem; /* Reduce icon size */
+  color: #64748b;
+  cursor: pointer;
+  z-index: 2;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+  padding: 0.1rem 0.2rem 0 0.2rem; /* Reduce padding for less height */
+}
+
+.quizitem__context-modal-body {
+  overflow-y: auto;
+  max-height: 50vh;
+  color: #1e293b;
+  font-size: 1.1rem;
+  padding-top: 1.2rem;
+  text-align: center;
 }

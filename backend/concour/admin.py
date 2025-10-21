@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Level, University, Year, Subject, Concours, Question, Choice, UserAnswer, Score, CoursePart
+from .models import (Level, University, Year, Subject, Concours, 
+                        Question, Choice, UserAnswer, Score)
 
 admin.site.register([
     Level,
@@ -11,5 +12,4 @@ admin.site.register([
     Choice,
     UserAnswer,
     Score,
-    CoursePart,
 ])

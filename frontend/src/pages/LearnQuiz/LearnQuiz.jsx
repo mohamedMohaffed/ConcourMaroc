@@ -6,6 +6,7 @@ const LearnQuiz=()=>{
     const { niveau_slug, universite_slug, year_slug, subject_slug } = useParams();
     const url = `/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/`;
     const { data, error, loading } = useApi(url);
+    console.log(data);
     if (loading) return <div><Loading/></div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data) return null;

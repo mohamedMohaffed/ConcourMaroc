@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
+    const [showContext, setShowContext] = useState(false);
 
     useEffect(() => {
         if (currentQuestion && userAnser) {
@@ -77,7 +82,18 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
         currentQuestion && (
             <section className="quizitem">
                 <div className="quizitem__question">
-                    {<LatexRenderer latex={currentQuestion.question} />}
+                    {currentQuestion.context_text &&
+                        <span
+                            className="quizitem__question-icon"
+                            onClick={() => setShowContext(true)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <FontAwesomeIcon icon={faAlignLeft} />
+                        </span>
+                    }
+                    <span className="quizitem__question-text">
+                        <LatexRenderer latex={currentQuestion.question} />
+                    </span>
                 </div>
                 <div className="quizitem__choices">
                     {currentQuestion.choices?.map((choice, choiceIndex) => (
@@ -85,7 +101,6 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
                             key={choice.id} 
                             className={getChoiceClassName(choice)}
                             onClick={() => handleChoice(choice.id)}
-                            style={{cursor: isSubmitted ? 'not-allowed' : 'pointer'}}
                         >
                             <div className={getLabelClassName(choice)}>
                                 {String.fromCharCode(65 + choiceIndex)}
@@ -96,6 +111,25 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
                         </div>
                     ))}
                 </div>
+                {showContext && (
+                    <div className="quizitem__context-modal" onClick={() => setShowContext(false)}>
+                        <motion.div
+                            className="quizitem__context-modal-content"
+                            drag
+                            dragElastic={0.2}
+                            dragMomentum={false}
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <button className="quizitem__context-modal-close" 
+                                onClick={() => setShowContext(false)}>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </button>
+                            <div className="quizitem__context-modal-body">
+                                <LatexRenderer latex={currentQuestion.context_text} />
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
             </section>
         )
     );

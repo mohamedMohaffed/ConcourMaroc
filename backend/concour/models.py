@@ -68,7 +68,8 @@ class Concours(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="concours")
     timer = models.DurationField(blank=True, null=True)
     #add note type
-    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
+    slug = models.SlugField(max_length=30, unique=True, blank=True,
+                             db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -82,7 +83,7 @@ class Question(models.Model):
     concours = models.ForeignKey(Concours, on_delete=models.CASCADE, related_name="questions")
     question = models.TextField()
     explanation = models.TextField(blank=True, null=True)
-    # link a question to an exercise context (one ExerciceContext can have many questions)
+    order = models.PositiveIntegerField(default=0)    
     exercice_context = models.ForeignKey(
         'ExerciceContext',
         on_delete=models.SET_NULL,
@@ -93,9 +94,13 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-created_at']  
+        ordering = ['order']
+        constraints = [
+            models.UniqueConstraint(fields=['concours', 'order'], name='unique_order_per_concours')
+        ]
+
     def __str__(self):
-        return f"Q: {self.question[:50]}"
+        return f"{self.question} "
     
 class ExerciceContext(models.Model):
     

@@ -1,9 +1,68 @@
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faStop, faRedo, faPlay } from '@fortawesome/free-solid-svg-icons';
 import './QuizHeader.css';
 
 const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeIndex, currentIndex, userAnser, data, type, elapsedSeconds, onToggleTimer, onRestartTimer, isTimerRunning }) => {
+    
+    // derive questions array for mapping indices -> questions
+    const questionsArray = useMemo(() => {
+        return type === "Learn" ? (data?.[0]?.questions || []) : (data?.questions || []);
+    }, [data, type]);
+
+    // create a stable color for each unique context_text (same text -> same color)
+    const contextColorMap = useMemo(() => {
+        const map = {};
+        const excludedHex = new Set(['#3b82f6', '#ff6700', '#f1f5f9'].map(h => h.toLowerCase()));
+
+        const hslToHex = (h, s, l) => {
+            // s,l are fractions (0..1), h in degrees 0..360
+            s = Math.max(0, Math.min(1, s));
+            l = Math.max(0, Math.min(1, l));
+            const c = (1 - Math.abs(2 * l - 1)) * s;
+            const hh = (h / 60);
+            const x = c * (1 - Math.abs((hh % 2) - 1));
+            let r1 = 0, g1 = 0, b1 = 0;
+            if (hh >= 0 && hh < 1) { r1 = c; g1 = x; b1 = 0; }
+            else if (hh >= 1 && hh < 2) { r1 = x; g1 = c; b1 = 0; }
+            else if (hh >= 2 && hh < 3) { r1 = 0; g1 = c; b1 = x; }
+            else if (hh >= 3 && hh < 4) { r1 = 0; g1 = x; b1 = c; }
+            else if (hh >= 4 && hh < 5) { r1 = x; g1 = 0; b1 = c; }
+            else { r1 = c; g1 = 0; b1 = x; }
+            const m = l - c / 2;
+            const r = Math.round((r1 + m) * 255);
+            const g = Math.round((g1 + m) * 255);
+            const b = Math.round((b1 + m) * 255);
+            const toHex = v => v.toString(16).padStart(2, '0');
+            return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toLowerCase();
+        };
+
+        const stringToHslColor = (str) => {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            let h = Math.abs(hash) % 360;
+            const s = 0.70; // 70%
+            const l = 0.45; // 45%
+
+            // If generated hex matches an excluded color, shift hue and retry a few times
+            let hex = hslToHex(h, s, l);
+            let attempts = 0;
+            while (excludedHex.has(hex) && attempts < 12) {
+                h = (h + 37) % 360; // shift hue by a prime-ish number to vary colors
+                hex = hslToHex(h, s, l);
+                attempts++;
+            }
+            return `hsl(${h} 70% 45%)`;
+        };
+         for (const q of questionsArray) {
+             const ctx = q?.exercice_context?.context_text;
+             if (ctx && !map[ctx]) map[ctx] = stringToHslColor(ctx);
+         }
+         return map;
+     }, [questionsArray]);
     
     // Function to check if a question is submitted
     const isQuestionSubmitted = (questionIndex) => {
@@ -89,15 +148,40 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
             </div>
             <div className="quiz_header-navigation">
                 
-                {circlesArray.map((_, circleIndex) => (
-                    <div 
-                        key={circleIndex} 
-                        className={getCircleClassName(circleIndex)}
-                        onClick={() => changeIndex(circleIndex)}
-                    >
-                        <span>{circleIndex + 1}</span>
-                    </div>
-                ))}
+                {circlesArray.map((_, circleIndex) => {
+                    const question = questionsArray[circleIndex];
+                    const ctxText = question?.exercice_context?.context_text;
+                    const color = ctxText ? contextColorMap[ctxText] : undefined;
+                    const isSelected = currentIndex === circleIndex;
+                    const submitted = isQuestionSubmitted(circleIndex);
+                    const style = {};
+                    // selected circle: fixed blue background, border should be the context color if available
+                    if (isSelected) {
+                        style.backgroundColor = '#3b82f6';
+                        style.color = '#fff';
+                        if (color) style.border = `2px solid ${color}`;
+                    } else {
+                        // non-selected: use context color for border if present
+                        if (color) style.border = `2px solid ${color}`;
+                        if (submitted) {
+                            style.backgroundColor = '#f59e0b';
+                            style.color = '#fff';
+                        } else if (color) {
+                            style.backgroundColor = color;
+                            style.color = '#fff';
+                        }
+                    }
+                     return (
+                         <div
+                             key={circleIndex}
+                             className={getCircleClassName(circleIndex)}
+                             onClick={() => changeIndex(circleIndex)}
+                             style={Object.keys(style).length ? style : undefined}
+                         >
+                             <span>{circleIndex + 1}</span>
+                         </div>
+                     );
+                })}
                 {/* Timer display and controls only for Learn */}
                 {type === "Learn" && (
                     <div className="quiz__header-timer-controls">
@@ -133,4 +217,3 @@ const QuizHeader = ({ subject, universite, niveau, year, circlesArray, changeInd
 
 export default QuizHeader;
 
-// toUpperCase()

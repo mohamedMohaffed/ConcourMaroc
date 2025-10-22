@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,20 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
     // keep context modal closed by default
-    const [showContext, setShowContext] = useState(true);
+    const [showContext, setShowContext] = useState(false);
+
+    // compute the same context color as QuizHeader (hsl(h 70% 45%))
+    const contextColorInfo = useMemo(() => {
+        const ctx = currentQuestion?.exercice_context?.context_text;
+        if (!ctx) return null;
+        let hash = 0;
+        for (let i = 0; i < ctx.length; i++) {
+            hash = ctx.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        const h = Math.abs(hash) % 360;
+        const hsl = `hsl(${h} 70% 45%)`;
+        return { h, hsl };
+    }, [currentQuestion]);
 
     useEffect(() => {
         if (currentQuestion && userAnser) {
@@ -87,7 +100,12 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
                         <span
                             className="quizitem__question-icon"
                             onClick={() => setShowContext(true)}
-                            style={{ cursor: 'pointer' }}
+                            style={{
+                                cursor: 'pointer',
+                                color: contextColorInfo?.hsl,
+                                border: contextColorInfo ? `2px solid ${contextColorInfo.hsl}` : undefined,
+                              
+                            }}
                         >
                             <FontAwesomeIcon icon={faAlignLeft} />
                         </span>
@@ -120,13 +138,20 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
                             dragElastic={0.2}
                             dragMomentum={false}
                             onClick={e => e.stopPropagation()}
+                            style={ contextColorInfo ? {
+                                border: `2px solid ${contextColorInfo.hsl}`,
+                                // background removed per request
+                                color: "#777777", // use context color for text/icons so it is visible on white
+                                boxShadow: `0 8px 24px hsl(${contextColorInfo.h} 70% 45% / 0.30)`
+                            } : undefined }
                         >
                             <button className="quizitem__context-modal-close" 
-                                onClick={() => setShowContext(false)}>
+                                onClick={() => setShowContext(false)}
+                                style={ contextColorInfo ? { color: contextColorInfo.hsl, background: 'transparent', border: 'none' } : undefined }
+                            >
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>
-                            <div className="quizitem__context-modal-body">
-                                {/* render the nested exercice_context text (safe access) */}
+                            <div className="quizitem__context-modal-body" style={ contextColorInfo ? { color: '#777777' } : undefined }>
                                 <LatexRenderer latex={currentQuestion.exercice_context?.context_text || ''} />
                             </div>
                         </motion.div>

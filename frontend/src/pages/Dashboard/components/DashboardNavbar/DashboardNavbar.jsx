@@ -172,6 +172,13 @@ const DashboardNavbar = ({ scores: initialScores }) => {
         return {
             responsive: true,
             maintainAspectRatio: false,
+            // add extra padding so chart line / grid isn't too close to the date labels
+            layout: {
+                padding: {
+                    top: 10,
+                    bottom: 36
+                }
+            },
             plugins: {
                 legend: {
                     position: 'top',
@@ -224,6 +231,16 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                 x: {
                     type: 'category',
                     display: true,
+                    // extra space between ticks and chart area/labels
+                    ticks: {
+                        padding: 12
+                    },
+                    // avoid drawing grid lines that overlap the tick labels area
+                    grid: {
+                        drawOnChartArea: true,
+                        drawTicks: true,
+                        offset: false
+                    },
                     title: {
                         display: true,
                         text: 'Date'
@@ -309,7 +326,7 @@ const DashboardNavbar = ({ scores: initialScores }) => {
 
             <div className="dashboard__tab-content">
                 {activeTab === "graph" && (
-                    <div className="dashboard__graph" style={{ height: '400px' }}>
+                    <div className="dashboard__graph" style={{ height: '500px' }}>
                         {/* metric toggle */}
                         <div style={{ marginBottom: 8 }}>
                             <button

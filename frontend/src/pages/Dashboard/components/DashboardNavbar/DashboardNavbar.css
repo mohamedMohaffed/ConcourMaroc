@@ -44,8 +44,8 @@ background: none;
 }
 
 .dashboard__tab-content {
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 0px;
+    padding: 0 ;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -106,13 +106,13 @@ background: none;
 }
 
 .dashboard__graph {
-    padding: 1rem;
+    padding: 0rem 1rem;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin: 1rem;
+    margin: 0rem;
     position: relative;
-    height: 400px;
+    height: 600px;
 }
 
 .delete-score-btn .fa-trash {

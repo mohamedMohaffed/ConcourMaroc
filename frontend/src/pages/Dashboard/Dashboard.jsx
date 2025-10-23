@@ -4,6 +4,7 @@ import Loading from '../../components/Loading/Loading';
 import './Dashboard.css'
 const Dashboard = () => {
     const { data: scores, error, loading } = useApi("/concour/all-user-scores/");
+    console.log(scores);
     
     return (
         <div className="dashboard">

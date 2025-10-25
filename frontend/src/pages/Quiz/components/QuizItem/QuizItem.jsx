@@ -6,8 +6,9 @@ import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
-    // keep context modal closed by default
+const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
+    console.log('QuizItem rendered');
+
     const [showContext, setShowContext] = useState(false);
 
     // compute the same context color as QuizHeader (hsl(h 70% 45%))
@@ -160,6 +161,6 @@ const QuizItem = ({currentQuestion, userAnser, selectedChoice, setSelectedChoice
             </section>
         )
     );
-};
+});
 
 export default QuizItem;

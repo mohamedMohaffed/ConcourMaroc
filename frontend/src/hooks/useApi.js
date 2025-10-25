@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
 const useApi = (url) => {
+    console.log('useApi rendered');
+
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);

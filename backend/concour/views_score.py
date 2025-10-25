@@ -10,7 +10,7 @@ from .serializers import (
 from django.shortcuts import get_object_or_404
 
 class UserAnswerScoreAPIView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         concour_id = request.data.get("concour_id")

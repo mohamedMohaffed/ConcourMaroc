@@ -6,14 +6,17 @@ import { useNavigate } from 'react-router-dom';
 import {useState} from 'react';
 import axiosInstance, { isLoggedIn } from '../../../../utils/axiosInstance';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
+import React from 'react';
 
-const QuizNavigation = ({ index, setIndex, totalQuestions, 
-    selectedChoice, setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type, elapsedSeconds }) => {
+const QuizNavigation = React.memo(({ index, setIndex, totalQuestions, 
+    selectedChoice, setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type, elapsedSecondsRef }) => {
+    
+    console.log('QuizNavigations rendered');
 
     const { goToPrevious, goToNext } = useQuizActions(index, setIndex, totalQuestions);
     const navigate = useNavigate();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showAuth,setShowAuth]=useState(false);
+    const [showAuth,setShowAuth] = useState(false);
     const isAnswered = userAnser.some(ans => ans.question_id === currentQuestion?.id);
     
     const allQuestionsAnswered = userAnser.length === totalQuestions && totalQuestions > 0;
@@ -59,9 +62,10 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
         }
 
         try {
-            const hours = Math.floor(elapsedSeconds / 3600);
-            const minutes = Math.floor((elapsedSeconds % 3600) / 60);
-            const seconds = elapsedSeconds % 60;
+            const secs = elapsedSecondsRef?.current || 0;
+            const hours = Math.floor(secs / 3600);
+            const minutes = Math.floor((secs % 3600) / 60);
+            const seconds = secs % 60;
             const timeSpentStr = 
                 ('0' + hours).slice(-2) + ':' +
                 ('0' + minutes).slice(-2) + ':' +
@@ -73,13 +77,18 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 answers: userAnser
             };
 
-            const response = await axiosInstance.post('/concour/utilisateur-score-et-reponses/', quizData);
+            const response = await axiosInstance.post(
+                '/concour/utilisateur-score-et-reponses/',
+                quizData,
+                { skipAuthRedirect: true } // prevent interceptor auto-redirect so setShowAuth can run
+            );
 
             if (response.status === 200 || response.status === 201) {
                 navigate(`/concours/resultat/${quizData.concour_id}/`);
             }
         } catch (error) {
-            // Check if user is logged in, skip redirect
+            
+            // Prevent the axios interceptor from auto-redirecting while we check login state
             const loggedIn = await isLoggedIn({ skipRedirect: true });
             if (!loggedIn) {
                 setShowAuth(true)
@@ -108,11 +117,15 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                 return choice?.is_correct; // Only correct answers
             });
 
-            const response = await axiosInstance.delete(`/concour/delete-correct-answers/${concourId}/`, {
-                data: {
-                    correct_answers: correctAnswers
+            const response = await axiosInstance.delete(
+                `/concour/delete-correct-answers/${concourId}/`,
+                {
+                    data: {
+                        correct_answers: correctAnswers
+                    },
+                    skipAuthRedirect: true // prevent interceptor auto-redirect here as well
                 }
-            });
+            );
             
             if (response.status === 200) {
                 // Remove correct answers from userAnser state
@@ -211,7 +224,7 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
                         localStorage.setItem('pendingQuizAnswers', JSON.stringify({
                             concour_id: data?.[0]?.id || data?.id,
                             answers: userAnser,
-                            elapsedSeconds, // use prop
+                            elapsedSeconds: elapsedSecondsRef?.current || 0, // snapshot from ref
                         }));
                         setShowAuth(false);
                         navigate('/connexion?redirect=score');
@@ -224,5 +237,5 @@ const QuizNavigation = ({ index, setIndex, totalQuestions,
             </>
         )
     )
-}
+})
 export default QuizNavigation;

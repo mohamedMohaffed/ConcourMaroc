@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizHeader.css';
-import Timer from './Timer/Timer';
+import Timer from './components/Timer/Timer';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
+import CirclesArray from './components/CirclesArray/CirclesArray';
 
 const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray, changeIndex, currentIndex, userAnser, data, type, elapsedSeconds, onToggleTimer, onRestartTimer, isTimerRunning }) => {
     console.log('QuizHeader rendered');
@@ -148,40 +149,18 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
             <div className="quiz_title-phone">{universite} ({niveau}, {year}) 
             </div>
             </div>
+
             <div className="quiz_header-navigation">
                 
-                {circlesArray.map((_, circleIndex) => {
-                    const question = questionsArray[circleIndex];
-                    const ctxText = question?.exercice_context?.context_text;
-                    const color = ctxText ? contextColorMap[ctxText] : undefined;
-                    const isSelected = currentIndex === circleIndex;
-                    const submitted = isQuestionSubmitted(circleIndex);
-                    const style = {};
-                    if (isSelected) {
-                        style.backgroundColor = '#3b82f6';
-                        style.color = '#fff';
-                        if (color) style.border = `2px solid ${color}`;
-                    } else {
-                        if (color) style.border = `2px solid ${color}`;
-                        if (submitted) {
-                            style.backgroundColor = '#f59e0b';
-                            style.color = '#fff';
-                        } else if (color) {
-                            style.backgroundColor = color;
-                            style.color = '#fff';
-                        }
-                    }
-                     return (
-                         <div
-                             key={circleIndex}
-                             className={getCircleClassName(circleIndex)}
-                             onClick={() => changeIndex(circleIndex)}
-                             style={Object.keys(style).length ? style : undefined}
-                         >
-                             <span>{circleIndex + 1}</span>
-                         </div>
-                     );
-                })}
+                <CirclesArray 
+                circlesArray={circlesArray}
+                questionsArray={questionsArray}
+                contextColorMap={contextColorMap}
+                currentIndex={currentIndex}
+                isQuestionSubmitted={isQuestionSubmitted}
+                getCircleClassName={getCircleClassName}
+                changeIndex={changeIndex}
+                />
                 {type === "Learn" && (
                     <Timer
                         elapsedSeconds={elapsedSeconds}
@@ -191,6 +170,7 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                     />
                 )}
             </div>
+            
             {type === "Practice" && currentIncorrectCount > 0 && (
                 <div className="quiz__header-phase" style={{ marginTop: '8px' }}>
                     Vous avez répondu incorrectement à cette question {currentIncorrectCount} fois

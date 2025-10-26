@@ -1,12 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizHeader.css';
 import Timer from './Timer/Timer';
+import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 
 const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray, changeIndex, currentIndex, userAnser, data, type, elapsedSeconds, onToggleTimer, onRestartTimer, isTimerRunning }) => {
     console.log('QuizHeader rendered');
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     // derive questions array for mapping indices -> questions
     const questionsArray = useMemo(() => {
@@ -123,18 +125,42 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
         return className;
     };
 
- 
+    // State for DeleteModal visibility
+
+    // Handler for confirm (navigate away)
+    const handleConfirmDelete = () => {
+        setShowDeleteModal(false);
+        window.location.href = type === "Learn"
+            ? `/concours/${niveau}/${universite}/${year}/matieres`
+            : `/pratique`;
+    };
+
+    // Handler for cancel
+    const handleCancelDelete = () => setShowDeleteModal(false);
 
     return (
         <div className="quiz__header">
             <div className="quiz__header-info">
-            <Link to={ type == "Learn" ? `/concours/${niveau}/${universite}/${year}/matieres` : `/pratique` }>
+            {/* Replace Link with div to show DeleteModal */}
+            <div
+                style={{ display: 'inline-block', cursor: 'pointer' }}
+                onClick={() => setShowDeleteModal(true)}
+            >
                 <FontAwesomeIcon 
                     icon={faArrowLeft} 
                     className="quiz__go__back-icon"
                     size="lg"
                 />
-            </Link>
+            </div>
+            {/* DeleteModal */}
+            <DeleteModal
+                visible={showDeleteModal}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+                message="Êtes-vous sûr de vouloir quitter ce quiz ?"
+                buttonColor="#ef4444"
+                confirmText="Quitter"
+            />
             <h3 className="quiz_title">
                 <span className="quiz_title-prefix">Concours de</span> {subject} - 
                 {universite} ({niveau}, {year}) 
@@ -151,13 +177,11 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                     const isSelected = currentIndex === circleIndex;
                     const submitted = isQuestionSubmitted(circleIndex);
                     const style = {};
-                    // selected circle: fixed blue background, border should be the context color if available
                     if (isSelected) {
                         style.backgroundColor = '#3b82f6';
                         style.color = '#fff';
                         if (color) style.border = `2px solid ${color}`;
                     } else {
-                        // non-selected: use context color for border if present
                         if (color) style.border = `2px solid ${color}`;
                         if (submitted) {
                             style.backgroundColor = '#f59e0b';
@@ -178,7 +202,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                          </div>
                      );
                 })}
-                {/* Timer display and controls only for Learn */}
                 {type === "Learn" && (
                     <Timer
                         elapsedSeconds={elapsedSeconds}
@@ -188,7 +211,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                     />
                 )}
             </div>
-            {/* Show incorrect count phase/message for current question in Practice mode, under circles */}
             {type === "Practice" && currentIncorrectCount > 0 && (
                 <div className="quiz__header-phase" style={{ marginTop: '8px' }}>
                     Vous avez répondu incorrectement à cette question {currentIncorrectCount} fois

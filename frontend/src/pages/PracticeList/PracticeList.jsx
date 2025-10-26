@@ -9,7 +9,7 @@ const PracticeList = () => {
 
     return (
         <motion.section
-         initial={{opacity: 0}}
+        initial={{opacity: 0}}
         animate={{opacity: 1}}
         exit={{opacity: 0}}
         transition={{delay:0.2}}
@@ -22,7 +22,7 @@ const PracticeList = () => {
             </div>
             <div className="practice-list__items">
                 {loading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Loading/></div>}
-                {error && <div>Error: {error.message}</div>}
+                {error && <div>{error.message}</div>}
                 {data && data.length === 0 && (
                     <div className="practice-list__empty">
                         <p>Aucun exercice de pratique disponible pour le moment.</p>

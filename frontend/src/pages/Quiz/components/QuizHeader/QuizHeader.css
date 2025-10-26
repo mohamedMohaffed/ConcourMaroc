@@ -68,9 +68,6 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
-
-/* Circle style */
-
 .quiz__header .quiz__header-circle{
     width: 1.75rem;
     height: 1.75rem;
@@ -98,7 +95,6 @@
     border-color: #3b82f6;
 }
 
-/* Orange for Learn mode submitted questions */
 .quiz__header .quiz__header-circle.submitted {
     background-color: #FF6700 ;
     color: white ;
@@ -108,7 +104,6 @@
     background-color: #d97706 !important;
 }
 
-/* Green for Practice mode correct answers */
 .quiz__header .quiz__header-circle.correct {
     background-color: #28a745 !important;
     color: white !important;
@@ -119,7 +114,6 @@
     background-color: #218838 !important;
 }
 
-/* Red for Practice mode incorrect answers */
 .quiz__header .quiz__header-circle.incorrect {
     background-color: #dc3545 !important;
     color: white !important;
@@ -130,20 +124,16 @@
     background-color: #c82333 !important;
 }
 
-
-
-
-
 @media (max-width: 48em) {
     .quiz__header{
-        padding: 0.15rem 0.3rem; /* less padding */
-        margin-bottom: 0.2rem; /* less margin */
+        padding: 0.15rem 0.3rem; 
+        margin-bottom: 0.2rem; 
         border-radius: 5px;
     }
     
     .quiz__header .quiz__header-info{
         margin-bottom: 0;
-        gap: 0.3rem; /* less gap */
+        gap: 0.3rem; 
     }
     
     .quiz__header .quiz_title{
@@ -152,7 +142,7 @@
     
     .quiz__header .quiz_title-phone{
         display:block;
-        font-size: 0.7rem; /* smaller font */
+        font-size: 0.7rem; 
         line-height: 1.1;
     }
 
@@ -165,7 +155,7 @@
     }
 
     .quiz__header .quiz_go_back-icon {
-        padding: 0.15rem; /* less padding */
-        font-size: 1rem; /* smaller icon */
+        padding: 0.15rem; 
+        font-size: 1rem; 
     }
 }

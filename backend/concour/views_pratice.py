@@ -5,18 +5,18 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .models import (UserAnswer,Concours)
-from .serializers import ConcoursListSerializer,ConcourSerializer,QuestionSerializer
+from .serializers import (ConcoursListSerializer,ConcourSerializer,QuestionSerializer)
 
 
 class IncorrectAnswersListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user = request.user  # We already have the authenticated user
+        user = request.user 
 
         concours_ids = UserAnswer.objects.filter(
             user=user,
-            user_choice__is_correct=False  # Changed from choice__is_correct to user_choice__is_correct
+            user_choice__is_correct=False  
         ).values_list('concours_id', flat=True).distinct()
 
         concours_qs = Concours.objects.filter(id__in=concours_ids).select_related(

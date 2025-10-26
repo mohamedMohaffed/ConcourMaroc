@@ -15,7 +15,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
         return type === "Learn" ? (data?.[0]?.questions || []) : (data?.questions || []);
     }, [data, type]);
 
-    // create a stable color for each unique context_text (same text -> same color)
     const contextColorMap = useMemo(() => {
         const map = {};
         const excludedHex = new Set(['#3b82f6', '#ff6700', '#f1f5f9'].map(h => h.toLowerCase()));
@@ -68,7 +67,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
          return map;
      }, [questionsArray]);
     
-    // Function to check if a question is submitted
     const isQuestionSubmitted = (questionIndex) => {
         let questionId;
         
@@ -83,7 +81,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
         return userAnser.some(ans => ans.question_id === questionId);
     };
 
-    // Function to check if answer is correct (for Practice mode)
     const isAnswerCorrect = (questionIndex) => {
         if (type !== "Practice" || !isQuestionSubmitted(questionIndex)) return false;
         
@@ -97,37 +94,23 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
         return selectedChoice?.is_correct || false;
     };
 
-    // Get incorrect count for a question (Practice mode)
-    const getIncorrectCount = (questionIndex) => {
-        if (type !== "Practice" || !data?.questions?.[questionIndex]) return 0;
-        return data.questions[questionIndex].incorrect_answer_count || 0;
-    };
-
-    // Get incorrect count for the current question (Practice mode)
     const currentIncorrectCount = type === "Practice" && data?.questions?.[currentIndex]
         ? data.questions[currentIndex].incorrect_answer_count || 0
         : 0;
 
-    // Function to get circle class name
     const getCircleClassName = (questionIndex) => {
         let className = `quiz__header-circle ${currentIndex === questionIndex ? 'selected' : ''}`;
         
         if (isQuestionSubmitted(questionIndex)) {
             if (type === "Practice") {
-                // Practice mode - show correct/incorrect
                 className += isAnswerCorrect(questionIndex) ? ' correct' : ' incorrect';
             } else {
-                // Learn mode - show orange for submitted
                 className += ' submitted';
             }
         }
-        
         return className;
     };
 
-    // State for DeleteModal visibility
-
-    // Handler for confirm (navigate away)
     const handleConfirmDelete = () => {
         setShowDeleteModal(false);
         window.location.href = type === "Learn"
@@ -135,13 +118,11 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
             : `/pratique`;
     };
 
-    // Handler for cancel
     const handleCancelDelete = () => setShowDeleteModal(false);
 
     return (
         <div className="quiz__header">
             <div className="quiz__header-info">
-            {/* Replace Link with div to show DeleteModal */}
             <div
                 style={{ display: 'inline-block', cursor: 'pointer' }}
                 onClick={() => setShowDeleteModal(true)}
@@ -152,7 +133,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                     size="lg"
                 />
             </div>
-            {/* DeleteModal */}
             <DeleteModal
                 visible={showDeleteModal}
                 onConfirm={handleConfirmDelete}

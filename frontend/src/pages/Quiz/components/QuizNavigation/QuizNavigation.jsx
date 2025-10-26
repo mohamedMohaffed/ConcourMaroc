@@ -40,23 +40,18 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
 
     const PostData = async () => {
         if (type === "Practice") {
-            // Check if all answers are incorrect
             const correctAnswers = userAnser.filter(ans => {
                 const question = data?.questions?.find(q => q.id === ans.question_id);
-                
                 if (!question) return false;
-                
                 const choice = question.choices?.find(c => c.id === ans.choice_id);
                 return choice?.is_correct;
             });
 
-            // If no correct answers, redirect directly without modal
             if (correctAnswers.length === 0) {
                 navigate('/pratique');
                 return;
             }
 
-            // If there are correct answers, show delete modal
             setShowDeleteModal(true);
             return;
         }
@@ -79,8 +74,8 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
 
             const response = await axiosInstance.post(
                 '/concour/utilisateur-score-et-reponses/',
-                quizData,
-                { skipAuthRedirect: true } // prevent interceptor auto-redirect so setShowAuth can run
+                quizData
+                // removed skipAuthRedirect: true so interceptor will handle token refresh
             );
 
             if (response.status === 200 || response.status === 201) {

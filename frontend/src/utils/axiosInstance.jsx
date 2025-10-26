@@ -28,18 +28,16 @@ axiosInstance.interceptors.response.use(
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
                 console.error('Token refresh failed:', refreshError);
-                // Redirect to login
-                if (window.location.pathname !== '/connexion') {
-                    window.location.href = `/connexion?redirect=${window.location.pathname}`;
-                }
-                return Promise.reject(refreshError);
+                // if (window.location.pathname !== '/connexion') {
+                //     window.location.href = `/connexion?redirect=${window.location.pathname}`;
+                // }
+                // return Promise.reject(refreshError);
             }
         }
         
-        // Handle other 401 errors (like failed login attempts)
-        if (error.response?.status === 401 && window.location.pathname !== '/connexion') {
-            window.location.href = `/connexion?redirect=${window.location.pathname}`;
-        }
+        // if (error.response?.status === 401 && window.location.pathname !== '/connexion') {
+            // window.location.href = `/connexion?redirect=${window.location.pathname}`;
+        // }
 
         return Promise.reject(error);
     }
@@ -54,6 +52,15 @@ export async function isLoggedIn({ skipRedirect = false } = {}) {
         await axiosInstance.get('/accounts/api/current_user/', { skipAuthRedirect: skipRedirect });
         return true;
     } catch (error) {
+        if (error.response?.status === 401) {
+            try {
+                await axios.post(`${baseURL}/accounts/api/token/refresh/`, {}, { withCredentials: true });
+                await axiosInstance.get('/accounts/api/current_user/', { skipAuthRedirect: skipRedirect });
+                return true;
+            } catch (refreshError) {
+                return false;
+            }
+        }
         return false;
     }
 }

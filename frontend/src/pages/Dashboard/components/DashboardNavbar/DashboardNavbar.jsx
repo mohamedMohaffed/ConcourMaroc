@@ -1,14 +1,5 @@
 import { useState, useMemo } from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import {Chart as ChartJS,CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Legend,} from 'chart.js';
 import './DashboardNavbar.css';
 import axiosInstance from '../../../../utils/axiosInstance';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,11 +31,8 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     const [scores, setScores] = useState(initialScores);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteRowIdx, setDeleteRowIdx] = useState(null);
+    const [chartMetric, setChartMetric] = useState('score'); 
 
-    // new: show score or time graph
-    const [chartMetric, setChartMetric] = useState('score'); // 'score' | 'time'
-
-    // Filter options for subjects, universities, years, and levels
     const filterOptions = useMemo(() => {
         const subjects = new Set();
         const universities = new Set();
@@ -71,7 +59,6 @@ const DashboardNavbar = ({ scores: initialScores }) => {
         };
     }, [scores]);
 
-    // Re-added groupedScores (was missing) — groups points with date and time_spent
     const groupedScores = useMemo(() => {
         const filtered = scores?.filter(score => {
             const subject = score.concours?.subject;
@@ -104,7 +91,7 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     const pageSize = 5;
 
     const rows = scores?.map((score, idx) => ({
-        id: score.id || score.pk || idx, // Ensure each row has a unique id
+        id: score.id || score.pk || idx, 
         subject: score.concours?.subject?.name,
         university: score.concours?.subject?.year?.university?.name,
         year: score.concours?.subject?.year?.year,
@@ -116,7 +103,6 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     const totalPages = Math.ceil((rows?.length || 0) / pageSize);
     const paginatedRows = rows.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
 
-    // Delete score from backend and update UI
     const handleDeleteScore = async () => {
         const scoreId = paginatedRows[deleteRowIdx].id;
         try {
@@ -132,9 +118,7 @@ const DashboardNavbar = ({ scores: initialScores }) => {
 
     return (
         <div>
-            {/* Filters */}
             <div className="dashboard__filters">
-                {/* pass filterOptions and filters/setFilters */}
                 <Filters
                     filterOptions={filterOptions}
                     filters={filters}
@@ -158,7 +142,6 @@ const DashboardNavbar = ({ scores: initialScores }) => {
 
             <div className="dashboard__tab-content">
                 {activeTab === "graph" && (
-                    // GraphPanel receives groupedScores and metric state/setter
                     <GraphPanel
                         groupedScores={groupedScores}
                         chartMetric={chartMetric}
@@ -179,7 +162,6 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                 )}
             </div>
 
-            {/* Delete modal unchanged */}
             <DeleteModal
                 visible={showDeleteModal}
                 onConfirm={handleDeleteScore}

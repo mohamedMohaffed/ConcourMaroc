@@ -5,6 +5,11 @@
   /* min-height: 180px; */
 }
 
+.dashboard__title{
+  margin : 0;
+  padding: 2rem;
+}
+
 .dashboard__empty p {
   color: #777777;
   font-size: 1rem;
@@ -12,4 +17,10 @@
   text-align: center;
   margin: 0;
   padding: 1.5rem 0;
+}
+
+.dashboard__error{
+  color : #777777;
+  display : flex;
+  justify-content : center ;
 }

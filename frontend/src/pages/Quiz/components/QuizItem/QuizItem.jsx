@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,8 +10,20 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
     console.log('QuizItem rendered');
 
     const [showContext, setShowContext] = useState(false);
+    const shownContextIdsRef = useRef(new Set());
 
-    // compute the same context color as QuizHeader (hsl(h 70% 45%))
+    useEffect(() => {
+        if (
+            currentQuestion?.exercice_context?.context_text &&
+            !shownContextIdsRef.current.has(currentQuestion.id)
+        ) {
+            setShowContext(true);
+            shownContextIdsRef.current.add(currentQuestion.id);
+        } else {
+            setShowContext(false);
+        }
+    }, [currentQuestion?.id]);
+
     const contextColorInfo = useMemo(() => {
         const ctx = currentQuestion?.exercice_context?.context_text;
         if (!ctx) return null;
@@ -148,7 +160,8 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                         >
                             <button className="quizitem__context-modal-close" 
                                 onClick={() => setShowContext(false)}
-                                style={ contextColorInfo ? { color: contextColorInfo.hsl, background: 'transparent', border: 'none' } : undefined }
+                                style={ contextColorInfo ? { color: contextColorInfo.hsl, background: 'transparent', 
+                                    border: 'none' } : undefined }
                             >
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>

@@ -1,5 +1,6 @@
 from pathlib import Path
 from datetime import timedelta
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -173,6 +174,8 @@ EMAIL_HOST_PASSWORD = 'xekl gial tyro idvb'  # Replace with your app password
 
 # Password Reset Settings
 PASSWORD_RESET_TIMEOUT = 3600  # 1 hour
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 

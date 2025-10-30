@@ -6,6 +6,8 @@ import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
+const API_BASE_URL = "http://localhost:8000"; 
+
 const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
     console.log('QuizItem rendered');
 
@@ -69,7 +71,6 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
         let className = "choice";
         
         if (type === "Practice" && isSubmitted) {
-            // Practice mode after submission - show correct/incorrect
             if (choice.is_correct) {
                 className += " choice__correct";
             } else if (selectedChoice === choice.id) {
@@ -105,6 +106,19 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
         return className;
     };
       
+    useEffect(() => {
+        const handleShortcut = (e) => {
+            if (e.ctrlKey && e.key.toLowerCase() === 'v') {
+                e.preventDefault();
+                if (currentQuestion?.exercice_context?.context_text) {
+                    setShowContext(true);
+                }
+            }
+        };
+        window.addEventListener('keydown', handleShortcut);
+        return () => window.removeEventListener('keydown', handleShortcut);
+    }, [currentQuestion]);
+
     return (
         currentQuestion && (
             <section className="quizitem">
@@ -153,8 +167,7 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                             onClick={e => e.stopPropagation()}
                             style={ contextColorInfo ? {
                                 border: `2px solid ${contextColorInfo.hsl}`,
-                                // background removed per request
-                                color: "#777777", // use context color for text/icons so it is visible on white
+                                color: "#777777", 
                                 boxShadow: `0 8px 24px hsl(${contextColorInfo.h} 70% 45% / 0.30)`
                             } : undefined }
                         >
@@ -166,7 +179,20 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>
                             <div className="quizitem__context-modal-body" style={ contextColorInfo ? { color: '#777777' } : undefined }>
-                                <LatexRenderer latex={currentQuestion.exercice_context?.context_text || ''} />
+                                <div className="quizitem__context-modal-body-text">
+                                    <LatexRenderer latex={currentQuestion.exercice_context?.context_text || ''} /></div>
+                                
+                                {currentQuestion.exercice_context?.images?.map((img, idx) => (
+                                    <img
+                                        className="quizitem__img"
+                                        key={img.id || idx}
+                                        src={`${API_BASE_URL}${img.image}`}
+                                        alt={`Context image ${idx + 1}`}
+                                        loading="lazy"
+                                        onLoad={(e) => (e.target.style.filter = "blur(0)")
+                                        }
+                                    />
+                                ))}
                             </div>
                         </motion.div>
                     </div>

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (Level,University,Year,Subject,
-                    Concours,Choice,Question,UserAnswer,Score,ExerciceContext)
+                    Concours,Choice,Question,UserAnswer,Score,ExerciceContext, ExerciceContextImage)
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,7 +30,14 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choice
         fields = ['id', 'text', 'is_correct']
 
+class ExerciceContextImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExerciceContextImage
+        fields = ['id', 'image', 'uploaded_at']
+
 class ExerciceContextSerializer(serializers.ModelSerializer):
+    images = ExerciceContextImageSerializer(many=True, read_only=True)
+
     class Meta:
         model = ExerciceContext
         fields = '__all__'

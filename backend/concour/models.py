@@ -103,11 +103,22 @@ class Question(models.Model):
         return f"{self.question} "
     
 class ExerciceContext(models.Model):
-    
-    context_text= models.TextField(blank=True, null=True) 
+    context_text = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Context: {self.context_text[:60] if self.context_text else 'Empty'}"
+
+class ExerciceContextImage(models.Model):
+    exercice_context = models.ForeignKey(
+        ExerciceContext,
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = models.ImageField(upload_to='exercice_context_images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image for Context ID {self.exercice_context.id}"
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="choices")

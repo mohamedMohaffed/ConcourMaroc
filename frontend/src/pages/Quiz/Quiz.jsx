@@ -72,6 +72,7 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,
         setIsTimerRunning(true);
     };
 
+    console.log(data)
     return(
         <section className="quiz">
             <QuizHeader 

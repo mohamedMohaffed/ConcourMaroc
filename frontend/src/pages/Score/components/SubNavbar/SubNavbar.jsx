@@ -6,7 +6,7 @@ import Graph from "./components/Graph/Graph";
 import './SubNavbar.css';
 
 
-const SubNavbar=({data,concour_id})=>{
+const SubNavbar=({data,concour_id,dataScore,user_answers})=>{
     const [activeTab, setActiveTab] = useState("useranser"); 
     const [allScores, setAllScores] = useState([]);
 
@@ -14,16 +14,13 @@ const SubNavbar=({data,concour_id})=>{
 
     // Fetch quiz data using slugs from score
     useEffect(() => {
-        if (data && data.score) {
-            const { slug_level, slug_university, slug_year, slug_subject } = data.score;
+        if (dataScore) {
+            const { slug_level, slug_university, slug_year, slug_subject } = dataScore;
             if (slug_level && slug_university && slug_year && slug_subject) {
                 const url = `/concour/${slug_level}/${slug_university}/${slug_year}/${slug_subject}/concour/`;
                 axiosInstance.get(url).then(res => {
                     setQuizData(res.data);
-                });
-            }
-        }
-    }, [data]);
+                });}}}, [dataScore]);
 
     useEffect(() => {
         if (concour_id) {
@@ -32,10 +29,7 @@ const SubNavbar=({data,concour_id})=>{
             });
         }
     }, [concour_id]);
-    // Helper: Render quiz summary
   
-
-    // Prepare chart data (format dates for x-axis labels)
     const chartLabels = allScores.map(s => {
         const d = new Date(s.created_at);
         return d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -50,7 +44,6 @@ const SubNavbar=({data,concour_id})=>{
         return Number(s.time_spent);
     });
 
-    // Highlight last point and make it bigger
     const scorePointColors = scoreData.map((_, idx, arr) =>
         idx === arr.length - 1 ? 'orange' : 'rgb(75, 192, 192)'
     );
@@ -101,7 +94,7 @@ const SubNavbar=({data,concour_id})=>{
         ],
     };
 
-     const chartOptions = {
+    const chartOptions = {
         responsive: true,
         plugins: {
             legend: { display: true },
@@ -125,7 +118,6 @@ const SubNavbar=({data,concour_id})=>{
         },
     };
 
-    // Options for time spent chart
     const chartTimeOptions = {
         ...chartOptions,
         plugins: {
@@ -159,7 +151,6 @@ const SubNavbar=({data,concour_id})=>{
         },
     };
 
-    // Helper to format seconds to hh:mm:ss
 function formatSecondsToHMS(seconds) {
     seconds = Math.round(seconds);
     const h = Math.floor(seconds / 3600);
@@ -168,8 +159,7 @@ function formatSecondsToHMS(seconds) {
     return [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
 }
     
-    // Extract slugs for renderQuizSummary
-    const { slug_university, slug_year, slug_subject } = data?.score || {};
+    const { slug_university, slug_year, slug_subject } = dataScore || {};
 
     return(
 
@@ -192,11 +182,10 @@ function formatSecondsToHMS(seconds) {
                 </button>
             </div>
 
-            {/* TAB CONTENT */}
             <div className="score__tab-content">
                 {activeTab === "useranser" && (
                     <div>
-                        {renderQuizSummary({quizData,data,slug_university,slug_year,slug_subject})}
+                        {renderQuizSummary({quizData, user_answers, slug_university, slug_year, slug_subject})}
                     </div>
                 )}
                 

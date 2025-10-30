@@ -8,7 +8,9 @@ import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 import CirclesArray from './components/CirclesArray/CirclesArray';
 import { getContextColorMap } from './components/contextColorMap';
 
-const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray, changeIndex, currentIndex, userAnser, data, type, elapsedSeconds, onToggleTimer, onRestartTimer, isTimerRunning }) => {
+const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray, 
+    changeIndex, currentIndex, userAnser, data, type, elapsedSeconds, onToggleTimer, 
+    onRestartTimer, isTimerRunning }) => {
     console.log('QuizHeader rendered');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 

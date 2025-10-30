@@ -30,6 +30,14 @@ const Score = () => {
         return null;
     }
 
+    // Add breadcrumbs logic here
+    const breadcrumbs = [
+        { text: data.score.slug_level, link: "" },
+        { text: data.score.slug_university, link: `/concours/${data.score.slug_level}/universites` },
+        { text: data.score.slug_year, link: `/concours/${data.score.slug_level}/${data.score.slug_university}/year` },
+        { text: data.score.slug_subject, link: `/concours/${data.score.slug_level}/${data.score.slug_university}/${data.score.slug_year}/matieres` }
+    ];
+
     const handlleDeleteLastScore = () => {
         setShowDeleteModal(true);
     };
@@ -56,13 +64,19 @@ const Score = () => {
             transition={{delay:0.2}}
             className="score"
         >
-            <HeaderScore data={data}/>
+            <HeaderScore breadcrumbs={breadcrumbs}/>
 
-            <InfoScore data={data} handlleDeleteLastScore={handlleDeleteLastScore} />
+            <InfoScore data={data} handlleDeleteLastScore={handlleDeleteLastScore} 
+            scoreNum={data.score.score} 
+            score_time_spent={data.score.time_spent}
+            lenght_question={data.score.lenght_question}/>
 
             {/* NAVBAR TABS */}
            
-            <SubNavbar  data={data} concour_id={concour_id}/>
+            <SubNavbar  data={data} concour_id={concour_id}
+                dataScore={data.score}
+                user_answers={data.user_answers}
+            />
 
             <DeleteModal
                 visible={showDeleteModal}

@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import LatexRenderer from '../../../../Quiz/components/LatexRenderer/LatexRenderer';
 import './renderQuizSummary.css'
 
-const renderQuizSummary = ({quizData,data,slug_university,slug_year,slug_subject}) => {
+const renderQuizSummary = ({quizData, user_answers, slug_university, slug_year, slug_subject}) => {
         if (!quizData || !quizData[0] || !quizData[0].questions) return <p>Chargement du résumé...</p>;
         // Reverse questions so first question is first
         const questions = [...quizData[0].questions].reverse();
 
         const userAnswerMap = {};
-    if (data && data.user_answers) {
-        data.user_answers.forEach(ans => {
+    if (user_answers) {
+        user_answers.forEach(ans => {
             userAnswerMap[ans.question] = ans.user_choice;
         });
     }

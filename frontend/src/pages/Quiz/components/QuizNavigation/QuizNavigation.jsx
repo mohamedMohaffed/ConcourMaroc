@@ -32,7 +32,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
 
     const handleCancel = () => {
         if (currentQuestion && type === "Learn") {
-            // Only allow canceling in Learn mode
             setSelectedChoice(null);
             setUserAnser(prev => prev.filter(ans => ans.question_id !== currentQuestion.id));
         }
@@ -75,7 +74,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
             const response = await axiosInstance.post(
                 '/concour/utilisateur-score-et-reponses/',
                 quizData
-                // removed skipAuthRedirect: true so interceptor will handle token refresh
             );
 
             if (response.status === 200 || response.status === 201) {
@@ -83,7 +81,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
             }
         } catch (error) {
             
-            // Prevent the axios interceptor from auto-redirecting while we check login state
             const loggedIn = await isLoggedIn({ skipRedirect: true });
             if (!loggedIn) {
                 setShowAuth(true)
@@ -100,7 +97,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
         try {
             const concourId = data?.[0]?.id || data?.id;
             
-            // Find correct answers from userAnser
             const correctAnswers = userAnser.filter(ans => {
                 const question = type === "Learn" 
                     ? data?.[0]?.questions?.find(q => q.id === ans.question_id)
@@ -109,7 +105,7 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                 if (!question) return false;
                 
                 const choice = question.choices?.find(c => c.id === ans.choice_id);
-                return choice?.is_correct; // Only correct answers
+                return choice?.is_correct; 
             });
 
             const response = await axiosInstance.delete(
@@ -118,12 +114,11 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                     data: {
                         correct_answers: correctAnswers
                     },
-                    skipAuthRedirect: true // prevent interceptor auto-redirect here as well
+                    skipAuthRedirect: true 
                 }
             );
             
             if (response.status === 200) {
-                // Remove correct answers from userAnser state
                 setUserAnser(prev => 
                     prev.filter(ans => {
                         const question = type === "Learn" 
@@ -133,7 +128,7 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                         if (!question) return true;
                         
                         const choice = question.choices?.find(c => c.id === ans.choice_id);
-                        return !choice?.is_correct; // Keep only incorrect answers
+                        return !choice?.is_correct; 
                     })
                 );
                 
@@ -143,14 +138,12 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
             console.error('Error deleting correct answers:', error);
             alert('Erreur lors de la suppression des réponses correctes');
         } finally {
-            // Redirect to pratique page regardless of success or error
             navigate('/pratique');
         }
     };
 
     const cancelDelete = () => {
         setShowDeleteModal(false);
-        // Redirect to pratique page when user cancels
         navigate('/pratique');
     };
 
@@ -215,7 +208,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                 <DeleteModal
                     visible={showAuth}
                     onConfirm={() => {
-                        // Save answers and quiz info to localStorage
                         localStorage.setItem('pendingQuizAnswers', JSON.stringify({
                             concour_id: data?.[0]?.id || data?.id,
                             answers: userAnser,

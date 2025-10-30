@@ -55,10 +55,8 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
         if (isSubmitted) return;
         
         if (type === "Practice") {
-            // In Practice mode, only allow selecting if not already submitted
             setSelectedChoice(choice_id);
         } else {
-            // Learn mode - original behavior
             if (selectedChoice !== choice_id) {
                 setSelectedChoice(choice_id);
             } else {

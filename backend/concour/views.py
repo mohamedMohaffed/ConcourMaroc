@@ -1,23 +1,18 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import (Level,University,Year,Subject,Concours)
-from .serializers import (LevelSerializer,UniversitySerializer,YearSerializer,
+from .models import (University,Year,Subject,Concours)
+from .serializers import (UniversitySerializer,YearSerializer,
                         SubjectSerializer,ConcourSerializer)
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 
-class LevelAPIView(APIView):
-    permission_classes=[IsAuthenticated]
-    def get(self, request):
-        levels = Level.objects.all()
-        serializer = LevelSerializer(levels, many=True)
-        return Response(serializer.data)
+
 
 class UniverstyAPIView(APIView):
     permission_classes=[AllowAny]
 
     def get(self,request,niveau_slug):
-        universities = University.objects.filter(level__slug=niveau_slug).select_related('level')
+        universities = University.objects.all()
         serializer = UniversitySerializer(universities, many=True)
         return Response(serializer.data)
 

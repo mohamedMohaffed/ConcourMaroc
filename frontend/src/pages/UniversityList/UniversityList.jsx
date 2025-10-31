@@ -1,22 +1,21 @@
 import useApi from '../../hooks/useApi';
 import BrowseList from '../../components/BrowseList/BrowseList';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const UniversityList = () => {
-    const niveau_slug  = "Bac";
-    const { data, error, loading } = useApi(`concour/${niveau_slug}/universites`, { needAuth: false });
+    const { data, error, loading } = useApi(`concour/Bac/universites`, { needAuth: false });
 
-    const renderUniversity = (item, key) => (
-        <Link key={key} to={`/concours/${item.level.slug}/${item.slug}/year/`}>
+    const renderUniversity = (item) => (
+        <Link key={item.id} to={`/concours/Bac/${item.slug}/year/`}>
             <div className="browse-list-item">
                 <h2>{item.name}</h2>
             </div>
         </Link>
     );
 
-    const breadcrumbs = data && data.length > 0 ? [
-        { text: data[0].level.name, link: "" }
-    ] : [];
+    const breadcrumbs = [
+        { text: "Bac", link: "" }
+    ];
 
     return (
         <BrowseList 
@@ -28,6 +27,7 @@ const UniversityList = () => {
             breadcrumbs={breadcrumbs}
             renderItem={renderUniversity}
             className="university"
+            itemKey="name"
         />
     );
 };

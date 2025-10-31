@@ -37,10 +37,8 @@ const SubjectsList = () => {
     const selectedSubject = data && data.find(item => item.id === selectedSubjectId);
 
     return (
-        <motion.section 
-         initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        transition={{delay:0.2}}
+        <section 
+   
         className="subjects-list">
             <div className="subjects-list__header">
                 <h1 className="subjects-list__title desktop-title">
@@ -127,7 +125,7 @@ const SubjectsList = () => {
                                 <h1 className="subjects-list__type--corr">Voir la Correction</h1></Link>
                             </motion.div> 
                         )}
-        </motion.section>
+        </section>
     );
 };
 

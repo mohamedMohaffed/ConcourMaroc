@@ -24,7 +24,7 @@ const App = () => {
             <Routes>
                 <Route element={<Layout />}>
                     {/* <Route path="/concours/niveaux" element={<LevelsList />} /> */}
-                    <Route path="/concours/:niveau_slug/universites" element={<UniversityList />} />
+                    <Route path="/concours/Bac/universites" element={<UniversityList />} />
                     <Route path="/concours/:niveau_slug/:universite_slug/year" element={<YearsList />} />
                     <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/matieres" 
                     element={<SubjectsList/>} />

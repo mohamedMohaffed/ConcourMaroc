@@ -1,17 +1,13 @@
 from rest_framework import serializers
-from .models import (Level,University,Year,Subject,
+from .models import (University,Year,Subject,
                     Concours,Choice,Question,UserAnswer,Score,ExerciceContext, ExerciceContextImage)
 
-class LevelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Level
-        fields = '__all__'
+
 
 class UniversitySerializer(serializers.ModelSerializer):
-    level = LevelSerializer(read_only=True) 
     class Meta:
         model=University
-        fields = '__all__'
+        fields = ["id","name"]
 
 class YearSerializer(serializers.ModelSerializer):
     university = UniversitySerializer(read_only=True)
@@ -63,11 +59,6 @@ class ConcourSerializer(serializers.ModelSerializer):
             obj.questions.all(),
             many=True,
         ).data
-
-
-
-
-####
 
 class UserAnswerCreateSerializer(serializers.ModelSerializer):
     correct_choice = serializers.SerializerMethodField()

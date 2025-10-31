@@ -4,23 +4,10 @@ from .choices import COURSE_PART_CHOICES, TOPIC_PART_CHOICES
 from django.utils.text import slugify
 from django.utils import timezone
 
-class Level(models.Model):
-    name = models.CharField(max_length=20, unique=True)
-    slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 
-    def save(self, *args, **kwargs):
-        if not self.slug and self.name:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
 
 class University(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    level = models.ForeignKey(Level, on_delete=models.CASCADE, 
-                            related_name='universities')
-    is_open = models.BooleanField(default=True)
     slug = models.SlugField(max_length=30, unique=True, blank=True, db_index=True)
 
     def save(self, *args, **kwargs):

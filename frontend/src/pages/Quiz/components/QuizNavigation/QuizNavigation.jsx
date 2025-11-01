@@ -4,12 +4,12 @@ import { faArrowRight,faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizNavigation.css';
 import { useNavigate } from 'react-router-dom';
 import {useState} from 'react';
-import axiosInstance, { isLoggedIn } from '../../../../utils/axiosInstance';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 import React from 'react';
+import postQuizData from './utils/postQuizData';
+import confirmDelete from './utils/confirmDelete';
 
-const QuizNavigation = React.memo(({ index, setIndex, totalQuestions, 
-    selectedChoice, setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type, elapsedSecondsRef }) => {
+const QuizNavigation = React.memo(({ index, setIndex, totalQuestions, selectedChoice, setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type, elapsedSecondsRef }) => {
     
     console.log('QuizNavigations rendered');
 
@@ -17,7 +17,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
         selectedChoice,
         setSelectedChoice,
         setUserAnser,
-        userAnser,
         currentQuestion,
         type
     });
@@ -29,109 +28,27 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
     const allQuestionsAnswered = userAnser.length === totalQuestions && totalQuestions > 0;
     
 
-    const PostData = async () => {
-        if (type === "Practice") {
-            const correctAnswers = userAnser.filter(ans => {
-                const question = data?.questions?.find(q => q.id === ans.question_id);
-                if (!question) return false;
-                const choice = question.choices?.find(c => c.id === ans.choice_id);
-                return choice?.is_correct;
-            });
-
-            if (correctAnswers.length === 0) {
-                navigate('/pratique');
-                return;
-            }
-
-            setShowDeleteModal(true);
-            return;
-        }
-
-        try {
-            const secs = elapsedSecondsRef?.current || 0;
-            const hours = Math.floor(secs / 3600);
-            const minutes = Math.floor((secs % 3600) / 60);
-            const seconds = secs % 60;
-            const timeSpentStr = 
-                ('0' + hours).slice(-2) + ':' +
-                ('0' + minutes).slice(-2) + ':' +
-                ('0' + seconds).slice(-2);
-
-            const quizData = {
-                concour_id: data?.[0]?.id || data?.id,
-                time_spent: timeSpentStr, 
-                answers: userAnser
-            };
-
-            const response = await axiosInstance.post(
-                '/concour/utilisateur-score-et-reponses/',
-                quizData
-            );
-
-            if (response.status === 200 || response.status === 201) {
-                navigate(`/concours/resultat/${quizData.concour_id}/`);
-            }
-        } catch (error) {
-            
-            const loggedIn = await isLoggedIn({ skipRedirect: true });
-            if (!loggedIn) {
-                setShowAuth(true)
-                return;
-            }
-            console.error('Error posting quiz data:', error);
-            alert('Erreur lors de la soumission du quiz');
-        }
+    const PostData = () => {
+        postQuizData({
+            type,
+            userAnser,
+            data,
+            navigate,
+            setShowDeleteModal,
+            elapsedSecondsRef,
+            setShowAuth
+        });
     };
 
-    const confirmDelete = async () => {
-        setShowDeleteModal(false);
-        
-        try {
-            const concourId = data?.[0]?.id || data?.id;
-            
-            const correctAnswers = userAnser.filter(ans => {
-                const question = type === "Learn" 
-                    ? data?.[0]?.questions?.find(q => q.id === ans.question_id)
-                    : data?.questions?.find(q => q.id === ans.question_id);
-                
-                if (!question) return false;
-                
-                const choice = question.choices?.find(c => c.id === ans.choice_id);
-                return choice?.is_correct; 
-            });
-
-            const response = await axiosInstance.delete(
-                `/concour/delete-correct-answers/${concourId}/`,
-                {
-                    data: {
-                        correct_answers: correctAnswers
-                    },
-                    skipAuthRedirect: true 
-                }
-            );
-            
-            if (response.status === 200) {
-                setUserAnser(prev => 
-                    prev.filter(ans => {
-                        const question = type === "Learn" 
-                            ? data?.[0]?.questions?.find(q => q.id === ans.question_id)
-                            : data?.questions?.find(q => q.id === ans.question_id);
-                        
-                        if (!question) return true;
-                        
-                        const choice = question.choices?.find(c => c.id === ans.choice_id);
-                        return !choice?.is_correct; 
-                    })
-                );
-                
-                console.log(`Successfully deleted ${response.data.deleted_count} correct answers`);
-            }
-        } catch (error) {
-            console.error('Error deleting correct answers:', error);
-            alert('Erreur lors de la suppression des réponses correctes');
-        } finally {
-            navigate('/pratique');
-        }
+    const handleConfirmDelete = () => {
+        confirmDelete({
+            setShowDeleteModal,
+            userAnser,
+            data,
+            type,
+            setUserAnser,
+            navigate
+        });
     };
 
     const cancelDelete = () => {
@@ -193,7 +110,7 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                 
                 <DeleteModal
                     visible={showDeleteModal}
-                    onConfirm={confirmDelete}
+                    onConfirm={handleConfirmDelete}
                     onCancel={cancelDelete}
                     message="Veux-tu supprimer les questions dont la réponse est correcte ?"
                     buttonColor="#218838"

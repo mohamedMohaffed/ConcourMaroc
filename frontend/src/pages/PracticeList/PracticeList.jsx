@@ -30,7 +30,7 @@ const PracticeList = () => {
                         key={index} 
                         className="practice-list-item"
                     >
-                        {`${item.level}-${item.university}-${item.year}-${item.subject}`}
+                        {`${item.university}-${item.year}-${item.subject}`}
                     </Link>
                 ))}
             </div>

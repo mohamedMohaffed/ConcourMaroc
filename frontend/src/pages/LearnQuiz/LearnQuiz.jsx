@@ -15,7 +15,6 @@ const LearnQuiz=()=>{
         <Quiz 
             data={data} subject_slug={subject_slug}
             universite_slug={universite_slug} 
-            niveau_slug={"Bac"} 
             year_slug={year_slug}
             type="Learn"/>
     )

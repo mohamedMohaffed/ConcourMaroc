@@ -95,8 +95,7 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                 confirmText="Quitter"
             />
             <h3 className="quiz_title">
-                <span className="quiz_title-prefix">Concours de</span> {subject} - 
-                {universite} ({niveau}, {year}) 
+                <span className="quiz_title-prefix">Concours de</span> ({subject}-{universite}-{niveau}{year})
             </h3>
             <div className="quiz_title-phone">{universite} ({niveau}, {year}) 
             </div>

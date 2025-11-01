@@ -15,7 +15,6 @@ const PracticeQuiz=()=>{
             <Quiz 
                 data={data} subject_slug={data.subject.slug}
                 universite_slug={data.subject.year.university.slug}
-                niveau_slug={data.subject.year.university.level.slug} 
                 year_slug={data.subject.year.slug} type={"Practice"}/>
         </section>
     )

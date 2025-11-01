@@ -53,12 +53,11 @@ class UserAnswerScoreAPIView(APIView):
         score_obj = Score.objects.create(
             user=user,
             concours_id=concour_id,
-            score=0,  # will update after loop
+            score=0, 
             time_spent=time_spent_td,
         )
         score_value = 0
 
-        # Check for None in any question or choice before proceeding
         for ans in answers:
             if ans.get("question_id") is None or ans.get("choice_id") is None:
                 return Response(
@@ -119,7 +118,6 @@ class LastUserScoreAPIView(APIView):
         user = request.user
 
         last_score = Score.objects.select_related(
-            'concours__subject__year__university__level',
             'concours__subject__year__university',
             'concours__subject__year',
             'concours__subject',
@@ -137,7 +135,6 @@ class LastUserScoreAPIView(APIView):
         subject = concours.subject if concours and hasattr(concours, 'subject') else None
         year = subject.year if subject and hasattr(subject, 'year') else None
         university = year.university if year and hasattr(year, 'university') else None
-        level = university.level if university and hasattr(university, 'level') else None
 
         score_data = {
             "score": last_score.score,
@@ -145,7 +142,7 @@ class LastUserScoreAPIView(APIView):
             "lenght_question": last_score.concours.questions.count() if last_score.concours else 0,
             "concours_id": concours.id if concours else None,
             "created_at": last_score.created_at,
-            "slug_level": level.slug if level else None,
+            "slug_level": "Bac",
             "slug_university": university.slug if university else None,
             "slug_year": year.slug if year else None,
             "slug_subject": subject.slug if subject else None,
@@ -184,8 +181,7 @@ class AllScoresForConcourAPIView(APIView):
                 'concours',
                 'concours__subject',
                 'concours__subject__year',
-                'concours__subject__year__university',
-                'concours__subject__year__university__level'
+                'concours__subject__year__university'
             )
             .prefetch_related(
                 'user_answers_score',
@@ -211,7 +207,6 @@ class AllUserScoresAPIView(APIView):
                 'concours__subject',
                 'concours__subject__year',
                 'concours__subject__year__university',
-                'concours__subject__year__university__level'
             )
             .prefetch_related(
                 'user_answers_score',

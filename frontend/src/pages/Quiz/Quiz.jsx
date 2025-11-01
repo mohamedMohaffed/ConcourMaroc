@@ -4,7 +4,7 @@ import QuizItem from './components/QuizItem/QuizItem';
 import QuizHeader from './components/QuizHeader/QuizHeader';
 import QuizNavigation from './components/QuizNavigation/QuizNavigation';
 
-const Quiz =React.memo(({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
+const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
     console.log('Quiz rendered');
 
     const [userAnser,setUserAnser] = useState([])
@@ -75,7 +75,6 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,niveau_slug,year_slug
             <QuizHeader 
                 subject={subject_slug} 
                 universite={universite_slug} 
-                niveau={niveau_slug} 
                 year={year_slug} 
                 getData={data}
                 circlesArray={circlesArray}

@@ -18,7 +18,6 @@ class IncorrectAnswersListAPIView(APIView):
         ).values_list('concours_id', flat=True).distinct()
 
         concours_qs = Concours.objects.filter(id__in=concours_ids).select_related(
-            'subject__year__university__level',
             'subject__year__university',
             'subject__year',
             'subject'
@@ -41,28 +40,22 @@ class QuestionIncorrectAnswersUserAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Get all incorrect UserAnswer objects for this user and concours
         incorrect_user_answers = UserAnswer.objects.filter(
             user=user,
             concours=concours,
             user_choice__is_correct=False
         )
 
-        # Count incorrect answers per question
         from collections import Counter
         incorrect_counts = Counter(incorrect_user_answers.values_list('question_id', flat=True))
 
-        # Get IDs of questions the user answered incorrectly
         incorrect_question_ids = list(incorrect_counts.keys())
 
-        # Filter only incorrect questions
         incorrect_questions = concours.questions.filter(id__in=incorrect_question_ids)
 
-        # Serialize concours but replace 'questions' with only incorrect ones
         concours_data = ConcourSerializer(concours).data
         questions_data = QuestionSerializer(incorrect_questions, many=True).data
 
-        # Add incorrect_answer_count to each question
         for q in questions_data:
             q['incorrect_answer_count'] = incorrect_counts.get(q['id'], 0)
 
@@ -91,7 +84,6 @@ class DeleteCorrectAnswersAPIView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-        # Extract question_ids from correct_answers
         question_ids = [ans.get('question_id') for ans in correct_answers if ans.get('question_id')]
         
         if not question_ids:
@@ -100,7 +92,6 @@ class DeleteCorrectAnswersAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Delete user answers for the provided correct answer question IDs
         deleted_count, _ = UserAnswer.objects.filter(
             user=user,
             concours=concours,

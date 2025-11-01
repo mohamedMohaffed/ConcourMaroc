@@ -3,8 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import Quiz from '../Quiz/Quiz';
 import Loading from '../../components/Loading/Loading';
 const LearnQuiz=()=>{
-    const { niveau_slug, universite_slug, year_slug, subject_slug } = useParams();
-    const url = `/concour/${niveau_slug}/${universite_slug}/${year_slug}/${subject_slug}/concour/`;
+    const { universite_slug, year_slug, subject_slug } = useParams();
+    const url = `/concour/Bac/${universite_slug}/${year_slug}/${subject_slug}/concour/`;
     const { data, error, loading } = useApi(url);
     console.log(data);
     if (loading) return <div><Loading/></div>;
@@ -15,7 +15,7 @@ const LearnQuiz=()=>{
         <Quiz 
             data={data} subject_slug={subject_slug}
             universite_slug={universite_slug} 
-            niveau_slug={niveau_slug } 
+            niveau_slug={"Bac"} 
             year_slug={year_slug}
             type="Learn"/>
     )

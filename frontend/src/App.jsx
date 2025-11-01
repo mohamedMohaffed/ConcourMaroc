@@ -25,11 +25,11 @@ const App = () => {
                 <Route element={<Layout />}>
                     {/* <Route path="/concours/niveaux" element={<LevelsList />} /> */}
                     <Route path="/concours/Bac/universites" element={<UniversityList />} />
-                    <Route path="/concours/:niveau_slug/:universite_slug/year" element={<YearsList />} />
-                    <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/matieres" 
+                    <Route path="/concours/Bac/:universite_slug/year" element={<YearsList />} />
+                    <Route path="/concours/Bac/:universite_slug/:year_slug/matieres" 
                     element={<SubjectsList/>} />
 
-                    <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/:subject_slug/correction-concour/" 
+                    <Route path="/concours/Bac/:universite_slug/:year_slug/:subject_slug/correction-concour/" 
                     element={<Correction/>} />
                     <Route path="/concours/resultat/:concour_id/"  element={<Score/>}/>
                     <Route path="/tableau-de-bord" element={<Dashboard />} />
@@ -38,7 +38,7 @@ const App = () => {
                 </Route>
                 {/* rr */}
                 
-                <Route path="/concours/:niveau_slug/:universite_slug/:year_slug/:subject_slug/concour/" element={<LearnQuiz />} />
+                <Route path="/concours/Bac/:universite_slug/:year_slug/:subject_slug/concour/" element={<LearnQuiz />} />
                 <Route path="/pratique/:concours_slug" element={<PracticeQuiz />} />
 
                 <Route path="/connexion" element={<Login />} />

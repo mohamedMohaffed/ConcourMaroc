@@ -8,8 +8,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 const SubjectsList = () => {
-    const { niveau_slug, universite_slug, year_slug } = useParams();
-    const { data, error, loading } = useApi(`/concour/${niveau_slug}/${universite_slug}/${year_slug}/subject/`);
+    const { universite_slug, year_slug } = useParams();
+    const { data, error, loading } = useApi(`/concour/Bac/${universite_slug}/${year_slug}/subject/`);
     const [selectedSubjectId, setSelectedSubjectId] = useState(null);
     const [isInitialRender, setIsInitialRender] = useState(true);
 
@@ -21,9 +21,9 @@ const SubjectsList = () => {
     }, [data]);
 
     const breadcrumbs = data && data.length > 0 ? [
-        { text: data[0].year.university.level.name, link: "" },
-        { text: data[0].year.university.name, link: `/concours/${data[0].year.university.level.slug}/universites` },
-        { text: data[0].year.year, link: `/concours/${data[0].year.university.level.slug}/${data[0].year.university.slug}/year` },
+        { text: "Bac", link: "" },
+        { text: data[0].year.university.name, link: `/concours/Bac/universites` },
+        { text: data[0].year.year, link: `/concours/Bac/${data[0].year.university.slug}/year` },
     ] : [];
 
     const handleSubjectClick = (subjectId) => {
@@ -118,10 +118,10 @@ const SubjectsList = () => {
                             transition={{delay:0.3}}
                             
                             className="subjects-list__type">
-                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${selectedSubject.slug}/concour`}>
+                                <Link to={`/concours/Bac/${universite_slug}/${year_slug}/${selectedSubject.slug}/concour`}>
                                 <h1 className="subjects-list__type--quiz">Passer un Quiz</h1></Link>
 
-                                <Link to={`/concours/${niveau_slug}/${universite_slug}/${year_slug}/${selectedSubject.slug}/correction-concour/`}>
+                                <Link to={`/concours/Bac/${universite_slug}/${year_slug}/${selectedSubject.slug}/correction-concour/`}>
                                 <h1 className="subjects-list__type--corr">Voir la Correction</h1></Link>
                             </motion.div> 
                         )}

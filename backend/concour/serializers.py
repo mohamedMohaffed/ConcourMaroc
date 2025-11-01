@@ -1,25 +1,26 @@
 from rest_framework import serializers
-from .models import (University,Year,Subject,
-                    Concours,Choice,Question,UserAnswer,Score,ExerciceContext, ExerciceContextImage)
+from .models import (University,Year,Subject,Concours,Choice,Question,ExerciceContext, ExerciceContextImage)
 
 
 
 class UniversitySerializer(serializers.ModelSerializer):
     class Meta:
         model=University
-        fields = ["id","name"]
+        fields = ["id","name","slug"]
 
 class YearSerializer(serializers.ModelSerializer):
     university = UniversitySerializer(read_only=True)
     class Meta:
         model = Year
-        fields = '__all__'
+        fields = ['id', 'year', 'slug', 'university']  
 
 class SubjectSerializer(serializers.ModelSerializer):
     year = YearSerializer(read_only=True)
     class Meta:
         model = Subject
-        fields = '__all__'
+        fields = ["id", "name", "slug", "year"]
+
+#----Quiz---#
 
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,14 +30,14 @@ class ChoiceSerializer(serializers.ModelSerializer):
 class ExerciceContextImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExerciceContextImage
-        fields = ['id', 'image', 'uploaded_at']
+        fields = ['id', 'image']
 
 class ExerciceContextSerializer(serializers.ModelSerializer):
     images = ExerciceContextImageSerializer(many=True, read_only=True)
 
     class Meta:
         model = ExerciceContext
-        fields = '__all__'
+        fields = ["id","context_text","images"]
 
 class QuestionSerializer(serializers.ModelSerializer):
     choices = ChoiceSerializer(many=True, read_only=True)
@@ -44,7 +45,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['id', 'question', 'explanation', 'choices', 'exercice_context', 'created_at']
+        fields = ['id', 'question', 'explanation', 'choices', 'exercice_context']
 
 class ConcourSerializer(serializers.ModelSerializer):
     subject = SubjectSerializer(read_only=True)
@@ -52,53 +53,7 @@ class ConcourSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Concours
-        fields = '__all__'
+        fields = ['id', 'subject', 'questions','slug']
 
-    def get_questions(self, obj):    
-        return QuestionSerializer(
-            obj.questions.all(),
-            many=True,
-        ).data
-
-class UserAnswerCreateSerializer(serializers.ModelSerializer):
-    correct_choice = serializers.SerializerMethodField()
-
-    class Meta:
-        model = UserAnswer
-        fields = ['id', 'user', 'question', 'user_choice', 'concours', 'created_at', 'score', 'correct_choice']
-
-    def get_correct_choice(self, obj):
-        correct_choice = obj.question.choices.filter(is_correct=True).first()
-        return correct_choice.id if correct_choice else None
-
-class UserAnserList(serializers.ModelSerializer):
-    class Meta:
-        # model=UserAnswer
-        # fieleds=
-        pass
-
-class ConcoursListSerializer(serializers.ModelSerializer):
-    subject = serializers.CharField(source='subject.name')
-    year = serializers.IntegerField(source='subject.year.year')
-    university = serializers.CharField(source='subject.year.university.name')
-    level = serializers.CharField(source='subject.year.university.level.name')
-    concours_id = serializers.IntegerField(source='id')
-    concours_slug = serializers.CharField(source='slug')
-
-    class Meta:
-        model = Concours
-        fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']
-        fields = ['subject', 'year', 'university', 'level', 'concours_id', 'concours_slug']
-
-class ScoreSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Score
-        fields = '__all__'
-
-class AllScoresSerializer(serializers.ModelSerializer):
-    concours = ConcourSerializer(read_only=True)
-    
-    class Meta:
-        model = Score
-        fields = '__all__'
+#---- END--Quiz---#
 

@@ -54,9 +54,7 @@ class Subject(models.Model):
 class Concours(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name="concours")
     timer = models.DurationField(blank=True, null=True)
-    #add note type
-    slug = models.SlugField(max_length=30, unique=True, blank=True,
-                             db_index=True)
+    slug = models.SlugField(max_length=30, unique=True, blank=True,db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -71,14 +69,7 @@ class Question(models.Model):
     question = models.TextField()
     explanation = models.TextField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0)    
-    exercice_context = models.ForeignKey(
-        'ExerciceContext',
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-        related_name='questions'
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
+    exercice_context = models.ForeignKey('ExerciceContext',on_delete=models.SET_NULL,blank=True,null=True,related_name='questions')
 
     class Meta:
         ordering = ['order']
@@ -96,13 +87,8 @@ class ExerciceContext(models.Model):
         return f"Context: {self.context_text[:60] if self.context_text else 'Empty'}"
 
 class ExerciceContextImage(models.Model):
-    exercice_context = models.ForeignKey(
-        ExerciceContext,
-        on_delete=models.CASCADE,
-        related_name='images'
-    )
+    exercice_context = models.ForeignKey(ExerciceContext,on_delete=models.CASCADE,related_name='images')
     image = models.ImageField(upload_to='exercice_context_images/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Image for Context ID {self.exercice_context.id}"

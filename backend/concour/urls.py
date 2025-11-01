@@ -9,10 +9,10 @@ from .views_pratice import IncorrectAnswersListAPIView,QuestionIncorrectAnswersU
 
 urlpatterns = [
     #get data
-    path('<slug:niveau_slug>/universites', UniverstyAPIView.as_view(), name='universities-by-level'),
-    path('<slug:niveau_slug>/<slug:universite_slug>/year/', YearAPIView.as_view(), name='year-by-universty'),
-    path('<slug:niveau_slug>/<slug:universite_slug>/<slug:year_slug>/subject/', SubjectAPIView.as_view(), name='subject-by-year'),
-    path('<slug:niveau_slug>/<slug:universite_slug>/<slug:year_slug>/<slug:subject_slug>/concour/', ConcoursAPIView.as_view(), name='concours-by-subject'),
+    path('Bac/universites', UniverstyAPIView.as_view(), name='universities-by-level'),
+    path('Bac/<slug:universite_slug>/year/', YearAPIView.as_view(), name='year-by-universty'),
+    path('Bac/<slug:universite_slug>/<slug:year_slug>/subject/', SubjectAPIView.as_view(), name='subject-by-year'),
+    path('Bac/<slug:universite_slug>/<slug:year_slug>/<slug:subject_slug>/concour/', ConcoursAPIView.as_view(), name='concours-by-subject'),
     #end get data
 
     #-----score and anser

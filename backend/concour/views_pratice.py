@@ -1,12 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
-# from .serializers import UserAnswerCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .models import (UserAnswer,Concours)
-from .serializers import (ConcoursListSerializer,ConcourSerializer,QuestionSerializer)
-
+from .serializers import (ConcourSerializer,QuestionSerializer)
+from .serializers_US import ConcoursListSerializer
 
 class IncorrectAnswersListAPIView(APIView):
     permission_classes = [IsAuthenticated]

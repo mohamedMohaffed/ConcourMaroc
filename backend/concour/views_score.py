@@ -5,8 +5,7 @@ from .models import UserAnswer,Choice,Score
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework import status
 from datetime import timedelta
-from .serializers import ( 
-                           UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)
+from .serializers_US import ( UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)
 from django.shortcuts import get_object_or_404
 
 class UserAnswerScoreAPIView(APIView):

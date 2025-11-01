@@ -13,7 +13,14 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
     
     console.log('QuizNavigations rendered');
 
-    const { goToPrevious, goToNext } = useQuizActions(index, setIndex, totalQuestions);
+    const { goToPrevious, goToNext, handleSubmit, handleCancel } = useQuizActions(index, setIndex, totalQuestions, {
+        selectedChoice,
+        setSelectedChoice,
+        setUserAnser,
+        userAnser,
+        currentQuestion,
+        type
+    });
     const navigate = useNavigate();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showAuth,setShowAuth] = useState(false);
@@ -21,21 +28,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
     
     const allQuestionsAnswered = userAnser.length === totalQuestions && totalQuestions > 0;
     
-    const handleSubmet = () => {
-        if (selectedChoice && currentQuestion) {
-            setUserAnser(prev => {
-                const filtered = prev.filter(ans => ans.question_id !== currentQuestion.id);
-                return [...filtered, { question_id: currentQuestion.id, choice_id: selectedChoice }];
-            });
-        }
-    }
-
-    const handleCancel = () => {
-        if (currentQuestion && type === "Learn") {
-            setSelectedChoice(null);
-            setUserAnser(prev => prev.filter(ans => ans.question_id !== currentQuestion.id));
-        }
-    }
 
     const PostData = async () => {
         if (type === "Practice") {
@@ -168,7 +160,7 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                     <div className="quiz__navigation__btn--endandsubmeit">
                         <button
                             disabled={!canSubmit && !canCancel}
-                            onClick={isAnswered ? handleCancel : handleSubmet}
+                            onClick={isAnswered ? handleCancel : handleSubmit}
                             style={isAnswered && type === "Learn" ? { backgroundColor: '#dc3545' } : {}}
                         >
                             {isAnswered && type === "Learn" ? 'Annuler' : 'Soumettre'}
@@ -190,12 +182,14 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                     </div>
 
                     <button 
-                    disabled={index === totalQuestions - 1}
-                    onClick={goToNext}>
+                        disabled={index === totalQuestions - 1}
+                        onClick={goToNext}>
                         <span className="quiz__nav-text">Suivant</span>
                         <FontAwesomeIcon icon={faArrowRight} />
                     </button>
+
                 </section>
+                
                 
                 <DeleteModal
                     visible={showDeleteModal}
@@ -211,7 +205,7 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions,
                         localStorage.setItem('pendingQuizAnswers', JSON.stringify({
                             concour_id: data?.[0]?.id || data?.id,
                             answers: userAnser,
-                            elapsedSeconds: elapsedSecondsRef?.current || 0, // snapshot from ref
+                            elapsedSeconds: elapsedSecondsRef?.current || 0, 
                         }));
                         setShowAuth(false);
                         navigate('/connexion?redirect=score');

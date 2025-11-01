@@ -4,8 +4,7 @@ import QuizItem from './components/QuizItem/QuizItem';
 import QuizHeader from './components/QuizHeader/QuizHeader';
 import QuizNavigation from './components/QuizNavigation/QuizNavigation';
 
-const Quiz =React.memo(({data,subject_slug,universite_slug,
-                            niveau_slug,year_slug,type})=>{
+const Quiz =React.memo(({data,subject_slug,universite_slug,niveau_slug,year_slug,type})=>{
     console.log('Quiz rendered');
 
     const [userAnser,setUserAnser] = useState([])
@@ -45,12 +44,10 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,
         return Array.from({ length: totalQuestions });
         }, [totalQuestions]);
 
-    // Timer logic in parent
     const [elapsedSeconds, setElapsedSeconds] = useState(0);
     const [isTimerRunning, setIsTimerRunning] = useState(true);
     const timerRef = useRef(null);
 
-    // stable ref to avoid passing a changing primitive prop into QuizNavigation
     const elapsedSecondsRef = useRef(elapsedSeconds);
     useEffect(() => {
         elapsedSecondsRef.current = elapsedSeconds;

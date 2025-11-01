@@ -113,6 +113,7 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                 getCircleClassName={getCircleClassName}
                 changeIndex={changeIndex}
                 />
+                
                 {type === "Learn" && (
                     <Timer
                         elapsedSeconds={elapsedSeconds}

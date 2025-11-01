@@ -1,8 +1,10 @@
 const CirclesArray = ({circlesArray,questionsArray,
     currentIndex,isQuestionSubmitted,changeIndex,getCircleClassName}) => {
-
+    
+    console.log("CirclesArray renders ")
     return(
-         <>{circlesArray.map((_, circleIndex) => {
+        <>
+        {circlesArray.map((_, circleIndex) => {
                     const question = questionsArray[circleIndex];
                     const color = question?.exercice_context?.hex_color;
                     const isSelected = currentIndex === circleIndex;
@@ -22,16 +24,16 @@ const CirclesArray = ({circlesArray,questionsArray,
                             style.color = '#fff';
                         }
                     }
-                     return (
-                         <div
-                             key={circleIndex}
-                             className={getCircleClassName(circleIndex)}
-                             onClick={() => changeIndex(circleIndex)}
-                             style={Object.keys(style).length ? style : undefined}
-                         >
-                             <span>{circleIndex + 1}</span>
-                         </div>
-                     );
+                    return (
+                        <div
+                            key={circleIndex}
+                            className={getCircleClassName(circleIndex)}
+                            onClick={() => changeIndex(circleIndex)}
+                            style={Object.keys(style).length ? style : undefined}
+                        >
+                            <span>{circleIndex + 1}</span>
+                        </div>
+                    );
                 })}
                 </>
     )

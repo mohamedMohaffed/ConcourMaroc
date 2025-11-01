@@ -9,7 +9,8 @@ import React from 'react';
 import postQuizData from './utils/postQuizData';
 import confirmDelete from './utils/confirmDelete';
 
-const QuizNavigation = React.memo(({ index, setIndex, totalQuestions, selectedChoice, setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type, elapsedSecondsRef }) => {
+const QuizNavigation = React.memo(({ index, setIndex, totalQuestions, selectedChoice,
+     setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type}) => {
     
     console.log('QuizNavigations rendered');
 
@@ -35,7 +36,6 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions, selectedCh
             data,
             navigate,
             setShowDeleteModal,
-            elapsedSecondsRef,
             setShowAuth
         });
     };
@@ -122,7 +122,7 @@ const QuizNavigation = React.memo(({ index, setIndex, totalQuestions, selectedCh
                         localStorage.setItem('pendingQuizAnswers', JSON.stringify({
                             concour_id: data?.[0]?.id || data?.id,
                             answers: userAnser,
-                            elapsedSeconds: elapsedSecondsRef?.current || 0, 
+                            timer: "00:09:02",
                         }));
                         setShowAuth(false);
                         navigate('/connexion?redirect=score');

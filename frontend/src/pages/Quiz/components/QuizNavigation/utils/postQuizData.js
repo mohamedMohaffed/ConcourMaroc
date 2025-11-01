@@ -6,7 +6,7 @@ const postQuizData = async ({
     data,
     navigate,
     setShowDeleteModal,
-    elapsedSecondsRef,
+    // elapsedSecondsRef,
     setShowAuth}) => {
     console.log("reder postQuizData")
     if (type === "Practice") {
@@ -27,18 +27,18 @@ const postQuizData = async ({
     }
 
     try {
-        const secs = elapsedSecondsRef?.current || 0;
-        const hours = Math.floor(secs / 3600);
-        const minutes = Math.floor((secs % 3600) / 60);
-        const seconds = secs % 60;
-        const timeSpentStr = 
-            ('0' + hours).slice(-2) + ':' +
-            ('0' + minutes).slice(-2) + ':' +
-            ('0' + seconds).slice(-2);
+        // const secs = elapsedSecondsRef?.current || 0;
+        // const hours = Math.floor(secs / 3600);
+        // const minutes = Math.floor((secs % 3600) / 60);
+        // const seconds = secs % 60;
+        // const timeSpentStr = 
+        //     ('0' + hours).slice(-2) + ':' +
+        //     ('0' + minutes).slice(-2) + ':' +
+        //     ('0' + seconds).slice(-2);
 
         const quizData = {
             concour_id: data?.[0]?.id || data?.id,
-            time_spent: timeSpentStr, 
+            time_spent: "00:08:23", 
             answers: userAnser
         };
 

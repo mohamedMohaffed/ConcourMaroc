@@ -6,7 +6,6 @@ import './QuizHeader.css';
 import Timer from './components/Timer/Timer';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 import CirclesArray from './components/CirclesArray/CirclesArray';
-import { getContextColorMap } from './components/contextColorMap';
 
 const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray, 
     changeIndex, currentIndex, userAnser, data, type, elapsedSeconds, onToggleTimer, 
@@ -18,8 +17,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
         return type === "Learn" ? (data?.[0]?.questions || []) : (data?.questions || []);
     }, [data, type]);
 
-    const contextColorMap = useMemo(() => getContextColorMap(questionsArray), [questionsArray]);
-    
     const isQuestionSubmitted = (questionIndex) => {
         let questionId;
         
@@ -106,7 +103,6 @@ const QuizHeader = React.memo(({ subject, universite, niveau, year, circlesArray
                 <CirclesArray 
                 circlesArray={circlesArray}
                 questionsArray={questionsArray}
-                contextColorMap={contextColorMap}
                 currentIndex={currentIndex}
                 isQuestionSubmitted={isQuestionSubmitted}
                 getCircleClassName={getCircleClassName}

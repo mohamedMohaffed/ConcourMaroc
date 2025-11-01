@@ -26,17 +26,10 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
         }
     }, [currentQuestion?.id]);
 
-    const contextColorInfo = useMemo(() => {
-        const ctx = currentQuestion?.exercice_context?.context_text;
-        if (!ctx) return null;
-        let hash = 0;
-        for (let i = 0; i < ctx.length; i++) {
-            hash = ctx.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        const h = Math.abs(hash) % 360;
-        const hsl = `hsl(${h} 70% 45%)`;
-        return { h, hsl };
-    }, [currentQuestion]);
+    // Replace cthe generated color logic with backend hex_color
+    const contextColor = useMemo(() => {
+        return currentQuestion?.exercice_context?.hex_color;
+    }, [currentQuestion?.exercice_context?.hex_color]);
 
     useEffect(() => {
         if (currentQuestion && userAnser) {
@@ -127,9 +120,8 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                             onClick={() => setShowContext(true)}
                             style={{
                                 cursor: 'pointer',
-                                color: contextColorInfo?.hsl,
-                                border: contextColorInfo ? `2px solid ${contextColorInfo.hsl}` : undefined,
-                              
+                                color: contextColor,
+                                border: `2px solid ${contextColor}`,
                             }}
                         >
                             <FontAwesomeIcon icon={faAlignLeft} />
@@ -163,20 +155,23 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                             dragElastic={0.2}
                             dragMomentum={false}
                             onClick={e => e.stopPropagation()}
-                            style={ contextColorInfo ? {
-                                border: `2px solid ${contextColorInfo.hsl}`,
+                            style={{
+                                border: `2px solid ${contextColor}`,
                                 color: "#777777", 
-                                boxShadow: `0 8px 24px hsl(${contextColorInfo.h} 70% 45% / 0.30)`
-                            } : undefined }
+                                boxShadow: `0 8px 24px ${contextColor}30`
+                            }}
                         >
                             <button className="quizitem__context-modal-close" 
                                 onClick={() => setShowContext(false)}
-                                style={ contextColorInfo ? { color: contextColorInfo.hsl, background: 'transparent', 
-                                    border: 'none' } : undefined }
+                                style={{ 
+                                    color: contextColor, 
+                                    background: 'transparent', 
+                                    border: 'none' 
+                                }}
                             >
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>
-                            <div className="quizitem__context-modal-body" style={ contextColorInfo ? { color: '#777777' } : undefined }>
+                            <div className="quizitem__context-modal-body" style={ contextColor ? { color: '#777777' } : undefined }>
                                 <div className="quizitem__context-modal-body-text">
                                     <LatexRenderer latex={currentQuestion.exercice_context?.context_text || ''} /></div>
                                 

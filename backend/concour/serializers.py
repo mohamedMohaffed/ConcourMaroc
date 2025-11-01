@@ -37,7 +37,7 @@ class ExerciceContextSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciceContext
-        fields = ["id","context_text","images"]
+        fields = ["id","context_text","hex_color","images"]
 
 class QuestionSerializer(serializers.ModelSerializer):
     choices = ChoiceSerializer(many=True, read_only=True)

@@ -1,12 +1,10 @@
-
-const CirclesArray = ({circlesArray,questionsArray,contextColorMap,
+const CirclesArray = ({circlesArray,questionsArray,
     currentIndex,isQuestionSubmitted,changeIndex,getCircleClassName}) => {
 
     return(
          <>{circlesArray.map((_, circleIndex) => {
                     const question = questionsArray[circleIndex];
-                    const ctxText = question?.exercice_context?.context_text;
-                    const color = ctxText ? contextColorMap[ctxText] : undefined;
+                    const color = question?.exercice_context?.hex_color;
                     const isSelected = currentIndex === circleIndex;
                     const submitted = isQuestionSubmitted(circleIndex);
                     const style = {};

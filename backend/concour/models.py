@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .choices import COURSE_PART_CHOICES, TOPIC_PART_CHOICES
 from django.utils.text import slugify
 from django.utils import timezone
-
+import random
 
 
 class University(models.Model):
@@ -82,7 +82,54 @@ class Question(models.Model):
     
 class ExerciceContext(models.Model):
     context_text = models.TextField(blank=True, null=True)
-
+    COLOR_CHOICES = [
+        ('#FF6B6B', 'Red'),
+        ('#4ECDC4', 'Teal'),
+        ('#45B7D1', 'Blue'),
+        ('#96CEB4', 'Green'),
+        ('#FECA57', 'Yellow'),
+        ('#FF9FF3', 'Pink'),
+        ('#54A0FF', 'Light Blue'),
+        ('#5F27CD', 'Purple'),
+        ('#00D2D3', 'Cyan'),
+        ('#FF9F43', 'Orange'),
+        ('#10AC84', 'Dark Green'),
+        ('#EE5A24', 'Dark Orange'),
+        ('#0984E3', 'Dark Blue'),
+        ('#6C5CE7', 'Light Purple'),
+        ('#A29BFE', 'Lavender'),
+        ('#FD79A8', 'Hot Pink'),
+        ('#E17055', 'Coral'),
+        ('#81ECEC', 'Light Cyan'),
+        ('#74B9FF', 'Sky Blue'),
+        ('#A0E7E5', 'Mint Green'),
+    ]
+    
+    context_text = models.TextField(blank=True, null=True)
+    hex_color = models.CharField(
+        max_length=7, 
+        choices=COLOR_CHOICES, 
+        default='#FF6B6B',
+        # unique=True,  # Temporarily commented out
+        help_text="Hex color code for the exercise context"
+    )
+    
+    def get_random_unused_color(self):
+        """Get a random color that's not currently used by other contexts"""
+        used_colors = ExerciceContext.objects.exclude(id=self.id).values_list('hex_color', flat=True)
+        available_colors = [color[0] for color in self.COLOR_CHOICES if color[0] not in used_colors]
+        
+        if available_colors:
+            return random.choice(available_colors)
+        else:
+            # If all colors are used, raise an exception
+            raise ValueError("All colors are already in use. Cannot assign a unique color.")
+    
+    def save(self, *args, **kwargs):
+        if not self.hex_color or (not self.pk and self.hex_color == '#FF6B6B'):  # If new instance or default color
+            self.hex_color = self.get_random_unused_color()
+        super().save(*args, **kwargs)
+    
     def __str__(self):
         return f"Context: {self.context_text[:60] if self.context_text else 'Empty'}"
 

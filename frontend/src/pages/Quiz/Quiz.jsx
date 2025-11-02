@@ -42,9 +42,6 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
     const circlesArray = useMemo(() => {
         return Array.from({ length: totalQuestions });
         }, [totalQuestions]);
-
-
-    console.log(data)
     
         return(
         <section className="quiz">

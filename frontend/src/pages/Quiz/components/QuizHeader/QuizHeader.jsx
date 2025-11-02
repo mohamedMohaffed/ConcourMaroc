@@ -6,43 +6,34 @@ import './QuizHeader.css';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 import CirclesArray from './components/CirclesArray/CirclesArray';
 
-const QuizHeader = React.memo(({ subject, universite,year, circlesArray, 
-                                changeIndex, currentIndex, userAnser, data, type }) => {
+const QuizHeader = React.memo(({ subject, universite, year, circlesArray, 
+                                changeIndex, currentIndex, userAnser,type, questions }) => {
 
     console.log('QuizHeader rendered');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     const questionsArray = useMemo(() => {
-        return type === "Learn" ? (data?.[0]?.questions || []) : (data?.questions || []);
-    }, [data, type]);
+        return questions || [];
+    }, [questions]);
 
     const isQuestionSubmitted = (questionIndex) => {
-        let questionId;
-        if (type === "Learn") {
-            if (!data?.[0]?.questions?.[questionIndex] || !userAnser) return false;
-            questionId = data[0].questions[questionIndex].id;
-        } else {
-            if (!data?.questions?.[questionIndex] || !userAnser) return false;
-            questionId = data.questions[questionIndex].id;
-        }
+        if (!questions?.[questionIndex] || !userAnser) return false;
+        const questionId = questions[questionIndex].id;
         return userAnser.some(ans => ans.question_id === questionId);
     };
 
     const isAnswerCorrect = (questionIndex) => {
         if (type !== "Practice" || !isQuestionSubmitted(questionIndex)) return false;
-        
-        const question = data?.questions?.[questionIndex];
+        const question = questions?.[questionIndex];
         if (!question) return false;
-        
         const userAnswer = userAnser.find(ans => ans.question_id === question.id);
         if (!userAnswer) return false;
-        
         const selectedChoice = question.choices.find(choice => choice.id === userAnswer.choice_id);
         return selectedChoice?.is_correct || false;
     };
 
-    const currentIncorrectCount = type === "Practice" && data?.questions?.[currentIndex]
-        ? data.questions[currentIndex].incorrect_answer_count || 0
+    const currentIncorrectCount = type === "Practice" && questions?.[currentIndex]
+        ? questions[currentIndex].incorrect_answer_count || 0
         : 0;
 
 //---------------------------------

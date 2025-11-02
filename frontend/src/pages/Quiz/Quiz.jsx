@@ -42,6 +42,8 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
     const circlesArray = useMemo(() => {
         return Array.from({ length: totalQuestions });
         }, [totalQuestions]);
+
+        const questions = type === "Practice" ? data?.questions : data?.[0]?.questions;
     
         return(
         <section className="quiz">
@@ -53,17 +55,17 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
                 changeIndex={setIndex}
                 currentIndex={index}
                 userAnser={userAnser}
-                data={data}
                 type={type}
+                questions={questions}
             />
 
-            <QuizItem 
-                
+            <QuizItem     
                 currentQuestion={currentQuestion}
                 userAnser={userAnser}
                 selectedChoice={selectedChoice}
                 setSelectedChoice={setSelectedChoice}
                 type={type}
+                questions={questions}
             />
             
             <QuizNavigation 
@@ -75,10 +77,10 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
                 setUserAnser={setUserAnser}
                 userAnser={userAnser}
                 currentQuestion={currentQuestion}
-                data={data}
                 type={type}
+                questions={questions}
+                concourId={type === "Practice" ? data?.id : data?.[0]?.id}
             />
-
         </section>
     )});
     

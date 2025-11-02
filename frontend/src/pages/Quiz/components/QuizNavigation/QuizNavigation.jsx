@@ -11,7 +11,7 @@ const QuizNavigation = React.memo(({
     index, setIndex, totalQuestions, 
     selectedChoice,
     setSelectedChoice, setUserAnser,
-     userAnser, currentQuestion, data, type
+     userAnser, currentQuestion,type,questions,concourId
 }) => {
     console.log('QuizNavigations rendered');
 
@@ -19,29 +19,12 @@ const QuizNavigation = React.memo(({
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showAuth, setShowAuth] = useState(false);
 
-    const commonProps = {
-        selectedChoice,
-        setSelectedChoice,
-        setUserAnser,
-        userAnser,
-        currentQuestion,
-        type,
-        navigate,
-        setShowDeleteModal,
-        setShowAuth
-    };
+     
 
-    const quizActionsProps = type === "Practice"
-        ? {
-            ...commonProps,
-            questions: data?.questions,
-            concourId: data?.id
-        }
-        : {
-            ...commonProps,
-            questions: data?.[0]?.questions,
-            concourId: data?.[0]?.id
-        };
+
+    
+
+ 
 
     const {
         goToPrevious,
@@ -53,78 +36,87 @@ const QuizNavigation = React.memo(({
         canCancel,
         canSubmit,
         allQuestionsAnswered
-    } = useQuizActions(index, setIndex, totalQuestions, quizActionsProps);
+    } = useQuizActions(index, setIndex, totalQuestions, {   
+                            selectedChoice,
+                            setSelectedChoice,
+                            setUserAnser,
+                            userAnser,
+                            currentQuestion,
+                            type,
+                            navigate,
+                            setShowDeleteModal,
+                            setShowAuth,
+                            questions,
+                            concourId});
 
     const isAnswered = userAnser.some(ans => ans.question_id === currentQuestion?.id);
 
     return (
-        data && (
-            <>
-                <section className="quiz__navigation">
-                    <div className="quiz__mobile-counter">
-                        Question {index + 1} sur {totalQuestions}
-                    </div>
+        <>
+            <section className="quiz__navigation">
+                <div className="quiz__mobile-counter">
+                    Question {index + 1} sur {totalQuestions}
+                </div>
 
+                <button
+                    disabled={index === 0}
+                    onClick={goToPrevious}>
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <span className="quiz__nav-text">Précédent</span>
+                </button>
+
+                <div className="quiz__navigation__btn--endandsubmeit">
                     <button
-                        disabled={index === 0}
-                        onClick={goToPrevious}>
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                        <span className="quiz__nav-text">Précédent</span>
+                        disabled={!canSubmit && !canCancel}
+                        onClick={isAnswered ? handleCancel : handleSubmit}
+                        style={isAnswered && type === "Learn" ? { backgroundColor: '#dc3545' } : {}}
+                    >
+                        {isAnswered && type === "Learn" ? 'Annuler' : 'Soumettre'}
                     </button>
 
-                    <div className="quiz__navigation__btn--endandsubmeit">
+                    {allQuestionsAnswered && (
                         <button
-                            disabled={!canSubmit && !canCancel}
-                            onClick={isAnswered ? handleCancel : handleSubmit}
-                            style={isAnswered && type === "Learn" ? { backgroundColor: '#dc3545' } : {}}
+                            onClick={handlePostData}
+                            className="quiz__finish-btn"
+                            style={{
+                                backgroundColor: '#f59e0b',
+                                color: 'white',
+                                fontWeight: 'bold'
+                            }}
                         >
-                            {isAnswered && type === "Learn" ? 'Annuler' : 'Soumettre'}
+                            Terminer
                         </button>
+                    )}
+                </div>
 
-                        {allQuestionsAnswered && (
-                            <button
-                                onClick={handlePostData}
-                                className="quiz__finish-btn"
-                                style={{
-                                    backgroundColor: '#f59e0b',
-                                    color: 'white',
-                                    fontWeight: 'bold'
-                                }}
-                            >
-                                Terminer
-                            </button>
-                        )}
-                    </div>
+                <button
+                    disabled={index === totalQuestions - 1}
+                    onClick={goToNext}>
+                    <span className="quiz__nav-text">Suivant</span>
+                    <FontAwesomeIcon icon={faArrowRight} />
+                </button>
+            </section>
 
-                    <button
-                        disabled={index === totalQuestions - 1}
-                        onClick={goToNext}>
-                        <span className="quiz__nav-text">Suivant</span>
-                        <FontAwesomeIcon icon={faArrowRight} />
-                    </button>
-                </section>
+            <DeleteModal
+                visible={showDeleteModal}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => {
+                    setShowDeleteModal(false);
+                    navigate('/pratique');
+                }}
+                message="Veux-tu supprimer les questions dont la réponse est correcte ?"
+                buttonColor="#218838"
+            />
 
-                <DeleteModal
-                    visible={showDeleteModal}
-                    onConfirm={handleConfirmDelete}
-                    onCancel={() => {
-                        setShowDeleteModal(false);
-                        navigate('/pratique');
-                    }}
-                    message="Veux-tu supprimer les questions dont la réponse est correcte ?"
-                    buttonColor="#218838"
-                />
-
-                <DeleteModal
-                    visible={showAuth}
-                    onConfirm={handlePostData}
-                    onCancel={() => setShowAuth(false)}
-                    message="Vous devez vous connecter ou vous inscrire. Ne vous inquiétez pas, nous enregistrerons vos réponses actuelles et vous pourrez voir le résultat après la connexion ou l'inscription."
-                    buttonColor="#218838"
-                    confirmText="Continuer"
-                />
-            </>
-        )
+            <DeleteModal
+                visible={showAuth}
+                onConfirm={handlePostData}
+                onCancel={() => setShowAuth(false)}
+                message="Vous devez vous connecter ou vous inscrire. Ne vous inquiétez pas, nous enregistrerons vos réponses actuelles et vous pourrez voir le résultat après la connexion ou l'inscription."
+                buttonColor="#218838"
+                confirmText="Continuer"
+            />
+        </>
     );
 });
 export default QuizNavigation;

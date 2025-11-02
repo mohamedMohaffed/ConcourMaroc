@@ -1,6 +1,4 @@
 import useQuizActions from '../../hooks/useQuizActions';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './QuizNavigation.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -61,7 +59,9 @@ const QuizNavigation = React.memo(({
                 <button
                     disabled={index === 0}
                     onClick={goToPrevious}>
-                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="18" height="18">
+                        <path d="M257.5 445.1c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L109.3 224H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H109.3l148.2 149.1z"/>
+                    </svg>
                     <span className="quiz__nav-text">Précédent</span>
                 </button>
 
@@ -93,7 +93,9 @@ const QuizNavigation = React.memo(({
                     disabled={index === totalQuestions - 1}
                     onClick={goToNext}>
                     <span className="quiz__nav-text">Suivant</span>
-                    <FontAwesomeIcon icon={faArrowRight} />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="18" height="18">
+                        <path d="M190.5 66.9c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L338.7 288H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h306.7L190.5 66.9z"/>
+                    </svg>
                 </button>
             </section>
 

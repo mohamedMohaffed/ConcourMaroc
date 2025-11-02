@@ -25,7 +25,6 @@ const LatexRenderer = ({ latex }) => {
     <span className="latex-renderer">
       {parts.map((part, idx) => {
         if (part.type === 'latex') {
-          // Remove delimiters for rendering
           const { content } = part;
           if (content.startsWith('$$') && content.endsWith('$$')) {
             return <BlockMath key={idx}>{content.slice(2, -2)}</BlockMath>;

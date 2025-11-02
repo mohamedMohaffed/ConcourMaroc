@@ -1,7 +1,5 @@
 import React, { useMemo, useState} from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
 import './QuizHeader.css';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 import CirclesArray from './components/CirclesArray/CirclesArray';
@@ -44,11 +42,12 @@ const QuizHeader = React.memo(({ subject, universite, year, circlesArray,
                 style={{ display: 'inline-block', cursor: 'pointer' }}
                 onClick={() => setShowDeleteModal(true)}
             >
-                <FontAwesomeIcon 
-                    icon={faArrowLeft} 
-                    className="quiz__go__back-icon"
-                    size="lg"
-                />
+                
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 448 512" width="22" height="22" 
+                className="quiz__go__back-icon">
+                    <path d="M257.5 445.1c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L109.3 224H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H109.3l148.2 149.1z"/>
+                </svg>
             </div>
             <DeleteModal
                 visible={showDeleteModal}

@@ -49,7 +49,6 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
                 subject={subject_slug} 
                 universite={universite_slug} 
                 year={year_slug} 
-                getData={data}
                 circlesArray={circlesArray}
                 changeIndex={setIndex}
                 currentIndex={index}
@@ -59,8 +58,7 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
             />
 
             <QuizItem 
-                data={data}
-                getData={data} 
+                
                 currentQuestion={currentQuestion}
                 userAnser={userAnser}
                 selectedChoice={selectedChoice}
@@ -72,7 +70,6 @@ const Quiz =React.memo(({data,subject_slug,universite_slug,year_slug,type})=>{
                 index={index} 
                 setIndex={setIndex} 
                 totalQuestions={totalQuestions}
-                getData={data}
                 selectedChoice={selectedChoice}
                 setSelectedChoice={setSelectedChoice}
                 setUserAnser={setUserAnser}

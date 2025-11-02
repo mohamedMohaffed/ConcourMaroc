@@ -9,7 +9,8 @@ const useQuizActions = (
         userAnser,
         currentQuestion,
         type,
-        data,
+        questions,
+        concourId,
         navigate,
         setShowDeleteModal,
         setShowAuth
@@ -38,10 +39,10 @@ const useQuizActions = (
         confirmDelete({
             setShowDeleteModal,
             userAnser,
-            data,
-            type,
+            questions,
             setUserAnser,
-            navigate
+            navigate,
+            concourId,
         });
     };
 
@@ -49,10 +50,11 @@ const useQuizActions = (
         postQuizData({
             type,
             userAnser,
-            data,
             navigate,
             setShowDeleteModal,
-            setShowAuth
+            setShowAuth,
+            questions,
+            concour_id: concourId,
         });
     };
 

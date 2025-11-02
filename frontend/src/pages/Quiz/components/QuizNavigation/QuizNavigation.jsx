@@ -8,14 +8,40 @@ import DeleteModal from '../../../../components/DeleteModal/DeleteModal';
 import React from 'react';
 
 const QuizNavigation = React.memo(({
-    index, setIndex, totalQuestions, selectedChoice,
-    setSelectedChoice, setUserAnser, userAnser, currentQuestion, data, type
+    index, setIndex, totalQuestions, 
+    selectedChoice,
+    setSelectedChoice, setUserAnser,
+     userAnser, currentQuestion, data, type
 }) => {
     console.log('QuizNavigations rendered');
 
     const navigate = useNavigate();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showAuth, setShowAuth] = useState(false);
+
+    const commonProps = {
+        selectedChoice,
+        setSelectedChoice,
+        setUserAnser,
+        userAnser,
+        currentQuestion,
+        type,
+        navigate,
+        setShowDeleteModal,
+        setShowAuth
+    };
+
+    const quizActionsProps = type === "Practice"
+        ? {
+            ...commonProps,
+            questions: data?.questions,
+            concourId: data?.id
+        }
+        : {
+            ...commonProps,
+            questions: data?.[0]?.questions,
+            concourId: data?.[0]?.id
+        };
 
     const {
         goToPrevious,
@@ -27,18 +53,7 @@ const QuizNavigation = React.memo(({
         canCancel,
         canSubmit,
         allQuestionsAnswered
-    } = useQuizActions(index, setIndex, totalQuestions, {
-        selectedChoice,
-        setSelectedChoice,
-        setUserAnser,
-        userAnser,
-        currentQuestion,
-        type,
-        data,
-        navigate,
-        setShowDeleteModal,
-        setShowAuth
-    });
+    } = useQuizActions(index, setIndex, totalQuestions, quizActionsProps);
 
     const isAnswered = userAnser.some(ans => ans.question_id === currentQuestion?.id);
 

@@ -45,20 +45,6 @@ const QuizHeader = React.memo(({ subject, universite,year, circlesArray,
         ? data.questions[currentIndex].incorrect_answer_count || 0
         : 0;
 
-    const getCircleClassName = (questionIndex) => {
-        let className = `quiz__header-circle ${currentIndex === questionIndex ? 'selected' : ''}`;
-        
-        if (isQuestionSubmitted(questionIndex)) {
-            if (type === "Practice") {
-                className += isAnswerCorrect(questionIndex) ? ' correct' : ' incorrect';
-            } else {
-                className += ' submitted';
-            }
-        }
-        return className;
-    };
-
-
 //---------------------------------
     return (
         <div className="quiz__header">
@@ -100,8 +86,9 @@ const QuizHeader = React.memo(({ subject, universite,year, circlesArray,
                     questionsArray={questionsArray}
                     currentIndex={currentIndex}
                     isQuestionSubmitted={isQuestionSubmitted}
-                    getCircleClassName={getCircleClassName}
+                    isAnswerCorrect={isAnswerCorrect}
                     changeIndex={changeIndex}
+                    type={type}
                 />
                 
             </div>

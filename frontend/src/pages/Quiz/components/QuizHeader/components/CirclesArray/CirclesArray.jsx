@@ -1,5 +1,5 @@
 const CirclesArray = ({circlesArray,questionsArray,
-    currentIndex,isQuestionSubmitted,changeIndex,getCircleClassName}) => {
+    currentIndex,isQuestionSubmitted,changeIndex,isAnswerCorrect,type}) => {
     
     console.log("CirclesArray renders ")
     return(
@@ -27,7 +27,13 @@ const CirclesArray = ({circlesArray,questionsArray,
                     return (
                         <div
                             key={circleIndex}
-                            className={getCircleClassName(circleIndex)}
+                            className={`quiz__header-circle ${currentIndex === circleIndex ? 'selected' : ''} ${
+                                isQuestionSubmitted(circleIndex)
+                                    ? type === "Practice"
+                                        ? isAnswerCorrect(circleIndex) ? 'correct' : 'incorrect'
+                                        : 'submitted'
+                                    : ''
+                            }`}
                             onClick={() => changeIndex(circleIndex)}
                             style={Object.keys(style).length ? style : undefined}
                         >

@@ -5,7 +5,6 @@ import { BlockMath, InlineMath } from 'react-katex';
 const LatexRenderer = ({ latex }) => {
   if (!latex) return null;
 
-  // Split text into LaTeX and non-LaTeX parts
   const parts = [];
   let lastIndex = 0;
   const regex = /(\$\$[\s\S]+?\$\$|\$[\s\S]+?\$|\\\([\s\S]+?\\\)|\\\[[\s\S]+?\\\])/g;

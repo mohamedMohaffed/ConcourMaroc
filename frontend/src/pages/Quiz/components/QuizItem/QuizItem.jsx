@@ -79,12 +79,11 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                             onClick={() => setShowContext(true)}
                             style={{
                                 cursor: 'pointer',
-                                color: contextColor,
                                 border: `2px solid ${contextColor}`,
                             }}
                         >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="20" height="20">
-                                <path d="M384 128C384 145.7 369.7 160 352 160L128 160C110.3 160 96 145.7 96 128C96 110.3 110.3 96 128 96L352 96C369.7 96 384 110.3 384 128zM384 384C384 401.7 369.7 416 352 416L128 416C110.3 416 96 401.7 96 384C96 366.3 110.3 352 128 352L352 352C369.7 352 384 366.3 384 384zM96 256C96 238.3 110.3 224 128 224L512 224C529.7 224 544 238.3 544 256C544 273.7 529.7 288 512 288L128 288C110.3 288 96 273.7 96 256zM544 512C544 529.7 529.7 544 512 544L128 544C110.3 544 96 529.7 96 512C96 494.3 110.3 480 128 480L512 480C529.7 480 544 494.3 544 512z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="26" height="26">
+                                <path fill={contextColor} d="M384 128C384 145.7 369.7 160 352 160L128 160C110.3 160 96 145.7 96 128C96 110.3 110.3 96 128 96L352 96C369.7 96 384 110.3 384 128zM384 384C384 401.7 369.7 416 352 416L128 416C110.3 416 96 401.7 96 384C96 366.3 110.3 352 128 352L352 352C369.7 352 384 366.3 384 384zM96 256C96 238.3 110.3 224 128 224L512 224C529.7 224 544 238.3 544 256C544 273.7 529.7 288 512 288L128 288C110.3 288 96 273.7 96 256zM544 512C544 529.7 529.7 544 512 544L128 544C110.3 544 96 529.7 96 512C96 494.3 110.3 480 128 480L512 480C529.7 480 544 494.3 544 512z"/>
                             </svg>
                         </span>
                     }
@@ -145,14 +144,15 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                             <button className="quizitem__context-modal-close" 
                                 onClick={() => setShowContext(false)}
                                 style={{ 
-                                    color: contextColor, 
                                     background: 'transparent', 
-                                    border: 'none' 
-                                }}
-                            >
+                                    border: 'none',
+                                    display: 'flex',
+                                    cursor: 'pointer',
+                                    alignItems: 'center', 
+                                    justifyContent: 'center' }}>
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 352 512" width="18" height="18">
-                                    <path d="M242.7 256l100.1-100.1c12.3-12.3 12.3-32.2 0-44.5s-32.2-12.3-44.5 0L198.2 211.5 98.1 111.4c-12.3-12.3-32.2-12.3-44.5 0s-12.3 32.2 0 44.5L153.7 256 53.6 356.1c-12.3 12.3-12.3 32.2 0 44.5s32.2 12.3 44.5 0l100.1-100.1 100.1 100.1c12.3 12.3 32.2 12.3 44.5 0s12.3-32.2 0-44.5L242.7 256z"/>
+                                    viewBox="0 0 352 512" width="26" height="26">
+                                    <path fill={contextColor} d="M242.7 256l100.1-100.1c12.3-12.3 12.3-32.2 0-44.5s-32.2-12.3-44.5 0L198.2 211.5 98.1 111.4c-12.3-12.3-32.2-12.3-44.5 0s-12.3 32.2 0 44.5L153.7 256 53.6 356.1c-12.3 12.3-12.3 32.2 0 44.5s32.2 12.3 44.5 0l100.1-100.1 100.1 100.1c12.3 12.3 32.2 12.3 44.5 0s12.3-32.2 0-44.5L242.7 256z"/>
                                 </svg>
                             </button>
                             <div className="quizitem__context-modal-body" style={ contextColor ? { color: '#777777' } : undefined }>

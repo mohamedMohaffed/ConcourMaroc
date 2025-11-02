@@ -39,14 +39,15 @@ const QuizHeader = React.memo(({ subject, universite, year, circlesArray,
         <div className="quiz__header">
             <div className="quiz__header-info">
             <div
-                style={{ display: 'inline-block', cursor: 'pointer' }}
-                onClick={() => setShowDeleteModal(true)}
-            >
-                
-                <svg xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 448 512" width="22" height="22" 
-                className="quiz__go__back-icon">
-                    <path d="M257.5 445.1c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L109.3 224H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H109.3l148.2 149.1z"/>
+               style={{
+                display: 'flex',
+                cursor: 'pointer',
+                alignItems: 'center', 
+                justifyContent: 'center' 
+                }}
+                onClick={() => setShowDeleteModal(true)}>
+                <svg xmlns="http://www.w3.org/2000/svg" height="26" width="26" viewBox="0 0 640 640" className="quiz__go__back-icon">
+                    <path fill="currentColor" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z"/>
                 </svg>
             </div>
             <DeleteModal

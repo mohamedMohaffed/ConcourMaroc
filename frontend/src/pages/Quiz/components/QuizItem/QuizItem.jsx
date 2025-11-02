@@ -3,8 +3,8 @@ import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { motion } from 'framer-motion';
 
 const API_BASE_URL = "http://localhost:8000"; 
 
@@ -24,9 +24,8 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
         } else {
             setShowContext(false);
         }
-    }, [currentQuestion?.id]);
+    }, [currentQuestion?.id,currentQuestion?.exercice_context?.context_text]);
 
-    // Replace cthe generated color logic with backend hex_color
     const contextColor = useMemo(() => {
         return currentQuestion?.exercice_context?.hex_color;
     }, [currentQuestion?.exercice_context?.hex_color]);
@@ -58,44 +57,6 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
         }
     }
 
-    const getChoiceClassName = (choice) => {
-        let className = "choice";
-        
-        if (type === "Practice" && isSubmitted) {
-            if (choice.is_correct) {
-                className += " choice__correct";
-            } else if (selectedChoice === choice.id) {
-                className += " choice__incorrect";
-            }
-            className += " choice__disabled";
-        } else {
-            // Normal selection styling
-            if (selectedChoice === choice.id) {
-                className += " choice__selected";
-            }
-            if (isSubmitted && type === "Learn") {
-                className += " choice__disabled";
-            }
-        }
-        
-        return className;
-    };
-
-    const getLabelClassName = (choice) => {
-        let className = "quizitem__choices-label";
-        
-        if (type === "Practice" && isSubmitted) {
-            if (choice.is_correct) {
-                className += " quizitem__choices-label--correct";
-            } else if (selectedChoice === choice.id) {
-                className += " quizitem__choices-label--incorrect";
-            }
-        } else if (selectedChoice === choice.id) {
-            className += " quizitem__choices-label--selected";
-        }
-        
-        return className;
-    };
       
     useEffect(() => {
         const handleShortcut = (e) => {
@@ -109,7 +70,8 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
         window.addEventListener('keydown', handleShortcut);
         return () => window.removeEventListener('keydown', handleShortcut);
     }, [currentQuestion]);
-
+    
+//----------------------
     return (
         currentQuestion && (
             <section className="quizitem">
@@ -135,10 +97,30 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                     {currentQuestion.choices?.map((choice, choiceIndex) => (
                         <div 
                             key={choice.id} 
-                            className={getChoiceClassName(choice)}
+                            className={`choice ${
+                                type === "Practice" && isSubmitted 
+                                    ? choice.is_correct 
+                                        ? "choice__correct choice__disabled" 
+                                        : selectedChoice === choice.id 
+                                            ? "choice__incorrect choice__disabled" 
+                                            : "choice__disabled"
+                                    : selectedChoice === choice.id 
+                                        ? "choice__selected" 
+                                        : ""
+                            } ${isSubmitted && type === "Learn" ? "choice__disabled" : ""}`}
                             onClick={() => handleChoice(choice.id)}
                         >
-                            <div className={getLabelClassName(choice)}>
+                            <div className={`quizitem__choices-label ${
+                                type === "Practice" && isSubmitted
+                                    ? choice.is_correct
+                                        ? "quizitem__choices-label--correct"
+                                        : selectedChoice === choice.id
+                                            ? "quizitem__choices-label--incorrect"
+                                            : ""
+                                    : selectedChoice === choice.id
+                                        ? "quizitem__choices-label--selected"
+                                        : ""
+                            }`}>
                                 {String.fromCharCode(65 + choiceIndex)}
                             </div>
                             <div className="choice-content">

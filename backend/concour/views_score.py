@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import UserAnswer,Choice,Score
 # from .serializers import UserAnswerCreateSerializer
-from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from datetime import timedelta
 from .serializers_US import ( UserAnswerCreateSerializer, ScoreSerializer, AllScoresSerializer)

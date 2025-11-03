@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import (Concours,UserAnswer,Score)
-from .serializers import ConcourSerializer
 
 
 class UserAnswerCreateSerializer(serializers.ModelSerializer):
@@ -36,9 +35,18 @@ class ScoreSerializer(serializers.ModelSerializer):
         model = Score
         fields = '__all__'
 
+class ConcoursDashboardSerializer(serializers.ModelSerializer):
+    subject = serializers.CharField(source='subject.name', read_only=True)
+    year = serializers.IntegerField(source='subject.year.year', read_only=True)
+    university = serializers.CharField(source='subject.year.university.name', read_only=True)
+
+    class Meta:
+        model = Concours
+        fields = ['subject', 'year', 'university']
+
 class AllScoresSerializer(serializers.ModelSerializer):
-    concours = ConcourSerializer(read_only=True)
-    
+    concours = ConcoursDashboardSerializer(read_only=True)
+
     class Meta:
         model = Score
-        fields = '__all__'
+        fields = ['id', 'score', 'time_spent', 'created_at', 'concours']

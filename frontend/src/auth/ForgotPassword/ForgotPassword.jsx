@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { motion } from 'framer-motion';
 import axiosInstance from '../../utils/axiosInstance';
 import Loading from "../../components/Loading/Loading";
 import blackImage from '../../assets/imgGirl.jpeg';

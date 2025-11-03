@@ -21,7 +21,6 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     const [activeTab, setActiveTab] = useState("graph");
     const [currentPage, setCurrentPage] = useState(0);
     const [filters, setFilters] = useState({
-        level: '',
         university: '',
         year: '',
         subject: ''
@@ -35,44 +34,38 @@ const DashboardNavbar = ({ scores: initialScores }) => {
         const subjects = new Set();
         const universities = new Set();
         const years = new Set();
-        const levels = new Set();
 
         scores.forEach(score => {
             const subject = score.concours?.subject;
-            const year = subject?.year;
-            const university = year?.university;
-            const level = university?.level;
+            const university = score.concours?.university;
+            const year = score.concours?.year;
 
-            if (subject?.name) subjects.add(subject.name);
-            if (university?.name) universities.add(university.name);
-            if (year?.year) years.add(year.year);
-            if (level?.name) levels.add(level.name);
+            if (subject) subjects.add(subject);
+            if (university) universities.add(university);
+            if (year) years.add(year);
         });
 
         return {
             subject: [...subjects],
             university: [...universities],
-            year: [...years].sort((a, b) => b - a),
-            level: [...levels]
+            year: [...years].sort((a, b) => b - a)
         };
     }, [scores]);
 
     const groupedScores = useMemo(() => {
         const filtered = scores?.filter(score => {
             const subject = score.concours?.subject;
-            const year = subject?.year;
-            const university = year?.university;
-            const level = university?.level;
+            const university = score.concours?.university;
+            const year = score.concours?.year;
 
-            return (!filters.level || level?.name === filters.level) &&
-                   (!filters.university || university?.name === filters.university) &&
-                   (!filters.year || Number(year?.year) === Number(filters.year)) &&
-                   (!filters.subject || subject?.name === filters.subject);
+            return (!filters.university || university === filters.university) &&
+                   (!filters.year || Number(year) === Number(filters.year)) &&
+                   (!filters.subject || subject === filters.subject);
         });
 
         const groups = {};
         filtered?.forEach(score => {
-            const key = `${score.concours?.subject?.year?.university?.level?.name}-${score.concours?.subject?.year?.university?.name}-${score.concours?.subject?.name}-${score.concours?.subject?.year?.year}`;
+            const key = `${score.concours?.university}-${score.concours?.subject}-${score.concours?.year}`;
             if (!groups[key]) {
                 groups[key] = [];
             }
@@ -90,9 +83,9 @@ const DashboardNavbar = ({ scores: initialScores }) => {
 
     const rows = scores?.map((score, idx) => ({
         id: score.id || score.pk || idx, 
-        subject: score.concours?.subject?.name,
-        university: score.concours?.subject?.year?.university?.name,
-        year: score.concours?.subject?.year?.year,
+        subject: score.concours?.subject,
+        university: score.concours?.university,
+        year: score.concours?.year,
         score: score.score,
         time_spent: score.time_spent?.split('.')[0] || '',
         created_at: new Date(score.created_at).toLocaleString()

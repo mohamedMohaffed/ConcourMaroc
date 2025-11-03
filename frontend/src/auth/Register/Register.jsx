@@ -3,11 +3,8 @@ import axiosInstance from '../../utils/axiosInstance';
 import './Register.css';
 import blackImage from '../../assets/imgGirl.jpeg';
 import { motion } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Loading from "../../components/Loading/Loading";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { submitPendingQuizAnswers } from '../../utils/submitPendingQuizAnswers';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -19,7 +16,6 @@ const Register = () => {
   const [msg, setMsg] = useState('');
   const [msgType, setMsgType] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

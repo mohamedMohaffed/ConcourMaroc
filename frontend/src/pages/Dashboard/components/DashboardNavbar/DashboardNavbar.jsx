@@ -2,8 +2,6 @@ import { useState, useMemo } from 'react';
 import {Chart as ChartJS,CategoryScale,LinearScale,PointElement,LineElement,Title,Tooltip,Legend,} from 'chart.js';
 import './DashboardNavbar.css';
 import axiosInstance from '../../../../utils/axiosInstance';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal'; // Add import
 import Filters from '../../components/Filters';
 import GraphPanel from '../../components/GraphPanel';

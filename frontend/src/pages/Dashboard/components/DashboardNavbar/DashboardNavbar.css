@@ -124,6 +124,15 @@ background: none;
     color: #CC0000;
 }
 
+.delete-score-btn .fa-trash path {
+    transition: fill 0.2s;
+    fill: #777777;
+}
+
+.delete-score-btn:hover .fa-trash path {
+    fill: #CC0000;
+}
+
 @media (max-width: 48em) {
     .dashboard__title {
         padding: 1rem;

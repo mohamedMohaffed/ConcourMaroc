@@ -15,8 +15,6 @@
     letter-spacing: -0.03125rem;
     line-height: 1;
     font-size: 2.25rem;
-    /* color: #FF6F61; */
-    /* color: #21D375; */
     color:#777777;
 }
 .navbar__logo--go {
@@ -85,8 +83,7 @@
     text-overflow: unset;
     flex: 1 1 auto;
     min-width: 0;
-    /* font-weight: 525; */
-      font-weight: 550;
+    font-weight: 550;
 }
 .navbar__item-name--active {
     color: #74C0FC;

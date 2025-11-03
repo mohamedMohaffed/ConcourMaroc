@@ -1,5 +1,7 @@
 
 const HistoryTable = ({ rows = [], currentPage = 0, setCurrentPage, totalPages = 1, onRequestDelete }) => {
+    console.log("Histy table  render ")
+
     return (
         <div className="table-wrapper">
             <table className="dashboard-table">

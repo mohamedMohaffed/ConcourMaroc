@@ -4,7 +4,7 @@ import './DashboardNavbar.css';
 import axiosInstance from '../../../../utils/axiosInstance';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal'; // Add import
 import Filters from '../../components/Filters';
-import GraphPanel from '../../components/GraphPanel';
+import GraphPanel from '../GraphPanel/GraphPanel';
 import HistoryTable from '../../components/HistoryTable';
 
 ChartJS.register(
@@ -18,6 +18,7 @@ ChartJS.register(
 );
 
 const DashboardNavbar = ({ scores: initialScores }) => {
+    console.log("DashboardNavbar render ")
     const [activeTab, setActiveTab] = useState("graph");
     const [currentPage, setCurrentPage] = useState(0);
     const [filters, setFilters] = useState({
@@ -82,7 +83,7 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     const pageSize = 5;
 
     const rows = scores?.map((score, idx) => ({
-        id: score.id || score.pk || idx, 
+        id: score.id , 
         subject: score.concours?.subject,
         university: score.concours?.university,
         year: score.concours?.year,
@@ -127,7 +128,7 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                     className={activeTab === "history" ? "dashboard__tab--active" : "dashboard__tab"}
                     onClick={() => setActiveTab("history")}
                 >
-                    History
+                    Historique
                 </div>
             </div>
 
@@ -160,9 +161,9 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                     setShowDeleteModal(false);
                     setDeleteRowIdx(null);
                 }}
-                message="Are you sure you want to delete this score?"
+                message="Êtes-vous sûr de vouloir supprimer ce score ?"
                 buttonColor="#e74c3c"
-                confirmText="Delete"
+                confirmText="Supprimer"
             />
         </div>
     );

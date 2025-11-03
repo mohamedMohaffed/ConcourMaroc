@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-import { parseTimeToSeconds, formatSecondsToHMS } from './timeUtils';
+import { parseTimeToSeconds, formatSecondsToHMS } from '../timeUtils';
+import './GraphPanel.css'
 
 const GraphPanel = ({ groupedScores = {}, chartMetric, setChartMetric }) => {
     const chartData = useMemo(() => {
@@ -77,38 +78,23 @@ const GraphPanel = ({ groupedScores = {}, chartMetric, setChartMetric }) => {
     }, [chartMetric]);
 
     return (
-        <div className="dashboard__graph" style={{ height: '500px' }}>
-            <div style={{ marginBottom: 8 }}>
+        <div className="dashboard__graph">
+            <div className="dashboard__graph-buttons">
                 <button
                     onClick={() => setChartMetric('score')}
-                    style={{
-                        marginRight: 8,
-                        padding: '6px 10px',
-                        background: chartMetric === 'score' ? '#2c7be5' : '#eee',
-                        color: chartMetric === 'score' ? '#fff' : '#000',
-                        border: 'none',
-                        borderRadius: 4,
-                        cursor: 'pointer'
-                    }}
+                    className={`dashboard__graph-button${chartMetric === 'score' ? ' active' : ''}`}
                 >
                     Score
                 </button>
                 <button
                     onClick={() => setChartMetric('time')}
-                    style={{
-                        padding: '6px 10px',
-                        background: chartMetric === 'time' ? '#2c7be5' : '#eee',
-                        color: chartMetric === 'time' ? '#fff' : '#000',
-                        border: 'none',
-                        borderRadius: 4,
-                        cursor: 'pointer'
-                    }}
+                    className={`dashboard__graph-button${chartMetric === 'time' ? ' active' : ''}`}
                 >
                     Time Spent
                 </button>
             </div>
 
-            <div style={{ height: '100%' }}>
+            <div className="dashboard__graph-chart">
                 <Line data={chartData} options={chartOptions} />
             </div>
         </div>

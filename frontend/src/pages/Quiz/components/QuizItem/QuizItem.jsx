@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
-import { motion } from 'framer-motion';
 
 const API_BASE_URL = "http://localhost:8000"; 
 

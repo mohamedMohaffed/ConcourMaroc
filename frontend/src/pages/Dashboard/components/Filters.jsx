@@ -1,6 +1,7 @@
-import React from 'react';
 
 const Filters = ({ filterOptions = {}, filters, setFilters }) => {
+    console.log("filter render ")
+
     return (
         <>
             {Object.entries(filterOptions).map(([key, options]) => (

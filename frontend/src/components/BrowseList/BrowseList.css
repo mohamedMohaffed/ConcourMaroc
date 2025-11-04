@@ -76,6 +76,11 @@
     align-items :center ;
 }
 
+.error{
+      color : #777777;
+  display : flex;
+  justify-content : center ;
+}
 
 @media (max-width: 48em) {
     .browse-list{

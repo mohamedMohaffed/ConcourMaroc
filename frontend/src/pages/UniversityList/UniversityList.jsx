@@ -18,6 +18,7 @@ const UniversityList = () => {
     ];
 
     return (
+        
         <BrowseList 
             title="Choisir votre université d'entrée"
             titleMobile="Choisir Université"

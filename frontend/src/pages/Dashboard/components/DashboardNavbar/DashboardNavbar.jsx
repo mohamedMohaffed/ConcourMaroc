@@ -31,6 +31,19 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     const [deleteRowIdx, setDeleteRowIdx] = useState(null);
     const [chartMetric, setChartMetric] = useState('score'); 
 
+    // Filtered scores for both graph and table
+    const filteredScores = useMemo(() => {
+        return scores?.filter(score => {
+            const subject = score.concours?.subject;
+            const university = score.concours?.university;
+            const year = score.concours?.year;
+
+            return (!filters.university || university === filters.university) &&
+                   (!filters.year || Number(year) === Number(filters.year)) &&
+                   (!filters.subject || subject === filters.subject);
+        }) || [];
+    }, [scores, filters]);
+
     const filterOptions = useMemo(() => {
         const subjects = new Set();
         const universities = new Set();
@@ -53,19 +66,10 @@ const DashboardNavbar = ({ scores: initialScores }) => {
         };
     }, [scores]);
 
+    // Use filteredScores for graph grouping
     const groupedScores = useMemo(() => {
-        const filtered = scores?.filter(score => {
-            const subject = score.concours?.subject;
-            const university = score.concours?.university;
-            const year = score.concours?.year;
-
-            return (!filters.university || university === filters.university) &&
-                   (!filters.year || Number(year) === Number(filters.year)) &&
-                   (!filters.subject || subject === filters.subject);
-        });
-
         const groups = {};
-        filtered?.forEach(score => {
+        filteredScores.forEach(score => {
             const key = `${score.concours?.university}-${score.concours?.subject}-${score.concours?.year}`;
             if (!groups[key]) {
                 groups[key] = [];
@@ -76,13 +80,13 @@ const DashboardNavbar = ({ scores: initialScores }) => {
                 time_spent: score.time_spent?.split?.('.') ? score.time_spent.split('.')[0] : (score.time_spent || '')
             });
         });
-
         return groups;
-    }, [scores, filters]);
+    }, [filteredScores]);
 
     const pageSize = 5;
 
-    const rows = scores?.map((score, idx) => ({
+    // Use filteredScores for table rows
+    const rows = filteredScores.map((score, idx) => ({
         id: score.id , 
         subject: score.concours?.subject,
         university: score.concours?.university,

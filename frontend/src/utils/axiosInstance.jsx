@@ -47,7 +47,7 @@ axiosInstance.interceptors.response.use(
     isLoggedIn
  */
 export async function isLoggedIn({ skipRedirect = false } = {}) {
-    console.log('isLoggedIn called');
+    // console.log('isLoggedIn called');
     try {
         await axiosInstance.get('/accounts/api/current_user/', { skipAuthRedirect: skipRedirect });
         return true;

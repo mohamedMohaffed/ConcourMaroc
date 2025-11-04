@@ -1,3 +1,4 @@
+import React from 'react';
 
 const Filters = ({ filterOptions = {}, filters, setFilters }) => {
     console.log("filter render ")
@@ -25,4 +26,4 @@ const Filters = ({ filterOptions = {}, filters, setFilters }) => {
     );
 };
 
-export default Filters;
+export default React.memo(Filters);

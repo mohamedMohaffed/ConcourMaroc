@@ -5,7 +5,7 @@ import './Dashboard.css'
 
 const Dashboard = () => {
     const { data: scores, error, loading } = useApi("/concour/all-user-scores/");
-    console.log("sss",scores);
+    // console.log("sss",scores);
     
     return (
         <section 

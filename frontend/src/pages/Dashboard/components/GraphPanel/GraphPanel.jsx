@@ -4,6 +4,7 @@ import { parseTimeToSeconds, formatSecondsToHMS } from '../timeUtils';
 import './GraphPanel.css'
 
 const GraphPanel = ({ groupedScores = {}, chartMetric, setChartMetric }) => {
+    console.log("graphPanel ...")
     const chartData = useMemo(() => {
         const allDatesSet = new Set();
         const datasets = Object.entries(groupedScores).map(([key, data], index) => {

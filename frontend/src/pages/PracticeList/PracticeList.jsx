@@ -15,9 +15,19 @@ const PracticeList = () => {
                     ractice List
                 </h1>
             </div>
-            <div
-                className="practice-list__items">
-                {loading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Loading/></div>}
+            <div className="practice-list__items">
+                 {loading && (
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '62vh',
+                        overflow: "hidden",
+
+                    }}>
+                            <Loading />
+                    </div>
+                )}
                 {error && <div>{error.message}</div>}
                 {data && data.length === 0 && (
                     <div className="practice-list__empty">

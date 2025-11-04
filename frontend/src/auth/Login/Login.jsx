@@ -118,8 +118,8 @@ const Login = () => {
             </motion.label>
           </div>
 
-          <Link to="/mot-de-passe-oublie" className="login__forgot-password">
-            Vous avez oublié votre mot de passe?
+          <Link to="/mot-de-passe-oublie" >
+            <p className="login__forgot-password" >Vous avez oublié votre mot de passe?</p>
           </Link>
           
           <button type="submit" className="login__btn" disabled={loading}>Se connecter</button>

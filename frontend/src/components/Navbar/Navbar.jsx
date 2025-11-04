@@ -52,19 +52,22 @@ const Navbar = () => {
   const location = useLocation();
   const [plusHover, setPlusHover] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userLoaded, setUserLoaded] = useState(false);
 
   React.useEffect(() => {
-    isLoggedIn({ skipRedirect: true }).then(setUserLoggedIn);
+    isLoggedIn({ skipRedirect: true }).then((loggedIn) => {
+      setUserLoggedIn(loggedIn);
+      setUserLoaded(true);
+    });
     // console.log('isLoggedIn called');
 
   }, []);
 
-  // Replace icon property with SVG components
-  const navbarItems = [
+  // Remove CONNEXION from default items
+  const navbarItemsBase = [
     { name: "CONCOURS", mobileName: "CONCOURS", icon: BookIcon, to: "/concours/Bac/universites" },
     { name: "MON SCORE", mobileName: "SCORE", icon: GaugeIcon, to: "/tableau-de-bord" },
     { name: "PRATIQUE", mobileName: "PRATIQUE", icon: DumbbellIcon, to: "/pratique " },
-    { name: "CONNEXION", mobileName: "CONNEXION", icon: RightToBracketIcon, to: "/connexion" },
     { name: "PLUS", mobileName: "PLUS", icon: EllipsisIcon }
   ];
 
@@ -74,16 +77,18 @@ const Navbar = () => {
     { name: "DÉCONNEXION", mobileName: "DÉCONNEXION", icon: RightFromBracketIcon, to: "/deconnexion"}
   ];
 
-  const activeIndex = navbarItems.findIndex(item => { 
+  const activeIndex = navbarItemsBase.findIndex(item => { 
     if (item.name === "CONCOURS") {
       return location.pathname.startsWith("/concours");
     }
     return item.to === "/" ? location.pathname === "/" : location.pathname.startsWith(item.to.trim());
   });
 
-  const filteredNavbarItems = userLoggedIn
-    ? navbarItems.filter(item => item.name !== "CONNEXION")
-    : navbarItems;
+  // Add CONNEXION only after userLoaded and user is not logged in
+  let filteredNavbarItems = [...navbarItemsBase];
+  if (userLoaded && !userLoggedIn) {
+    filteredNavbarItems.splice(3, 0, { name: "CONNEXION", mobileName: "CONNEXION", icon: RightToBracketIcon, to: "/connexion" });
+  }
 
   const filteredPlusDropdownItems = userLoggedIn
     ? plusDropdownItems
@@ -162,7 +167,6 @@ const Navbar = () => {
                     >
                       <div className="navbar__item">
                         <div className="navbar__item-img">
-                          {/* Pass color prop to icon */}
                           {React.createElement(dropItem.icon, { color: "#777777" })}
                         </div>
                         <div className="navbar__item-name">

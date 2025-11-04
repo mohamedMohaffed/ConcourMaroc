@@ -13,7 +13,18 @@ const Dashboard = () => {
         className="dashboard">
             <h1 className="dashboard__title">
                 <span className="browse-list__title--first-letter">T</span>ableau de bord</h1>
-            {loading && <div><Loading/></div>}
+             {loading && (
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '62vh',
+                        overflow: "hidden",
+
+                    }}>
+                            <Loading />
+                    </div>
+                )}
 
             {!loading && error && <div className="dashboard__error">{error.message}</div>}
 

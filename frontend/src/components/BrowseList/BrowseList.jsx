@@ -50,8 +50,18 @@ const BrowseList = ({
             </div>
 
             <div className="browse-list__items">
-                {loading && <div style={{ display: 'flex', justifyContent: 'center', 
-                    alignItems: 'center' }}><Loading/></div>}
+                {loading && (
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '62vh',
+                        overflow: "hidden",
+
+                    }}>
+                            <Loading />
+                    </div>
+                )}
                 {error && <p className="error">Error: {error.message}</p>}
                 {items &&
                     items.map((item) => renderItem(item, item[itemKey]))}

@@ -179,6 +179,9 @@
   border: 1px solid #1CB0F6;
 }
 
+.login__forgot-password{
+  color : #777777;
+}
 @media (max-width: 48em) {
   .login {
     display: flex;

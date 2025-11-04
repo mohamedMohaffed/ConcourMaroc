@@ -72,7 +72,18 @@ const SubjectsList = () => {
             </div>
 
             <div className="subjects-list__items">
-                {loading && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Loading/></div>}
+                 {loading && (
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '62vh',
+                        overflow: "hidden",
+
+                    }}>
+                            <Loading />
+                    </div>
+                )}
                 {error && <p className="error">Error: {error.message}</p>}
                 <AnimatePresence mode="popLayout">
                     {data && data

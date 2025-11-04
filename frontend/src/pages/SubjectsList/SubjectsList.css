@@ -110,6 +110,11 @@
 
 }
 
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 48em) {
     .subjects-list{
         display: flex;

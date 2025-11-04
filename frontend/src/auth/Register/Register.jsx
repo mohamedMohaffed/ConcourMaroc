@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 import './Register.css';
-import blackImage from '../../assets/imgGirl.jpeg';
+import blackImage from '../../assets/imgGirl.webp';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Loading from "../../components/Loading/Loading";

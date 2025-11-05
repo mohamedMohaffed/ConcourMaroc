@@ -66,8 +66,7 @@ const QuizHeader = React.memo(({ subject, universite, year, circlesArray,
             <h3 className="quiz_title">
                 <span className="quiz_title-prefix">Concours de</span> ({subject}-{universite}-{year})
             </h3>
-            <div className="quiz_title-phone">{universite} ({year}) 
-            </div>
+            <div className="quiz_title-phone">{subject}-{universite}-{year}</div>
             </div>
 
             <div className="quiz_header-navigation">

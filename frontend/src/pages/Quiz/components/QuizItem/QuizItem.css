@@ -212,13 +212,13 @@
   position: static;
   background: none;
   border: none;
-  font-size: 1.4rem; /* Reduce icon size */
+  font-size: 1.4rem; 
   color: #64748b;
   cursor: pointer;
   z-index: 2;
   line-height: 1;
   margin-bottom: 0.2rem;
-  padding: 0.1rem 0.2rem 0 0.2rem; /* Reduce padding for less height */
+  padding: 0.1rem 0.2rem 0 0.2rem; 
 }
 
 .quizitem__context-modal-body {
@@ -251,33 +251,29 @@
   }
 
   .quizitem .quizitem__question {
-    font-size: 1.05rem; /* slightly bigger font */
-    padding: 0.9rem 0.5rem; /* slightly more padding */
-    min-height: 2.8rem; /* slightly more height */
+    font-size: 1.05rem; 
+    padding: 0.9rem 0.5rem; 
+    min-height: 2.8rem; 
     max-height: none;
     line-height: 1.15;
     flex-shrink: 0;
   }
 
   .quizitem .quizitem__choices {
-    grid-template-columns: 1fr;
-    padding: 0.22rem 0.22rem 0.5rem 0.22rem; /* less padding */
-    gap: 0.15rem; /* less gap */
-    flex: 1;
-    overflow: auto;
+     grid-template-columns: 1fr;
+     padding: 0.22rem 0.22rem 0rem 0.22rem; 
+     flex: 1;
+     gap: 0 !important;
   }
 
   .quizitem .choice {
-    padding: 0.13rem; 
-    min-height: 1.1rem; 
+    padding: 0.13rem ; 
+    height: 0.5rem; 
     border-radius: 4px;
     position: relative;
     font-size: 1.2rem; 
   }
 
-  .choice::before {
-    display: none;
-  }
 
   .quizitem .choice-content {
     padding-left: 1rem;
@@ -296,100 +292,7 @@
   }
 
   .quizitem__context-modal-content {
-    width: 90vw; /* <-- update this if you want a fixed width on tablets */
-    max-width: 600px; /* <-- match desktop max-width if desired */
-  }
-}
-
-@media (max-width: 30em) { /* ~480px - phone styles */
-  .quizitem__context-modal {
-    align-items: flex-end; /* place modal at bottom like a sheet */
-    padding: 0;
-    background: rgba(30,41,59,0.45); /* slightly darker overlay on phones */
-  }
-
-  .quizitem__context-modal-content {
-    width: 100vw;
-    max-width: 100vw;
-    border-radius: 12px 12px 0 0; /* rounded top only */
-    max-height: 90vh;
-    height: auto;
-    margin: 0;
-    padding: 0.75rem 0.75rem 0.5rem 0.75rem;
-    box-shadow: 0 -8px 32px rgba(0,0,0,0.18);
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    border-top: 2px solid #3b82f6; /* visual handle */
-    cursor: default; /* disable drag cursor feel on phones */
-  }
-
-  .quizitem__context-modal-content:active {
-    cursor: default;
-  }
-
-  .quizitem__context-modal-close {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    background: rgba(255,255,255,0.02);
-    padding: 6px;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    color: #475569;
-  }
-
-  .quizitem__context-modal-body {
-    overflow-y: auto;
-    max-height: calc(90vh - 48px); /* leave space for header/close */
-    padding-top: 1.2rem;
-    padding-bottom: 1rem;
-    text-align: left;
-  }
-
-  /* optional: increase the tappable area for labels/close on very small phones */
-  .quizitem__context-modal-close:focus,
-  .quizitem__context-modal-close:hover {
-    outline: none;
-    box-shadow: 0 2px 8px rgba(59,130,246,0.12);
-  }
-
-  /* make the question icon a larger, touch-friendly target on phones */
-  .quizitem__question-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 40px;    
-    height: 40px;
-    padding: 0.25rem;   
-    font-size: 1.05rem;
-    border-radius: 8px;
-    border-width: 1.5px;
-    border-style: solid;
-    box-sizing: border-box;
-    margin-right: 0.5rem;
-    background: transparent;
-    cursor: pointer;
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
-  }
-
-  /* style the inner SVG from FontAwesome (keeps icon crisp) */
-  .quizitem__question-icon svg {
-    width: 1.05rem;
-    height: 1.05rem;
-    display: block;
-  }
-
-  /* touch feedback */
-  .quizitem__question-icon:active,
-  .quizitem__question-icon:focus {
-    transform: translateY(1px);
-    box-shadow: 0 4px 12px rgba(59,130,246,0.12);
-    outline: none;
-  }
-
-  /* ensure the question text has room to the right if layout changes */
-  .quizitem .quizitem__question {
-    padding-right: 0.5rem;
+    width: 90vw; 
+    max-width: 600px; 
   }
 }

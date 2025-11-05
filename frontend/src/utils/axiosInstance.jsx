@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = 'http://localhost:8000'; //PC
-// const baseURL = 'http://192.168.1.100:8000'; // Phone
+// const baseURL = 'http://192.168.1.100:8000'; // Phone python manage.py runserver 0.0.0.0:8000
 const axiosInstance = axios.create({
     baseURL,
     withCredentials: true,

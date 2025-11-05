@@ -2,7 +2,6 @@ import useApi from '../../hooks/useApi';
 import { Link, useParams } from 'react-router-dom';
 import Quiz from '../Quiz/Quiz';
 import Loading from '../../components/Loading/Loading';
-import { useState, useEffect } from 'react';
 
 const LearnQuiz=()=>{
     const { universite_slug, year_slug, subject_slug } = useParams();
@@ -12,7 +11,7 @@ const LearnQuiz=()=>{
 
     return (
         <>
-            {(loading) && (
+            {loading && (
                 <div style={{
                     display: 'flex',
                     justifyContent: 'center',

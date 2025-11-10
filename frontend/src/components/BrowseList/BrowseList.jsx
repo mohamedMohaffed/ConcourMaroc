@@ -13,8 +13,7 @@ const BrowseList = ({
     className
 }) => {
     return (
-        <section 
-        className={`browse-list ${className || ''}`}>
+        <section className={`browse-list ${className || ''}`}>
             <div className="browse-list__header">
                 <h1 className="browse-list__title desktop-title">
                     <span className="browse-list__title--first-letter">{title.charAt(0)}</span>

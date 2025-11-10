@@ -145,7 +145,6 @@ const Navbar = () => {
                 }
               >
                 <div className="navbar__item-img">
-                  {/* Pass color prop to icon */}
                   {React.createElement(item.icon, { color: plusHover ? "#74C0FC" : "#777777" })}
                 </div>
                 <div className="navbar__item-name">

@@ -9,8 +9,6 @@
 }   
 
 html, body {
-    /* Remove these lines to avoid double scrollbars and layout bugs */
-    /* height: auto; */
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
@@ -19,19 +17,12 @@ html, body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Remove default link styling */
 a, a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: inherit;
 }
 
-/* For React Router Links */
 .link, .link:link, .link:visited, .link:hover, .link:active {
     text-decoration: none;
     color: inherit;
 }
-
-
-
-
-

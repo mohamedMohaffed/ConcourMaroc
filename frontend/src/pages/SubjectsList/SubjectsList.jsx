@@ -106,7 +106,7 @@ const SubjectsList = () => {
                             }}
                         >
                                     
-                        <h2>{item.name}</h2>
+                        <h2 className="subjects__choice">{item.name}</h2>
                         {selectedSubjectId === item.id && (
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -129,12 +129,8 @@ const SubjectsList = () => {
             
             </div>
               {selectedSubject && (
-                            <motion.div 
-                              initial={{opacity: 0}}
-                            animate={{opacity: 1}}
-                            transition={{delay:0.3}}
-                            
-                            className="subjects-list__type">
+                            <motion.div initial={{opacity: 0}} animate={{opacity: 1}}
+                            transition={{delay:0.3}} className="subjects-list__type">
                                 <Link to={`/concours/Bac/${universite_slug}/${year_slug}/${selectedSubject.slug}/concour`}>
                                 <h1 className="subjects-list__type--quiz">Passer un Quiz</h1></Link>
 

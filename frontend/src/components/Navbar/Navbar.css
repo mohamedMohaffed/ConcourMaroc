@@ -112,9 +112,8 @@
         gap: 0;
     }
     .navbar__item-name{
-        /* display:none; */
-          display: block;
-        font-size: 0.60rem;
+        display: block;
+        font-size: 0.7rem;
         text-align: center;
         margin-top: 0.25rem;
     }
@@ -129,10 +128,10 @@
     
     .navbar__items {
         display: flex;
-        gap: 0.5rem;
+        gap: 1.25rem;
         flex-direction: row;
         width: 100%;
-        justify-content: space-between;
+        justify-content : space-around;
         align-items: center;
         margin: 0;
         

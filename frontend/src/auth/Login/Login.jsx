@@ -33,7 +33,6 @@ const Login = () => {
       await axiosInstance.post('accounts/api/token/', { username, password });
       setMsg('Connecté!');
       setMsgType('success');
-      // Use utility function for pending quiz answers
       const handled = await submitPendingQuizAnswers(navigate);
       if (handled) return;
       navigate('/concours/Bac/universites');

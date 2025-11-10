@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import LatexRenderer from '../LatexRenderer/LatexRenderer';
 import './QuizItem.css';
+import {motion} from 'framer-motion';
 
 const API_BASE_URL = "http://localhost:8000"; 
-
 const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSelectedChoice, type}) => {
     console.log('QuizItem rendered');
 
@@ -90,6 +90,7 @@ const QuizItem = React.memo(({currentQuestion, userAnser, selectedChoice, setSel
                         <LatexRenderer latex={currentQuestion.question} />
                     </span>
                 </div>
+                
                 <div className="quizitem__choices">
                     {currentQuestion.choices?.map((choice, choiceIndex) => (
                         <div 

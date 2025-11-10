@@ -16,14 +16,6 @@ const QuizNavigation = React.memo(({
     const navigate = useNavigate();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showAuth, setShowAuth] = useState(false);
-
-     
-
-
-    
-
- 
-
     const {
         goToPrevious,
         goToNext,
@@ -33,8 +25,7 @@ const QuizNavigation = React.memo(({
         handlePostData,
         canCancel,
         canSubmit,
-        allQuestionsAnswered
-    } = useQuizActions(index, setIndex, totalQuestions, {   
+        allQuestionsAnswered} = useQuizActions(index, setIndex, totalQuestions, {   
                             selectedChoice,
                             setSelectedChoice,
                             setUserAnser,

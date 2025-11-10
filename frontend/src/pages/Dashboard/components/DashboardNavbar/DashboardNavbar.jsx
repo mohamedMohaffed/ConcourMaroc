@@ -3,7 +3,7 @@ import {Chart as ChartJS,CategoryScale,LinearScale,PointElement,LineElement,Titl
 import './DashboardNavbar.css';
 import axiosInstance from '../../../../utils/axiosInstance';
 import DeleteModal from '../../../../components/DeleteModal/DeleteModal'; // Add import
-import Filters from '../../components/Filters';
+import Filters from '../Filters/Filters';
 import GraphPanel from '../GraphPanel/GraphPanel';
 import HistoryTable from '../../components/HistoryTable';
 
@@ -113,7 +113,7 @@ const DashboardNavbar = ({ scores: initialScores }) => {
     };
 
     return (
-        <div>
+        <div className="dashboardnavbar">
             <div className="dashboard__filters">
                 <Filters
                     filterOptions={filterOptions}

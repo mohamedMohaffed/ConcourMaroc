@@ -2,12 +2,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* min-height: 180px; */
 }
 
 .dashboard__title{
   margin : 0;
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;
 }
 
 .dashboard__empty p {
@@ -20,7 +19,18 @@
 }
 
 .dashboard__error{
+  padding-top : 2rem ;
   color : #777777;
   display : flex;
   justify-content : center ;
+}
+
+.dashboard {
+  height: 100vh;
+  overflow-y: hidden !important;
+}
+
+.dashboardnavbar,
+.dashboard__graph {
+  overflow-y: hidden !important;
 }

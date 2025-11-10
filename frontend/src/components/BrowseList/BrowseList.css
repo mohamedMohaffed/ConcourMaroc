@@ -6,7 +6,7 @@
 }
 
 .browse-list__title {
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 500;
     margin: 0;
     color: var(--color-text-primary);
@@ -83,6 +83,7 @@
 }
 
 @media (max-width: 48em) {
+
     .browse-list{
         display: flex;
         flex-direction: column;
@@ -120,7 +121,7 @@
     .browse-list-item {
         width: 14rem;
         height: 3.625rem;
-        font-size: 0.75rem;
+        font-size: 1.125rem;
     }
 
     .desktop-title {
@@ -134,7 +135,7 @@
     
      .browse-list .mobile-title {
         display: block;
-        font-size: 1.5rem;
+        font-size: 1.75rem;
     }
 
     .browse-list__path :hover {
@@ -143,6 +144,18 @@
     .browse-list__path :active {
     color:#1CB0F6;
 }
+
+.breadcrumbs {
+    font-size : 1.5rem ;
+}
+
+.house__icon{
+    font-size : 1.25 rem ;
+}
+.chevronRight__icon{
+    font-size : 1.25 rem ;
+}
+
 }
 
 

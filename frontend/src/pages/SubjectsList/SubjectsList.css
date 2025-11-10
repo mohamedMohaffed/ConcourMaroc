@@ -67,7 +67,7 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    font-size:1.5rem;
+    font-size:1.25rem;
 }
 
 .subjects-list__type--quiz:hover, 
@@ -152,7 +152,8 @@
     .subjects-list-item {
         width: 14rem;
         height: 3.625rem;
-        font-size: 0.75rem;
+        font-size: 1rem;
+
     }
 
     .desktop-title {
@@ -161,11 +162,8 @@
     
     .mobile-title {
         display: block;
-        font-size: 2rem;
-    }
-    
-    .subjects-list__title {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
+
     }
 
         .browse-list__path :hover {
@@ -184,8 +182,6 @@
    .subjects-list__type--quiz, .subjects-list__type--corr {
     padding:0;
     margin:0;
-    font-size:1rem;
-    
    }
 
 
@@ -194,6 +190,7 @@
     border: 1.6px solid #1CB0F6;  
     background: none; 
 }
+
 
 
 }

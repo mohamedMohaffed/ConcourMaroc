@@ -58,20 +58,13 @@ const Score = () => {
     };
 
     return (
-        <motion.section 
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            transition={{delay:0.2}}
-            className="score"
-        >
+        <section className="score">
             <HeaderScore breadcrumbs={breadcrumbs}/>
 
             <InfoScore data={data} handlleDeleteLastScore={handlleDeleteLastScore} 
             scoreNum={data.score.score} 
             score_time_spent={data.score.time_spent}
             lenght_question={data.score.lenght_question}/>
-
-            {/* NAVBAR TABS */}
            
             <SubNavbar  data={data} concour_id={concour_id}
                 dataScore={data.score}
@@ -84,8 +77,7 @@ const Score = () => {
                 onCancel={cancelDelete}
                 message="Voulez-vous vraiment supprimer ce score ?"
             />
-        </motion.section>
+        </section>
     );
 };
-
 export default Score;

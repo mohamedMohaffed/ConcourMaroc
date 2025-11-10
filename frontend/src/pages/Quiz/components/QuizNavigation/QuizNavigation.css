@@ -178,7 +178,7 @@
     position: relative;
     margin-top: 1.2rem;
     flex-direction: column;
-    gap: 0.7rem; /* increased gap between buttons */
+    gap: 0.7rem; 
     padding: 0.22rem;
     border-radius: 6px;
   }
@@ -196,7 +196,7 @@
   .quiz__navigation__btn--endandsubmeit {
     width: 100%;
     max-width: none;
-    gap: 0.7rem; /* increased gap between submit/cancel and finish */
+    gap: 0.7rem; 
     min-height: auto;
     order: 2;
   }
@@ -208,18 +208,17 @@
     padding: 0.7rem 0.7rem;
   }
 
-  /* Specific styling for finish button on mobile */
   .quiz__finish-btn {
     background: linear-gradient(135deg, #f59e0b, #d97706) !important;
     color: #ffffff !important;
     font-weight: 700 !important;
     box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3) !important;
-    animation: pulse 2s infinite !important;
+    animation: none !important; 
     margin-top: 0.15rem;
     border: none !important;
-    height: 2.8rem !important; /* bigger height */
-    font-size: 0.95rem !important; /* bigger font */
-    padding: 0.7rem 0.7rem !important; /* more padding */
+    height: 2.8rem !important; 
+    font-size: 0.95rem !important; 
+    padding: 0.7rem 0.7rem !important; 
   }
 
   .quiz__finish-btn:hover {
@@ -227,12 +226,10 @@
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4) !important;
   }
 
-  /* Ensure previous button is first */
   .quiz__navigation button:first-child {
     order: 1;
   }
 
-  /* Ensure next button is last */
   .quiz__navigation button:last-child {
     order: 3;
   }

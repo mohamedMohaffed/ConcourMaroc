@@ -58,8 +58,8 @@ const useQuizActions = (
         });
     };
 
-    const isAnswered = userAnser.some(ans => ans.question_id === currentQuestion?.id);
-    const allQuestionsAnswered = userAnser.length === totalQuestions && totalQuestions > 0;
+    const isAnswered = Array.isArray(userAnser) && userAnser.some(ans => ans.question_id === currentQuestion?.id);
+    const allQuestionsAnswered = Array.isArray(userAnser) && userAnser.length === totalQuestions && totalQuestions > 0;
     const canCancel = type === "Learn" && isAnswered;
     const canSubmit = !isAnswered && selectedChoice;
 

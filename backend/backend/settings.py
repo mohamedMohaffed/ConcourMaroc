@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-jg@2sovnq#fpyx8f#wghyjs_ih90y+m-=9!ivr6r18afbaltbd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.100', '192.168.1.104']  # Replace xxx with your actual IP
+ALLOWED_HOSTS = ['*']  # Allow all hosts
 
 
 # Application definition
@@ -124,7 +124,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
     "127.0.0.1",
-    "192.168.1.100",  # Replace xxx with your actual IP
+    "localhost",
+    "*",  # Allow all IPs for debug toolbar
 ]
 
 # Add this configuration to prevent debug toolbar issues when accessing from other devices

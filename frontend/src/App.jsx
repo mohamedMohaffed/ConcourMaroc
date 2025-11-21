@@ -10,7 +10,7 @@ const Login = lazy(() => import('./auth/Login/Login'));
 const Register = lazy(() => import('./auth/Register/Register'));
 const Logout = lazy(() => import('./auth/Logout/Logout'));
 const Score = lazy(() => import('./pages/Score/Score'));
-const Dashboard = lazy(() => import('./pages/DashBoard/DashBoard'));
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Correction = lazy(() => import('./pages/Correction/Correction'));
 const PracticeList = lazy(() => import('./pages/PracticeList/PracticeList'));
 const PracticeQuiz = lazy(() => import('./pages/PracticeQuiz/PracticeQuiz'));
@@ -27,29 +27,106 @@ const App = () => {
                     <Route path="/concours/Bac/universites" element={<UniversityList />} />
                     <Route path="/concours/Bac/:universite_slug/year" element={<YearsList />} />
                     <Route path="/concours/Bac/:universite_slug/:year_slug/matieres" element={<SubjectsList/>} />
+                    {/* Lazy routes inside Suspense */}
+                    <Route
+                        path="/concours/Bac/:universite_slug/:year_slug/:subject_slug/correction-concour/"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <Correction />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/concours/resultat/:concour_id/"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <Score />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/tableau-de-bord"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <Dashboard />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path="/pratique"
+                        element={
+                            <Suspense fallback={<Loading />}>
+                                <PracticeList />
+                            </Suspense>
+                        }
+                    />
                 </Route>
+                {/* Lazy routes outside Layout */}
+                <Route
+                    path="/concours/Bac/:universite_slug/:year_slug/:subject_slug/concour/"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <LearnQuiz />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/pratique/:concours_slug"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <PracticeQuiz />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/connexion"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <Login />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/inscription"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <Register />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/deconnexion"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <Logout />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/verifier-email/:uid/:token"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <EmailVerification />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/mot-de-passe-oublie"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <ForgotPassword />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path="/reinitialiser-mot-de-passe/:uid/:token"
+                    element={
+                        <Suspense fallback={<Loading />}>
+                            <ResetPassword />
+                        </Suspense>
+                    }
+                />
             </Routes>
-            <Suspense
-                fallback={null}>
-                <Routes>
-                    <Route element={<Layout />}>
-                        <Route path="/concours/Bac/:universite_slug/:year_slug/:subject_slug/correction-concour/" 
-                            element={<Correction/>} />
-                        <Route path="/concours/resultat/:concour_id/"  element={<Score/>}/>
-                        <Route path="/tableau-de-bord" element={<Dashboard />} />
-                        <Route path="/pratique" element={<PracticeList />} /> 
-                    </Route>
-                    {/* rr */}
-                    <Route path="/concours/Bac/:universite_slug/:year_slug/:subject_slug/concour/" element={<LearnQuiz />} />
-                    <Route path="/pratique/:concours_slug" element={<PracticeQuiz />} />
-                    <Route path="/connexion" element={<Login />} />
-                    <Route path="/inscription" element={<Register/>}/>
-                    <Route path="/deconnexion" element={<Logout />} />
-                    <Route path="/verifier-email/:uid/:token" element={<EmailVerification />} />
-                    <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
-                    <Route path="/reinitialiser-mot-de-passe/:uid/:token" element={<ResetPassword />} />
-                </Routes>
-            </Suspense>
         </BrowserRouter>
     );
 };
